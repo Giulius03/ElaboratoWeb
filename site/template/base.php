@@ -17,7 +17,7 @@
                 <ul>
                     <li>
                         <form action="index.php">
-                            <input type="text" placeholder="Search ..." />
+                            <input id="searchBarPC" type="text" placeholder="<?php echo $currentLanguage == "en" ? "Search" : "Cerca" ?> ..." />
                             <i class="bi bi-search"></i>
                         </form>
                     </li>
@@ -28,43 +28,43 @@
                         <button id="btnSearchAppear" type="button"><i class="bi bi-search"></i></button>
                     </li>
                     <li>
-                        <a id="productsLink" href="products.php"><i class="fa fa-shirt"></i><span>Products</span></a>
+                        <a id="productsLink" href="products.php"><i class="fa fa-shirt"></i><span id="prodTextPC"><?php echo $currentLanguage == "en" ? "Products" : "Prodotti" ?></span></a>
                         <ul id="productsMenu" class="dropdown-menu">
-                            <li><a class="dropdown-item" href="products.php">Clothing</a></li>
-                            <li><a class="dropdown-item" href="products.php">Kits</a></li>
-                            <li><a class="dropdown-item" href="products.php">Hoodies</a></li>
-                            <li><a class="dropdown-item" href="products.php">T-Shirts</a></li>
-                            <li><a class="dropdown-item" href="products.php">Caps</a></li>
-                            <li><a class="dropdown-item" href="products.php">Trousers</a></li>
+                            <li><a id="clotTextPC" class="dropdown-item" href="products.php"><?php echo $currentLanguage == "en" ? "Clothing" : "Abbigliamento" ?></a></li>
+                            <li><a id="kitsTextPC" class="dropdown-item" href="products.php"><?php echo $currentLanguage == "en" ? "Kits" : "Divise" ?></a></li>
+                            <li><a id="hoodTextPC" class="dropdown-item" href="products.php"><?php echo $currentLanguage == "en" ? "Hoodies" : "Felpe" ?></a></li>
+                            <li><a id="tsTextPC" class="dropdown-item" href="products.php"><?php echo $currentLanguage == "en" ? "T-Shirts" : "Magliette" ?></a></li>
+                            <li><a id="capsTextPC" class="dropdown-item" href="products.php"><?php echo $currentLanguage == "en" ? "Caps" : "Cappelli" ?></a></li>
+                            <li><a id="trouTextPC" class="dropdown-item" href="products.php"><?php echo $currentLanguage == "en" ? "Trousers" : "Pantaloni" ?></a></li>
                             <li><a class="dropdown-item" href="products.php">Souvenirs</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="tickets.php"><i class="fa fa-ticket"></i><span>Tickets</span></a>
+                        <a href="tickets.php"><i class="fa fa-ticket"></i><span id="tickTextPC"><?php echo $currentLanguage == "en" ? "Tickets" : "Biglietti" ?></span></a>
                     </li>
                     <li>
                         <a href="index.php"><img src="upload/Stemma.png" alt="Logo squadra"></a>
                     </li>
                     <li>
-                        <a role="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person"></i><span>User</span></a>
+                        <a role="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person"></i><span id="userText"><?php echo $currentLanguage == "en" ? "User" : "Utente" ?></span></a>
                         <ul class="dropdown-menu" aria-labelledby="userMenuButton">
-                            <li><a class="dropdown-item" href="login.php">Log In</a></li>
-                            <li><a class="dropdown-item" href="signup.php">Sign Up</a></li>
+                            <li><a id="logText" class="dropdown-item" href="login.php"><?php echo $currentLanguage == "en" ? "Log In" : "Accedi" ?></a></li>
+                            <li><a id="signText" class="dropdown-item" href="signup.php"><?php echo $currentLanguage == "en" ? "Sign up" : "Registrati" ?></a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="notifications.php"><i class="bi bi-bell"></i><span>Notifications</span></a>
+                        <a href="notifications.php"><i class="bi bi-bell"></i><span id="notText"><?php echo $currentLanguage == "en" ? "Notifications" : "Notifiche" ?></span></a>
                     </li>
                     <li>
-                        <a id="LangMenuButton" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fi fi-gb"></i>ENG</a>
+                        <a id="LangMenuButton" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i id="currentFlag" class="<?php echo $currentLanguage == "en" ? "fi fi-gb" : "fi fi-it" ?>"></i><span id="langText"><?php echo $currentLanguage == "en" ? "ENG" : "ITA" ?></span></a>
                         <ul class="dropdown-menu" aria-labelledby="LangMenuButton">
-                            <li><a class="dropdown-item" role="button"><i class="fi fi-it"></i>Italiano</a></li>
-                            <li><a class="dropdown-item" role="button"><i class="fi fi-gb"></i>English</a></li>
+                            <li><a onclick="setLang('it')" class="dropdown-item" role="button"><i class="fi fi-it"></i>Italiano</a></li>
+                            <li><a onclick="setLang('en')" class="dropdown-item" role="button"><i class="fi fi-gb"></i>English</a></li>
                         </ul>
                     </li>
                 </ul>
                 <form id="searchPhone">
-                    <input class="form-control" placeholder="Search ..." />
+                    <input id="searchBar" class="form-control" placeholder="<?php echo $currentLanguage == "en" ? "Search" : "Cerca" ?> ..." />
                     <button type="submit"><i class="bi bi-search"></i></button>
                 </form>
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
@@ -76,31 +76,31 @@
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item dropdown">
                                 <a id="dropdownLink" class="nav-link dropdown-toggle" href="#" role="button">
-                                    Language
+                                    <?php echo $currentLanguage == "en" ? "Language" : "Lingua" ?>
                                 </a>
                                 <ul id="dropdownList">
-                                    <li><a class="nav-link" role="button"><span class="fi fi-it"></span>Italiano</a></li>
-                                    <li><a class="nav-link" role="button"><span class="fi fi-gb"></span>English</a></li>
+                                    <li><a onclick="setLang('it')" class="nav-link" role="button"><span class="fi fi-it"></span>Italiano</a></li>
+                                    <li><a onclick="setLang('en')" class="nav-link" role="button"><span class="fi fi-gb"></span>English</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="products.php">Products</a>
+                                <a id="prodText" class="nav-link" href="products.php"><?php echo $currentLanguage == "en" ? "Products" : "Prodotti" ?></a>
                                 <ul>
-                                    <li><a href="products.php" class="nav-link">Clothing</a></li>
+                                    <li><a id="clotText" href="products.php" class="nav-link"><?php echo $currentLanguage == "en" ? "Clothing" : "Abbigliamento" ?></a></li>
                                     <li>
                                         <ul>
-                                            <li><a href="products.php" class="nav-link">Kits</a></li>
-                                            <li><a href="products.php" class="nav-link">Hoodies</a></li>
-                                            <li><a href="products.php" class="nav-link">T-Shirts</a></li>
-                                            <li><a href="products.php" class="nav-link">Caps</a></li>
-                                            <li><a href="products.php" class="nav-link">Trousers</a></li>
+                                            <li><a id="kitsText" href="products.php" class="nav-link"><?php echo $currentLanguage == "en" ? "Kits" : "Divise" ?></a></li>
+                                            <li><a id="hoodText" href="products.php" class="nav-link"><?php echo $currentLanguage == "en" ? "Hoodies" : "Felpe" ?></a></li>
+                                            <li><a id="tsText" href="products.php" class="nav-link"><?php echo $currentLanguage == "en" ? "T-Shirts" : "Magliette" ?></a></li>
+                                            <li><a id="capsText" href="products.php" class="nav-link"><?php echo $currentLanguage == "en" ? "Caps" : "Cappelli" ?></a></li>
+                                            <li><a id="trouText" href="products.php" class="nav-link"><?php echo $currentLanguage == "en" ? "Trousers" : "Pantaloni" ?></a></li>
                                         </ul>
                                     </li>
                                     <li><a href="products.php" class="nav-link">Souvenirs</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="tickets.php">Tickets</a>
+                                <a id="tickText" class="nav-link" href="tickets.php"><?php echo $currentLanguage == "en" ? "Tickets" : "Biglietti" ?></a>
                             </li>
                         </ul>
                     </div>
@@ -110,7 +110,7 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         </header>
         <footer>
-            <h5>Contact Us</h5>
+            <h5 id="contText"><?php echo $currentLanguage == "en" ? "Contact Us" : "Contattaci" ?></h5>
             <ul>
                 <li>
                     <ul>
@@ -145,7 +145,7 @@
             </ul>
             <ul>
                 <li><i class="bi bi-c-circle"></i></li>
-                <li><p>2025 Bugs Burnley. All Rights Reserved.</p></li>
+                <li><p id="copyText">2025 Bugs Burnley. <?php echo $currentLanguage == "en" ? "All Rights Reserved" : "Tutti i Diritti Riservati" ?>.</p></li>
             </ul>
         </footer>
     </body>
