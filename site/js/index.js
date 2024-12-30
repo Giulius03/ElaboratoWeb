@@ -1,28 +1,27 @@
 const dropdownLink = document.getElementById('dropdownLink');
 const list = document.getElementById('dropdownList');
-const btnMenu = document.getElementById('menu');
 const btnSearchAppearPhone = document.getElementById('btnSearchAppear');
 const searchBarPhone = document.getElementById('searchPhone');
+const productsLink = document.getElementById('productsLink');
+const productsMenu = document.getElementById('productsMenu');
 
 dropdownLink.addEventListener('click', (event) => {
     event.preventDefault();
-    if (list.style.display == 'none') {
-        list.style.display = 'block';
-    } else {
-        list.style.display = 'none';
-    }
+    list.style.display = list.style.display == 'block' ? 'none' : 'block';
 });
 
-btnMenu.addEventListener('click', (event) => {
-    if (list.style.display == 'block') {
-        list.style.display = 'none';
-    }
-})
-
 btnSearchAppearPhone.addEventListener('click', (event) => {
-    if (searchBarPhone.style.display == 'flex') {
-        searchBarPhone.style.display = 'none';
-    } else {
-        searchBarPhone.style.display = 'flex';
-    }
+    searchBarPhone.style.display = searchBarPhone.style.display == 'flex' ? 'none' : 'flex';
+});
+
+productsLink.addEventListener('mouseover', (event) => {
+    productsMenu.style.display = 'block';
+});
+
+productsMenu.addEventListener('mouseover', (event) => {
+    productsMenu.style.display = 'block';
+});
+
+productsMenu.addEventListener('mouseout', (event) => {
+    productsMenu.style.display = 'none';
 });

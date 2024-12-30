@@ -9,11 +9,18 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
         <link rel="stylesheet" type="text/css" href="./css/style.css" />
+        <link rel="stylesheet" type="text/css" href="./css/mediaqueries.css" />
     </head>
     <body>
         <header>
             <nav>
                 <ul>
+                    <li>
+                        <form action="index.php">
+                            <input type="text" placeholder="Search ..." />
+                            <i class="bi bi-search"></i>
+                        </form>
+                    </li>
                     <li>
                         <button id="menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation"><i class="bi bi-list"></i></button>
                     </li>
@@ -21,17 +28,39 @@
                         <button id="btnSearchAppear" type="button"><i class="bi bi-search"></i></button>
                     </li>
                     <li>
-                        <a href="index.php"><img src="upload/Stemma.png" alt="Logo squadra"></a>
-                    </li>
-                    <li>
-                        <button type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person"></i></button>
-                        <ul class="dropdown-menu" aria-labelledby="userMenuButton">
-                            <li><a class="dropdown-item" href="#">Log In</a></li>
-                            <li><a class="dropdown-item" href="#">Sign Up</a></li>
+                        <a id="productsLink" href="products.php"><i class="fa fa-shirt"></i><span>Products</span></a>
+                        <ul id="productsMenu" class="dropdown-menu">
+                            <li><a class="dropdown-item" href="products.php">Clothing</a></li>
+                            <li><a class="dropdown-item" href="products.php">Kits</a></li>
+                            <li><a class="dropdown-item" href="products.php">Hoodies</a></li>
+                            <li><a class="dropdown-item" href="products.php">T-Shirts</a></li>
+                            <li><a class="dropdown-item" href="products.php">Caps</a></li>
+                            <li><a class="dropdown-item" href="products.php">Trousers</a></li>
+                            <li><a class="dropdown-item" href="products.php">Souvenirs</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="notifications.php"><i class="bi bi-bell"></i></a>
+                        <a href="tickets.php"><i class="fa fa-ticket"></i><span>Tickets</span></a>
+                    </li>
+                    <li>
+                        <a href="index.php"><img src="upload/Stemma.png" alt="Logo squadra"></a>
+                    </li>
+                    <li>
+                        <a role="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person"></i><span>User</span></a>
+                        <ul class="dropdown-menu" aria-labelledby="userMenuButton">
+                            <li><a class="dropdown-item" href="login.php">Log In</a></li>
+                            <li><a class="dropdown-item" href="signup.php">Sign Up</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="notifications.php"><i class="bi bi-bell"></i><span>Notifications</span></a>
+                    </li>
+                    <li>
+                        <a id="LangMenuButton" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fi fi-gb"></i>ENG</a>
+                        <ul class="dropdown-menu" aria-labelledby="LangMenuButton">
+                            <li><a class="dropdown-item" role="button"><i class="fi fi-it"></i>Italiano</a></li>
+                            <li><a class="dropdown-item" role="button"><i class="fi fi-gb"></i>English</a></li>
+                        </ul>
                     </li>
                 </ul>
                 <form id="searchPhone">
@@ -50,28 +79,28 @@
                                     Language
                                 </a>
                                 <ul id="dropdownList">
-                                    <li><a class="nav-link" href="#"><span class="fi fi-it"></span>Italiano</a></li>
-                                    <li><a class="nav-link" href="#"><span class="fi fi-gb"></span>English</a></li>
+                                    <li><a class="nav-link" role="button"><span class="fi fi-it"></span>Italiano</a></li>
+                                    <li><a class="nav-link" role="button"><span class="fi fi-gb"></span>English</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Products</a>
+                                <a class="nav-link" href="products.php">Products</a>
                                 <ul>
-                                    <li><a href="#" class="nav-link">Clothing</a></li>
+                                    <li><a href="products.php" class="nav-link">Clothing</a></li>
                                     <li>
                                         <ul>
-                                            <li><a href="#" class="nav-link">Kit</a></li>
-                                            <li><a href="#" class="nav-link">Hoodies</a></li>
-                                            <li><a href="#" class="nav-link">T-Shirts</a></li>
-                                            <li><a href="#" class="nav-link">Caps</a></li>
-                                            <li><a href="#" class="nav-link">Trousers</a></li>
+                                            <li><a href="products.php" class="nav-link">Kits</a></li>
+                                            <li><a href="products.php" class="nav-link">Hoodies</a></li>
+                                            <li><a href="products.php" class="nav-link">T-Shirts</a></li>
+                                            <li><a href="products.php" class="nav-link">Caps</a></li>
+                                            <li><a href="products.php" class="nav-link">Trousers</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#" class="nav-link">Souvenirs</a></li>
+                                    <li><a href="products.php" class="nav-link">Souvenirs</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Tickets</a>
+                                <a class="nav-link" href="tickets.php">Tickets</a>
                             </li>
                         </ul>
                     </div>
@@ -81,6 +110,7 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         </header>
         <footer>
+            <h5>Contact Us</h5>
             <ul>
                 <li>
                     <ul>

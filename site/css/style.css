@@ -1,5 +1,5 @@
 /* Regole Reset */
-button, footer {
+button, footer, h5 {
     padding: 0;
     margin: 0;
 }
@@ -52,12 +52,36 @@ header > nav > ul > li{
     display: inline;
 }
 
-header > nav > ul > li:not(:last-child){
+header > nav > ul > li:nth-child(2), header > nav > ul > li:nth-child(3), header > nav > ul > li:nth-child(6),
+header > nav > ul > li:nth-child(7) {
     margin-right: 4%;
 }
 
+header > nav > ul > li:first-child, header > nav > ul > li:nth-child(4), header > nav > ul > li:nth-child(5), 
+header > nav > ul > li:nth-child(9) {
+    display: none;
+}
+
+span {
+    display: none;
+}
+
+header > nav > ul > li:first-child > form > input {
+    width: 65%;
+    height: 30px;
+    padding-left: 10px;
+    font-size: 13px;
+    outline: none;
+    border-radius: 10px;
+    border: none;
+}
+
+header > nav > ul > li:first-child > form > i {
+    color: white;
+}
+
 header nav ul li a img {
-    height: 100%;
+    height: 85px;
     vertical-align: middle;
 }
 
@@ -71,62 +95,51 @@ header nav ul li button i, header nav ul li a {
     font-size: 300%;
     vertical-align: middle;
     color: white;
+    font-weight: 600;
 }
 
-header > nav > ul > li:nth-child(4) > ul {
-    font-size: 33%;
-    background-color: #800020;
-    padding: 0;
-    text-align: center;
-}
-
-header > nav > ul > li:nth-child(4) > ul > li:first-child {
-    border-bottom: 1px solid white;
-}
-
-header > nav > ul > li:nth-child(4) > ul > li > a {
+header > nav > ul > li:nth-child(7) {
     color: white;
 }
 
+header > nav > ul > li:nth-child(4) > ul {
+    margin-left: 5%;
+}
+
+header > nav > ul > li:nth-child(7) > ul, header > nav > ul > li:last-child > ul, header > nav > ul > li:nth-child(4) > ul {
+    font-size: 33%;
+    background-color: #800020;
+    padding: 2px;
+    text-align: center;
+}
+
+header > nav > ul > li:nth-child(7) > ul > li:first-child, header > nav > ul > li:last-child > ul > li:first-child,
+header > nav > ul > li:nth-child(4) > ul > li:not(:last-child) {
+    border-bottom: 1px solid white;
+}
+
+header > nav > ul > li:nth-child(7) > ul > li > a, header > nav > ul > li:last-child > ul > li > a, header > nav > ul > li:nth-child(4) > ul > li > a {
+    color: white;
+}
+
+header > nav > ul > li:nth-child(7) > ul > li > a:hover, header > nav > ul > li:last-child > ul > li > a:hover,
 header > nav > ul > li:nth-child(4) > ul > li > a:hover {
     background-color: #800020;
     color: white;
     border-radius: 5px;
+    font-weight: 700;
 }
 
-footer {
-    margin-top: 150px;
-    background-color: #800020;
-    color: white;
-    font-size: 79%;
+header > nav > ul > li:last-child > ul > li > a > i {
+    margin-right: 2px;
 }
 
-footer ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+header > nav > ul > li:last-child a {
+    text-decoration: none;
 }
 
-footer ul li {
-    display: inline-block;
-}
-
-footer > ul:first-child {
-    padding-top: 2%;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 colonne */
-}
-
-footer > ul:last-child {
-    text-align: center;
-}
-
-footer > ul:first-child > li:nth-child(2n+1) {
-    margin-left: 5%;
-}
-
-footer > ul:first-child > li:nth-child(2n) {
-    margin-left: 25%;
+header > nav > ul > li:last-child i {
+    border-radius: 1000px;
 }
 
 header div {
@@ -168,6 +181,10 @@ header nav > div > div:last-child > ul > li:first-child > a {
     width: 50%;
 }
 
+header nav > div > div:last-child > ul > li:not(:first-child) a:hover {
+    font-weight: 700;
+} 
+
 header > nav > div > div:last-child > ul > li:first-child > ul {
     padding: 0;
     display: none;
@@ -186,94 +203,43 @@ header div button i {
     font-size: 200%;
 }
 
-@media (min-width: 480px) {
-    footer {
-        font-size: 98%;
-    }
+/* #region footer */
+footer {
+    margin-top: 150px;
+    background-color: #800020;
+    color: white;
+    font-size: 79%;
 }
 
-@media (min-width: 480px) and (max-width: 576px){
-    header > nav > ul > li:not(:last-child) {
-        margin-right: 9%;
-    }
+footer h5 {
+    padding: 1% 0 1% 1%;
 }
 
-@media (min-width: 576px) and (max-width: 767px){
-    header > nav > ul > li:not(:last-child) {
-        margin-right: 11%;
-    }
-
-    header nav div div button{
-        padding-left: 15%;
-    }
+footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-@media (min-width: 481px) and (max-width: 520px) {
-    .offcanvas {
-        --bs-offcanvas-width: 55%;
-    }
+footer ul li {
+    display: inline-block;
 }
 
-@media (min-width: 520px) and (max-width: 566px) {
-    .offcanvas {
-        --bs-offcanvas-width: 50%;
-    }
+footer > ul:first-of-type {
+    padding-top: 1%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 colonne */
 }
 
-@media (min-width: 566px) and (max-width: 650px) {
-    .offcanvas {
-        --bs-offcanvas-width: 48%;
-    }
+footer > ul:last-of-type {
+    text-align: center;
 }
 
-@media (min-width: 651px) and (max-width: 767px) {
-    .offcanvas {
-        --bs-offcanvas-width: 45%;
-    }
+footer > ul:first-of-type > li:nth-child(2n+1) {
+    margin-left: 5%;
 }
 
-@media (min-width: 710px) and (max-width: 767px) {
-    header nav div div button{
-        padding-left: 22%;
-    }
+footer > ul:first-of-type > li:nth-child(2n) {
+    margin-left: 25%;
 }
-
-@media (min-width: 768px) {
-    header > nav > div {
-        display: none;
-    }
-
-    header > nav > ul > li:first-child {
-        display: none;
-    }
-
-    header > nav > form {
-        display: none;
-    }
-
-    footer > ul:first-child {
-        grid-template-columns: repeat(3, 1fr); /* 3 colonne */
-    }
-
-    footer > ul:first-child > li:nth-child(1), footer > ul:first-child > li:nth-child(4) {
-        margin-left: 5%;
-    } 
-
-    footer > ul:first-child > li:nth-child(2), footer > ul:first-child > li:nth-child(3), footer > ul:first-child > li:last-child {
-        margin-left: 10%;
-    } 
-}
-
-@media (min-width: 992px) {
-    footer {
-        font-size: 105%;
-    }
-
-    footer > ul:first-child > li:nth-child(1), footer > ul:first-child > li:nth-child(4) {
-        margin-left: 10%;
-    } 
-
-    footer > ul:first-child > li:nth-child(2), footer > ul:first-child > li:nth-child(3), footer > ul:first-child > li:last-child {
-        margin-left: 25%;
-    }
-}
+/* #endregion */
