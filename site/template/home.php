@@ -1,0 +1,1 @@
+<h1 id="title"><?php echo $currentLanguage == "en" ? "WELCOME" : "BENVENUTO" ?></h1>

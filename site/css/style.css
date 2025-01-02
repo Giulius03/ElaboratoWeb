@@ -1,9 +1,10 @@
 /* Regole Reset */
-button, footer, h5 {
+button, footer {
     padding: 0;
     margin: 0;
 }
 
+/* #region Navbar + hidden menu */
 header {
     background-color: #800020;
     height: 90px;
@@ -20,6 +21,15 @@ header nav {
 
 header > nav > form {
     margin: 5px 10px;
+    display: none;
+}
+
+form label {
+    width: 1px;
+    color: #800020;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
     display: none;
 }
 
@@ -62,7 +72,7 @@ header > nav > ul > li:nth-child(9) {
     display: none;
 }
 
-span {
+header nav > ul > li a span:nth-child(2) {
     display: none;
 }
 
@@ -76,7 +86,7 @@ header > nav > ul > li:first-child > form > input {
     border: none;
 }
 
-header > nav > ul > li:first-child > form > i {
+header > nav > ul > li:first-child > form > span {
     color: white;
 }
 
@@ -91,7 +101,7 @@ header nav ul li button{
     border: none;
 }
 
-header nav ul li button i, header nav ul li a {
+header nav ul li button span, header nav ul li a {
     font-size: 300%;
     vertical-align: middle;
     color: white;
@@ -130,7 +140,7 @@ header > nav > ul > li:nth-child(4) > ul > li > a:hover {
     font-weight: 700;
 }
 
-header > nav > ul > li:last-child > ul > li > a > i {
+header > nav > ul > li:last-child > ul > li > a > span {
     margin-right: 2px;
 }
 
@@ -138,7 +148,7 @@ header > nav > ul > li:last-child a {
     text-decoration: none;
 }
 
-header > nav > ul > li:last-child i {
+header > nav > ul > li:last-child span {
     border-radius: 1000px;
 }
 
@@ -199,9 +209,10 @@ header nav div div:last-child ul li:first-child ul li a span {
     height: 20px;
 }
 
-header div button i {
+header div button span {
     font-size: 200%;
 }
+/* #endregion */
 
 /* #region footer */
 footer {
@@ -211,8 +222,9 @@ footer {
     font-size: 79%;
 }
 
-footer h5 {
-    padding: 1% 0 1% 1%;
+footer strong {
+    padding: 0 0 1% 1%;
+    font-size: 120%;
 }
 
 footer ul {
