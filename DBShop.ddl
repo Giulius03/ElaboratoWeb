@@ -26,6 +26,7 @@ create table ARTICOLI (
      Prezzo float not null,
      DescrizioneITA varchar(25) not null,
      DescrizioneENG varchar(25) not null,
+     DataInserimento datetime not null,
      Quantità int not null,
      Gruppo varchar(25) not null,
      Valutazione float not null,
@@ -245,8 +246,7 @@ insert into TAGLIE (Nome) values
 
 insert into MESSAGGI (TitoloENG, TestoENG, TitoloITA, TestoITA) values
 ("Welcome discount !", "Hi, welcome to our web site!\nAs a new user, you are entitled to a 30% discount for your first purchase, enjoy it!", "Sconto di benvenuto !", "Ciao, benvenuto sul nostro sito web!\nCome nuovo utente, hai diritto a uno sconto del 30% per il tuo primo acquisto, goditelo!"),
-("Confirm payment", "Click on the button below to confirm the payment you just made. Afterwards, the order will start as soon as it is confirmed by the seller.", 
-"Conferma pagamento", "Clicca sul pulsante qui sotto per confermare il pagamento appena effettuato. Successivamente, l'ordine partirà non appena sarà confermato dal venditore."),
 ("Order confirmed !", "Your order has been confirmed by the seller and is ready to go. Thank you for purchasing from us!", "Ordine confermato !", "Il tuo ordine è stato confermato dal venditore ed è pronto a partire. Grazie per aver acquistato da noi!"),
-("Order requested", "An order has been requested by a user. Please click in the button below to confirm it.", "Ordine richiesto", "Un ordine è stato richiesto da un utente. Fare clic sul pulsante in basso per confermarlo.");
+("Order requested", "An order has been requested by a user. Please click in the button below to confirm it.", "Ordine richiesto", "Un ordine è stato richiesto da un utente. Fare clic sul pulsante in basso per confermarlo."),
+("Order delivered", "Your order has been just delivered, enjoy it!\nIf you want, you can leave a review of the product(s) you ordered. We hope it will be good!\nCan't wait for your next order, bye!", "Ordine consegnato", "Il tuo ordine è stato appena consegnato, goditelo!\Se vuoi, puoi lasciare una recensione del/i prodotto/i che hai ordinato. Speriamo che sia buona!\nTi aspettiamo per un altro ordine, ciao!");
 
