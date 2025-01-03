@@ -35,10 +35,11 @@ create table ARTICOLI (
      constraint IDTIPO_ARTICOLO_1 unique (NomeENG));
 
 create table ARTICOLI_IN_ORDINE (
+     Id int not null auto_increment,
      Nome varchar(25) not null,
      Quantità int not null,
      Taglia varchar(3) not null,
-     constraint FKR_ID primary key (Nome));
+     constraint FKR_ID primary key (Id));
 
 create table BIGLIETTI (
      Avversario varchar(25) not null,
@@ -64,9 +65,9 @@ create table CATEGORIE (
      constraint IDCATEGORIA_ID primary key (Nome));
 
 create table COMPOSIZIONI (
-     Articolo varchar(25) not null,
+     IdArticolo int not null,
      NumeroOrdine int not null,
-     constraint IDComposizione primary key (NumeroOrdine, Articolo));
+     constraint IDComposizione primary key (NumeroOrdine, IdArticolo));
 
 create table DISPONIBILITA (
      Articolo varchar(25) not null,
@@ -186,8 +187,8 @@ alter table COMPOSIZIONI add constraint FKNumeroOrdine
      references ORDINI (Numero);
 
 alter table COMPOSIZIONI add constraint FKArticoloOrdine
-     foreign key (Articolo)
-     references ARTICOLI_IN_ORDINE (Nome);
+     foreign key (IdArticolo)
+     references ARTICOLI_IN_ORDINE (Id);
 
 alter table DISPONIBILITA add constraint FKTaglia
      foreign key (Taglia)

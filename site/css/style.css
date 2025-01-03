@@ -229,10 +229,23 @@ h2 {
     font-style: italic;
 }
 
+h2:nth-of-type(2), h2:nth-of-type(3) {
+    margin-top: 10%;
+}
+
+h2:nth-of-type(3) {
+    margin-bottom: 2%;
+}
+
+main > p {
+    text-align: center;
+    margin: 0 3%;
+}
+
 /* #region footer */
 
 footer {
-    margin-top: 150px;
+    margin-top: 80px;
     background-color: #800020;
     color: white;
     font-size: 79%;
@@ -272,36 +285,33 @@ footer > ul:first-of-type > li:nth-child(2n) {
 }
 /* #endregion */
 
-
-/* Styling for the cards */
-.card {
-    border: none;
-    align-items: center;
-    text-align: center;
-    background-color: #fff;
-    height: 20%;
-}
-
-.card img {
-    width: 100%;
-    height: 300px;
-}
-
-.swiper {
+main > div {
     width: 100%;
     margin: 0 auto;
 }
 
-.swiper-slide {
+main > div > div > div {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0 15%;
 }
 
-/* Navigation buttons */
-.swiper-button-prev,
-.swiper-button-next {
-    color: black !important;
+.card {
+    border: none;
 }
 
+main > div > div > div > div {
+    align-items: center;
+    text-align: center;
+    height: 400px;
+}
+
+main > div > div > div > div img {
+    width: 100%;
+    height: 300px;
+}
+
+main > div > div:nth-child(2), main > div > div:nth-child(3) {
+    color: black !important;
+}

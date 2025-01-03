@@ -5,7 +5,6 @@ require_once 'bootstrap.php';
 $templateParams["titolo"] = "Home | Bugs Burnley";
 $templateParams["nome"] = "home.php";
 $templateParams["js"] = array("js/index.js");
-$templateParams["lastReleases"] = $dbh->getLastReleases();
 
 require 'template/base.php';
 ?>

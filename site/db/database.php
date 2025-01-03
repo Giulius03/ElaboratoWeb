@@ -14,7 +14,15 @@ class DatabaseHelper{
         // $stmt->bind_param('i',$n);   solo con parametri
         $stmt->execute();
         $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
+    public function getMostWanted(){
+        $stmt = $this->db->prepare("SELECT nomeita, nomeeng, nomeimmagine, prezzo, COUNT(*) as numeroacquisti 
+            FROM articoli a INNER JOIN articoli_in_ordine aio on a.nomeita = aio.nome GROUP BY nomeita, nomeeng,
+            nomeimmagine, prezzo ORDER BY numeroacquisti DESC LIMIT 5");
+        $stmt->execute();
+        $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
