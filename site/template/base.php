@@ -45,13 +45,13 @@
                         <a href="tickets.php"><span class="fa fa-ticket"></span><span id="tickTextPC"><?php echo $currentLanguage == "en" ? "Tickets" : "Biglietti" ?></span></a>
                     </li>
                     <li>
-                        <a href="index.php"><img src="upload/Stemma.png" alt="Logo squadra"></a>
+                        <a href="index.php"><img src="upload/Stemma.png" alt="Logo squadra. Torna alla Home."></a>
                     </li>
                     <li>
                         <a role="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"><span class="bi bi-person"></span><span id="userText"><?php echo $currentLanguage == "en" ? "User" : "Utente" ?></span></a>
                         <ul class="dropdown-menu" aria-labelledby="userMenuButton">
                             <li><a id="logText" class="dropdown-item" href="login.php"><?php echo $currentLanguage == "en" ? "Log In" : "Accedi" ?></a></li>
-                            <li><a id="signText" class="dropdown-item" href="signup.php"><?php echo $currentLanguage == "en" ? "Sign up" : "Registrati" ?></a></li>
+                            <li><a id="signText" class="dropdown-item" href="signup.php"><?php echo $currentLanguage == "en" ? "Sign Up" : "Registrati" ?></a></li>
                         </ul>
                     </li>
                     <li>

@@ -1,11 +1,11 @@
 function setHomeLang(lang) {
-    document.getElementById("title").textContent = lang == "en" ? "WELCOME" : "BENVENUTO";
-    document.getElementById("txtLast").textContent = lang == "en" ? "Last Releases" : "Ultime Uscite";
-    document.getElementById("txtMost").textContent = lang == "en" ? "Most Wanted" : "I Più Venduti";
-    document.getElementById("txtUs").textContent = lang == "en" ? "About Us" : "Su di Noi";
+    document.getElementById("title").textContent = lang === "en" ? "WELCOME" : "BENVENUTO";
+    document.getElementById("txtLast").textContent = lang === "en" ? "Last Releases" : "Ultime Uscite";
+    document.getElementById("txtMost").textContent = lang === "en" ? "Most Wanted" : "I Più Venduti";
+    document.getElementById("txtUs").textContent = lang === "en" ? "About Us" : "Su di Noi";
     const engPres = "“Purchase your official Bugs Burnley merchandise here. We offer the latest kits and lifestyle clothing as well as  trending men and women's fashion. You can also find a vast range of souvenirs and all the tickets to come at the stadium and support our magnificent team.”";
     const itaPres = "“Acquista qui il tuo merchandise ufficiale Bugs Burnley. Offriamo gli ultimi kit e abbigliamento lifestyle, nonché la moda maschile e femminile di tendenza. Inoltre potrete trovare una vasta gamma di souvenir e tutti i biglietti per venire allo stadio e sostenere la nostra magnifica squadra.”";
-    document.getElementById("txtPres").textContent = lang == "en" ? engPres : itaPres;
+    document.getElementById("txtPres").textContent = lang === "en" ? engPres : itaPres;
     getArticlesData(true, lang);
     getArticlesData(false, lang);
 }
@@ -91,15 +91,15 @@ function generateCards(lang, articoli) {
     let cards = "";
 
     for (let i = 0; i < articoli.length; i++) {
-        let nome = lang == "en" ? articoli[i]["nomeeng"] : articoli[i]["nomeita"];
+        let nome = lang === "en" ? articoli[i]["nomeeng"] : articoli[i]["nomeita"];
         cards += `
-        <div class="swiper-slide">
-            <div class="card">
+        <section class="swiper-slide">
+            <article class="card">
                 <img src="upload/${articoli[i]["nomeimmagine"]}" alt="${nome}">
-                <h5>${nome}</h5>
+                <strong>${nome}</strong>
                 <p>€${articoli[i]["prezzo"]}</p>
-            </div>
-        </div>`
+            </article>
+        </section>`
     }
 
     return cards;
@@ -115,7 +115,7 @@ async function getArticlesData(lastReleases, lang) {
         const json = await response.json();
         console.log(json);
         const cards = generateCards(lang, json);
-        document.querySelector(lastReleases ? "main > div > div" : "main > div:nth-of-type(2) > div").innerHTML = cards;
+        document.querySelector(lastReleases ? "main section:first-of-type > section > section" : "main section:nth-of-type(2) > section > section").innerHTML = cards;
         if (lastReleases) {
             swiperLast.update();
         } else {

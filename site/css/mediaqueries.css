@@ -12,8 +12,12 @@
 }
 
 @media (min-width: 576px) {
-    main > div > div > div {
+    main > section > section > section > section {
         padding: 0;
+    }
+
+    main > section > h1 {
+        margin: 5% 0;
     }
 
     h1 {
@@ -133,6 +137,14 @@
         font-size: 72%;
     }
 
+    main > section > h1 {
+        margin: 3% 0;
+    }
+
+    main section form {
+        padding: 0 30%;
+    }
+
     footer {
         font-size: 105%;
     }
@@ -149,5 +161,9 @@
 
     header nav > ul > li a span:nth-child(2) {
         font-size: 70%;
+    }
+
+    main section form {
+        padding: 0 35%;
     }
 } 

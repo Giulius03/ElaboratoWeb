@@ -7,11 +7,11 @@ const productsMenu = document.getElementById('productsMenu');
 
 dropdownLink.addEventListener('click', (event) => {
     event.preventDefault();
-    list.style.display = list.style.display == 'block' ? 'none' : 'block';
+    list.style.display = list.style.display === 'block' ? 'none' : 'block';
 });
 
 btnSearchAppearPhone.addEventListener('click', (event) => {
-    searchBarPhone.style.display = searchBarPhone.style.display == 'flex' ? 'none' : 'flex';
+    searchBarPhone.style.display = searchBarPhone.style.display === 'flex' ? 'none' : 'flex';
 });
 
 productsLink.addEventListener('mouseover', (event) => {
@@ -64,4 +64,4 @@ async function setLang(lang) {
     } catch (error) {
         console.log(error.message);
     }
-} 
+}

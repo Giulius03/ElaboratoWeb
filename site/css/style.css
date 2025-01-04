@@ -24,7 +24,7 @@ header > nav > form {
     display: none;
 }
 
-form label {
+header form label {
     width: 1px;
     color: #800020;
 }
@@ -214,6 +214,7 @@ header div button span {
 }
 /* #endregion */
 
+/* #region home */
 h1 {
     text-align: center;
     margin: 40% 0;
@@ -229,21 +230,128 @@ h2 {
     font-style: italic;
 }
 
-h2:nth-of-type(2), h2:nth-of-type(3) {
+main section strong {
+    font-size: 18px;
+}
+
+main > section > section {
+    width: 100%;
+    margin: 0 auto;
+}
+
+main > section > section > section > section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 15%;
+}
+
+.card {
+    border: none;
+}
+
+main > section > section > section > section > article {
+    align-items: center;
+    text-align: center;
+    height: 400px;
+}
+
+main > section > section > section > section > article img {
+    width: 100%;
+    height: 300px;
+}
+
+main > section > section > button {
+    color: black !important;
+    border: none;
+    background-color: transparent;
+}
+
+main > section:nth-of-type(2) h2, main > section:nth-of-type(3) h2 {
     margin-top: 10%;
 }
 
-h2:nth-of-type(3) {
+main > section:nth-of-type(3) h2 {
     margin-bottom: 2%;
 }
 
-main > p {
+main > section:last-child > p {
     text-align: center;
     margin: 0 3%;
 }
+/* #endregion */
+
+main > section > h1 {
+    font-style: normal;
+    font-weight: 700;
+    text-shadow: none;
+    margin: 12% 0;
+    font-size: 30px;
+}
+
+main section form {
+    padding: 0 10%
+}
+
+main section .form-control {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+}
+
+main section .form-control:focus {
+    border-bottom-color: #dee2e6;
+}
+
+main > section > form > div:nth-of-type(7) input, main > section > form > div:last-of-type input{
+    border: none;
+}
+
+main > section > form > div:nth-of-type(7) span, main > section > form > div:last-of-type span {
+    font-size: 20px;
+}
+
+main > section > form > div:nth-of-type(7) span:hover, main > section > form > div:last-of-type span:hover {
+    cursor: pointer;
+}
+
+main > section > form > div:nth-of-type(7), main > section > form > div:last-of-type {
+    border-bottom: 1px solid #dee2e6;
+}
+
+main > section > form > input {
+    border: none;
+    background-color: #800020;
+    color: white;
+    margin-top: 15px;
+    float: right;
+    width: 130px;
+    height: 35px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+main > section > form > input:hover {
+    font-weight: 700;
+}
+
+main > section:last-of-type {
+    text-align: center;
+    margin-top: 80px;
+}
+
+main > section:last-of-type > a {
+    color: #800020;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+main > section:last-of-type > a:hover {
+    text-decoration: underline;
+}
 
 /* #region footer */
-
 footer {
     margin-top: 80px;
     background-color: #800020;
@@ -284,34 +392,3 @@ footer > ul:first-of-type > li:nth-child(2n) {
     margin-left: 25%;
 }
 /* #endregion */
-
-main > div {
-    width: 100%;
-    margin: 0 auto;
-}
-
-main > div > div > div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 15%;
-}
-
-.card {
-    border: none;
-}
-
-main > div > div > div > div {
-    align-items: center;
-    text-align: center;
-    height: 400px;
-}
-
-main > div > div > div > div img {
-    width: 100%;
-    height: 300px;
-}
-
-main > div > div:nth-child(2), main > div > div:nth-child(3) {
-    color: black !important;
-}
