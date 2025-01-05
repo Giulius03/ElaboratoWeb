@@ -127,11 +127,10 @@ create table UTENTI (
      NumeroCivico int not null,
      Username varchar(40) not null,
      Password varchar(15) not null,
-     Sale varchar(6) not null,
      Admin bool not null,
      constraint IDUTENTE primary key (CF),
      constraint IDUTENTE_1 unique (Username),
-     constraint IDUTENTE_2 unique (Sale));
+);
 
 create table CARTE (
      NumeroCarta int not null,

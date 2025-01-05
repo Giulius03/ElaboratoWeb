@@ -289,6 +289,7 @@ main > section > h1 {
     font-size: 30px;
 }
 
+/* #region Common things for Sign Up and Log In */
 main section form {
     padding: 0 10%
 }
@@ -304,23 +305,29 @@ main section .form-control:focus {
     border-bottom-color: #dee2e6;
 }
 
-main > section > form > div:nth-of-type(7) input, main > section > form > div:last-of-type input{
+main > section > form > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+main > section > form > ul > li:nth-of-type(10) input, main > section > form > ul > li:nth-of-type(11) input{
     border: none;
 }
 
-main > section > form > div:nth-of-type(7) span, main > section > form > div:last-of-type span {
+main > section > form > ul > li:nth-of-type(10) span, main > section > form > ul > li:nth-of-type(11) span {
     font-size: 20px;
 }
 
-main > section > form > div:nth-of-type(7) span:hover, main > section > form > div:last-of-type span:hover {
+main > section > form > ul > li:nth-of-type(10) span:hover, main > section > form > ul > li:nth-of-type(11) span:hover {
     cursor: pointer;
 }
 
-main > section > form > div:nth-of-type(7), main > section > form > div:last-of-type {
+main > section > form > ul > li:nth-of-type(10), main > section > form > ul > li:nth-of-type(11) {
     border-bottom: 1px solid #dee2e6;
 }
 
-main > section > form > input {
+main > section > form > ul > li:nth-of-type(12) > input {
     border: none;
     background-color: #800020;
     color: white;
@@ -332,24 +339,37 @@ main > section > form > input {
     font-weight: 500;
 }
 
-main > section > form > input:hover {
+main > section > form > ul > li:nth-of-type(12) > input:hover {
     font-weight: 700;
 }
 
-main > section:last-of-type {
+main > section > form > ul > li:last-of-type {
     text-align: center;
-    margin-top: 80px;
+    margin-top: 70px;
 }
 
-main > section:last-of-type > a {
+main > section .form-select {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+}
+
+main > section .form-select:focus {
+    box-shadow: none;
+    border-bottom: 1px solid #dee2e6;
+}
+
+main > section > form > ul > li:last-of-type a {
     color: #800020;
     font-weight: 500;
     text-decoration: none;
 }
 
-main > section:last-of-type > a:hover {
+main > section > form > ul > li:last-of-type a:hover {
     text-decoration: underline;
 }
+/* #endregion */
 
 /* #region footer */
 footer {

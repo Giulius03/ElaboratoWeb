@@ -11,7 +11,6 @@ class DatabaseHelper{
 
     public function getLastReleases(){
         $stmt = $this->db->prepare("SELECT nomeita, nomeeng, nomeimmagine, prezzo FROM articoli ORDER BY datainserimento DESC LIMIT 5");
-        // $stmt->bind_param('i',$n);   solo con parametri
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
@@ -24,6 +23,15 @@ class DatabaseHelper{
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function signUp($name, $lastName, $birthDate, $taxIDCode, $nation, $city, $address, $houseNumber, $username, $password){
+        $hashPassword = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $this->db->prepare("INSERT INTO utenti (nome, cognome, datanascita, cf, nazione, città, via, numerocivico,
+            username, password, sale, admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'la', 0)");
+        $stmt->bind_param('sssssssiss', $name, $lastName, $birthDate, $taxIDCode, $nation, $city, $address, $houseNumber, $username, $hashPassword);
+        $stmt->execute();
+        return $stmt->insert_id;
     }
 
 }

@@ -1,4 +1,16 @@
 <?php
+
+// function isNationSelected() {
+//     if ($_POST["nation"] == "Nation" || $_POST["nation"] == "Nazione") {
+//         return FALSE;
+//     }
+//     return TRUE;
+// }
+
+
+
+
+
 function isActive($pagename){
     if(basename($_SERVER['PHP_SELF'])==$pagename){
         echo " class='active' ";

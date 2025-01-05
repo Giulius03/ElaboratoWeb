@@ -11,6 +11,15 @@
         <link rel="stylesheet" type="text/css" href="./css/style.css" />
         <link rel="stylesheet" type="text/css" href="./css/mediaqueries.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+        <?php
+        if(isset($templateParams["css"])):
+            foreach($templateParams["css"] as $style):
+        ?>
+            <link rel="stylesheet" type="text/css" href="<?php echo $style ?>" />
+        <?php
+            endforeach;
+        endif;
+        ?>
     </head>
     <body>
         <header>
@@ -19,7 +28,7 @@
                     <li>
                         <form action="index.php" method="get">
                             <label for="searchBarPC">Cerca</label>
-                            <input id="searchBarPC" type="search" placeholder="<?php echo $currentLanguage == "en" ? "Search" : "Cerca" ?> ..." />
+                            <input name="search" id="searchBarPC" type="search" placeholder="<?php echo $currentLanguage == "en" ? "Search" : "Cerca" ?> ..." />
                             <span class="bi bi-search"></span>
                         </form>
                     </li>
@@ -67,7 +76,7 @@
                 </ul>
                 <form action="index.php" method="get" id="searchPhone">
                     <label for="searchBar">Cerca</label>
-                    <input id="searchBar" type="search" class="form-control" placeholder="<?php echo $currentLanguage == "en" ? "Search" : "Cerca" ?> ..." />
+                    <input name="search" id="searchBar" type="search" class="form-control" placeholder="<?php echo $currentLanguage == "en" ? "Search" : "Cerca" ?> ..." />
                     <button type="submit"><span class="bi bi-search"></span></button>
                 </form>
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
