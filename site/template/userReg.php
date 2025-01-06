@@ -1,6 +1,6 @@
 <section>
     <h1 id="signup"><?php echo $currentLanguage == "en" ? "Sign Up" : "Registrati" ?></h1>
-    <form action="utils/signNewUser.php" method="POST" onsubmit="validateSignUpForm('<?php echo $currentLanguage ?>', event)">
+    <form action="utils/signNewUser.php" method="POST" onsubmit="showSignUpResult('<?php echo $currentLanguage ?>', event)">
         <ul>
             <li class="form-floating mb-1">
                 <input name="name" type="text" class="form-control" id="name" placeholder="name" required />

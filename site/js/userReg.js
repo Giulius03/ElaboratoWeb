@@ -112,25 +112,63 @@ function is16YearsOld() {
     return false;
 }
 
-function validateSignUpForm(lang, event) {    
+function signUpFormValid(lang) {    
     if (!is16YearsOld()) {
         alert(lang === "en" ? "You have to be at least 16 years old to sign up." : "Devi avere almeno 16 anni per iscriverti.");
-        event.preventDefault();
-        return;
+        return false;
     }
     if (nationsSelect.value === "Nation" || nationsSelect.value === "Nazione") {
         alert(lang === "en" ? "You have to select a nation." : "Devi selezionare una nazione.");
-        event.preventDefault();
-        return;
+        return false;
     }
     if (document.getElementById('housenumber').value <= 0) {
         alert(lang === "en" ? "House number not valid." : "Numero civico non valido.");
-        event.preventDefault();
-        return;
+        return false;
     }
     if (document.getElementById('password').value !== document.getElementById('confpassword').value) {
         alert(lang === "en" ? "The passwords don't match." : "Le password non corrispondono.");
-        event.preventDefault();
-        return;
+        return false;
+    }
+    return true;
+}
+
+async function showSignUpResult(lang, event) {
+    event.preventDefault();
+
+    const url = 'utils/signNewUser.php';
+    let formData = new FormData();
+    formData.append('name', document.getElementById('name').value);
+    formData.append('lastName', document.getElementById('lastname').value);
+    formData.append('birthDate', new Date(document.getElementById('date').value).getFullYear() + "-" + new Date(document.getElementById('date').value).getMonth() + "-" + new Date(document.getElementById('date').value).getDate());
+    formData.append('taxIDCode', document.getElementById('taxid').value);
+    formData.append('nation', nationsSelect.value);
+    formData.append('city', document.getElementById('city').value);
+    formData.append('address', document.getElementById('address').value);
+    formData.append('houseNumber', document.getElementById('housenumber').value);
+    formData.append('username', document.getElementById('username').value);
+    formData.append('password', document.getElementById('password').value);
+
+    try {
+        if (signUpFormValid(lang) === false) {
+            throw new Error('');
+        }
+
+        const response = await fetch(url, {
+            method: "POST",                   
+            body: formData
+        });
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        console.log(json);
+        if (json["successful"] === true) {
+            alert(lang === "en" ? "Registration successful, now you can log in." : "Registrazione avvenuta con successo, ora puoi accedere.");
+            window.location.href = "login.php";
+        } else {
+            alert(json["error"]);
+        }
+    } catch (error) {
+        console.log(error.message)
     }
 }

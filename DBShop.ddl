@@ -127,9 +127,9 @@ create table UTENTI (
      NumeroCivico int not null,
      Username varchar(40) not null,
      Password varchar(15) not null,
-     Admin bool not null,
+     Admin boolean not null,
      constraint IDUTENTE primary key (CF),
-     constraint IDUTENTE_1 unique (Username),
+     constraint IDUTENTE_1 unique (Username)
 );
 
 create table CARTE (
