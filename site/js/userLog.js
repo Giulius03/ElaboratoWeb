@@ -38,3 +38,32 @@ function setUserLogFormLang(lang) {
     document.getElementById('btnLog').setAttribute("value", lang === "en" ? "Enter" : "Entra");
     document.getElementById('signupLink').textContent = lang === "en" ? "Don't you signed up yet? Sign Up" : "Non ti sei ancora registrato? Iscriviti";
 }
+
+async function showLoginResult(lang, event) {
+    event.preventDefault();
+
+    const url = 'utils/checkLogin.php';
+    let formData = new FormData();
+    formData.append('username', document.getElementById('username').value);
+    formData.append('password', document.getElementById('password').value);
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",                   
+            body: formData
+        });
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        console.log(json);
+        if (json["successful"] === true) {
+            alert(lang === "en" ? "Login successful." : "Login avvenuto con successo.");
+            window.location.href = "index.php";
+        } else {
+            alert(json["error"]);
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}

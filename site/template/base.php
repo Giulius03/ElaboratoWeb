@@ -21,7 +21,7 @@
         endif;
         ?>
     </head>
-    <body>
+    <body onload="getArticlesData(true, '<?php echo $currentLanguage ?>'); getArticlesData(false, '<?php echo $currentLanguage ?>')">
         <header>
             <nav>
                 <ul>
@@ -57,10 +57,17 @@
                         <a href="index.php"><img src="upload/Stemma.png" alt="Logo squadra. Torna alla Home."></a>
                     </li>
                     <li>
-                        <a role="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"><span class="bi bi-person"></span><span id="userText"><?php echo $currentLanguage == "en" ? "User" : "Utente" ?></span></a>
+                        <a role="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"><span class="bi bi-person"></span><span id="userText"><?php echo isUserLoggedIn() ? $_SESSION["username"] : ($currentLanguage == "en" ? "User" : "Utente") ?></span></a>
                         <ul class="dropdown-menu" aria-labelledby="userMenuButton">
-                            <li><a id="logText" class="dropdown-item" href="login.php"><?php echo $currentLanguage == "en" ? "Log In" : "Accedi" ?></a></li>
-                            <li><a id="signText" class="dropdown-item" href="signup.php"><?php echo $currentLanguage == "en" ? "Sign Up" : "Registrati" ?></a></li>
+                            <?php if (!isUserLoggedIn()): ?>
+                                <li><a id="logText" class="dropdown-item" href="login.php"><?php echo $currentLanguage == "en" ? "Log In" : "Accedi" ?></a></li>
+                                <li><a id="signText" class="dropdown-item" href="signup.php"><?php echo $currentLanguage == "en" ? "Sign Up" : "Registrati" ?></a></li>
+                            <?php else: ?>
+                                <li><a id="cartText" class="dropdown-item" href="cart.php"><?php echo $currentLanguage == "en" ? "Cart" : "Carrello" ?></a></li>
+                                <li><a id="ordersText" class="dropdown-item" href="orders.php"><?php echo $currentLanguage == "en" ? "Orders" : "Ordini" ?></a></li>
+                                <li><a id="favText" class="dropdown-item" href="favourites.php"><?php echo $currentLanguage == "en" ? "Favourites" : "Preferiti" ?></a></li>
+                                <li><a onclick="logOut()" id="logOutText" class="dropdown-item" href="index.php"><?php echo $currentLanguage == "en" ? "Log Out" : "Esci" ?></a></li>
+                            <?php endif; ?>
                         </ul>
                     </li>
                     <li>

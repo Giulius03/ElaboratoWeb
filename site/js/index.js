@@ -125,5 +125,3 @@ async function getArticlesData(lastReleases, lang) {
         console.log(error.message);
     }
 }
-
-setHomeLang("en");

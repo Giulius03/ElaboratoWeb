@@ -123,7 +123,7 @@ header > nav > ul > li:nth-child(7) > ul, header > nav > ul > li:last-child > ul
     text-align: center;
 }
 
-header > nav > ul > li:nth-child(7) > ul > li:first-child, header > nav > ul > li:last-child > ul > li:first-child,
+header > nav > ul > li:nth-child(7) > ul > li:not(:last-child), header > nav > ul > li:last-child > ul > li:first-child,
 header > nav > ul > li:nth-child(4) > ul > li:not(:last-child) {
     border-bottom: 1px solid white;
 }

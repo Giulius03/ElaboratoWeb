@@ -35,8 +35,7 @@ class DatabaseHelper{
     }
 
     public function checkLogin($username){
-        $hashPassword = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $this->db->prepare("SELECT cf, username, password FROM utenti WHERE username = ?");
+        $stmt = $this->db->prepare("SELECT cf, nome, username, password FROM utenti WHERE username = ?");
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result();

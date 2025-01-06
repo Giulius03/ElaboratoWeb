@@ -1,6 +1,6 @@
 <section>
     <h1 id="login"><?php echo $currentLanguage == "en" ? "Log In" : "Accedi" ?></h1>
-    <form action="#" method="POST">
+    <form action="utils/checkLogin.php" method="POST" onsubmit="showLoginResult('<?php echo $currentLanguage ?>', event)">
         <ul>
             <?php require 'userPw.php' ?>
             <li>

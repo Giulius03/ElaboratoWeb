@@ -2,7 +2,7 @@
 require_once '../bootstrap.php';
 
 $status["successful"] = false;
-$status["error"] = " ";
+$status["error"] = "";
 
 if (isset($_POST["name"]) && isset($_POST["lastName"]) && isset($_POST["birthDate"]) && isset($_POST["taxIDCode"]) &&
         isset($_POST["nation"]) && isset($_POST["city"]) && isset($_POST["address"]) && isset($_POST["houseNumber"]) &&

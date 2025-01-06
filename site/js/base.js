@@ -26,6 +26,24 @@ productsMenu.addEventListener('mouseout', (event) => {
     productsMenu.style.display = 'none';
 });
 
+async function logOut(lang) {
+    const url = "utils/logOut.php";
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        console.log(json);
+        if (json["successful"] === true) {
+            alert(lang === "en" ? "Logout successful." : "Logout avvenuto con successo.");
+            window.location.href = "index.php";
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 async function setLang(lang) {
     const url = "utils/setLanguage.php?Lang=";
     try {
@@ -43,9 +61,17 @@ async function setLang(lang) {
         document.getElementById('capsTextPC').textContent = lang === "en" ? "Caps" : "Cappelli";
         document.getElementById('trouTextPC').textContent = lang === "en" ? "Trousers" : "Pantaloni";
         document.getElementById('tickTextPC').textContent = lang === "en" ? "Tickets" : "Biglietti";
-        document.getElementById('userText').textContent = lang === "en" ? "User" : "Utente";
-        document.getElementById('logText').textContent = lang === "en" ? "Log In" : "Accedi";
-        document.getElementById('signText').textContent = lang === "en" ? "Sign Up" : "Registrati";
+        currentUserLabel = document.getElementById('userText').textContent;
+        document.getElementById('userText').textContent = (currentUserLabel !== "User" && currentUserLabel !== "Utente") ? currentUserLabel : (lang === "en" ? "User" : "Utente");
+        if (currentUserLabel !== "User" && currentUserLabel !== "Utente") {
+            document.getElementById('cartText').textContent = lang === "en" ? "Cart" : "Carrello";
+            document.getElementById('ordersText').textContent = lang === "en" ? "Orders" : "Ordini";
+            document.getElementById('favText').textContent = lang === "en" ? "Favourites" : "Preferiti";
+            document.getElementById('logOutText').textContent = lang === "en" ? "Log Out" : "Esci";
+        } else {
+            document.getElementById('logText').textContent = lang === "en" ? "Log In" : "Accedi";
+            document.getElementById('signText').textContent = lang === "en" ? "Sign Up" : "Registrati";
+        }
         document.getElementById('notText').textContent = lang === "en" ? "Notifications" : "Notifiche";
         document.getElementById('currentFlag').className = lang === "en" ? "fi fi-gb" : "fi fi-it";
         document.getElementById('langText').textContent = lang === "en" ? "ENG" : "ITA";

@@ -1,34 +1,15 @@
 <?php
-
-// function isNationSelected() {
-//     if ($_POST["nation"] == "Nation" || $_POST["nation"] == "Nazione") {
-//         return FALSE;
-//     }
-//     return TRUE;
-// }
-
-
-
-
-
-function isActive($pagename){
-    if(basename($_SERVER['PHP_SELF'])==$pagename){
-        echo " class='active' ";
-    }
-}
-
 function getIdFromName($name){
     return preg_replace("/[^a-z]/", '', strtolower($name));
 }
 
 function isUserLoggedIn(){
-    return !empty($_SESSION['idautore']);
+    return !empty($_SESSION['username']);
 }
 
 function registerLoggedUser($user){
-    $_SESSION["idautore"] = $user["idautore"];
+    $_SESSION["userCF"] = $user["cf"];
     $_SESSION["username"] = $user["username"];
-    $_SESSION["nome"] = $user["nome"];
 }
 
 function getEmptyArticle(){

@@ -126,7 +126,7 @@ create table UTENTI (
      Via varchar(25) not null,
      NumeroCivico int not null,
      Username varchar(40) not null,
-     Password varchar(15) not null,
+     Password varchar(255) not null,
      Admin boolean not null,
      constraint IDUTENTE primary key (CF),
      constraint IDUTENTE_1 unique (Username)
