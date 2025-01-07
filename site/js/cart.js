@@ -1,77 +1,54 @@
-const swiperLast = new Swiper(document.getElementById('swiperLast'), {
-    loop: true, // Enables infinite scrolling
-    slidesPerView: 1, // Default: 1 product visible
-    navigation: {
-        nextEl: document.getElementById('nextLast'),
-        prevEl: document.getElementById('prevLast'),
-    },
-    pagination: false, // No dots at the bottom
-    breakpoints: {
-        576: {
-            slidesPerView: 2,
-            spaceBetween: 0,
-        },
-        768: {
-            slidesPerView: 3,
-            spaceBetween: 40,
-        },
-        992: {
-            slidesPerView: 3,
-            spaceBetween: 90,
-        },
-        1200: {
-            slidesPerView: 3,
-            spaceBetween: 130,
-        }
-    },
+function setUserLogFormLang(lang) {
+    document.getElementById('title').textContent = lang === "en" ? "SHOPPING CART" : "CARRELLO";
+    document.getElementById('btnLog').setAttribute("value", lang === "en" ? "Buy Now" : "Acquista Ora");
+    document.getElementById('txtRel').textContent = lang === "en" ? "Releated Articles" : "Articoli Correlati";
+    getArticlesData(lang);
+}
+
+const btnItaPhone = document.getElementById("btnIta1");
+const btnItaPC = document.getElementById("btnIta2");
+const btnEngPhone = document.getElementById("btnEng1");
+const btnEngPC = document.getElementById("btnEng2");
+
+btnItaPhone.addEventListener('click', (event) => {
+    setUserLogFormLang("it");
 });
 
-const swiperMost = new Swiper(document.getElementById('swiperMost'), {
-    loop: true, // Enables infinite scrolling
-    slidesPerView: 1, // Default: 1 product visible
-    navigation: {
-        nextEl: document.getElementById('nextMost'),
-        prevEl: document.getElementById('prevMost'),
-    },
-    pagination: false, // No dots at the bottom
-    breakpoints: {
-        576: {
-            slidesPerView: 2,
-            spaceBetween: 0,
-        },
-        768: {
-            slidesPerView: 3,
-            spaceBetween: 40,
-        },
-        992: {
-            slidesPerView: 3,
-            spaceBetween: 90,
-        },
-        1200: {
-            slidesPerView: 3,
-            spaceBetween: 130,
-        }
-    },
+btnItaPC.addEventListener('click', (event) => {
+    setUserLogFormLang("it");
+});
+
+btnEngPhone.addEventListener('click', (event) => {
+    setUserLogFormLang("en");
+});
+
+btnEngPC.addEventListener('click', (event) => {
+    setUserLogFormLang("en");
+});
+
+btnSeePw.addEventListener('click', (event) => {
+    changePwProp(btnSeePw, document.getElementById('password'));
 });
 
 function generateCards(lang, articoli) {
-    let cards = "";
+    let article = "<section id=articles>";
 
     for (let i = 0; i < articoli.length; i++) {
         let nome = lang === "en" ? articoli[i]["nomeeng"] : articoli[i]["nomeita"];
         let descrizione = lang === "en" ? articoli[i]["descrizioneeng"] : articoli[i]["descrizioneita"];
-        cards += `
-        <section class="swiper-slide">
-            <article class="card">
+        article += `
+            <article>
                 <img src="upload/${articoli[i]["nomeimmagine"]}" alt="${nome}">
                 <strong>${nome}</strong>
                 <p>${descrizione}</p>
                 <p>€${articoli[i]["prezzo"]}</p>
             </article>
-        </section>`
+        `
     }
 
-    return cards;
+    article += '</section>'
+
+    return article;
 }
 
 async function getArticlesData(lang) {
@@ -83,13 +60,8 @@ async function getArticlesData(lang) {
         }
         const json = await response.json();
         console.log(json);
-        const cards = generateCards(lang, json);
-        document.querySelector("main section:first-of-type > section > section > section > section").innerHTML = cards;
-        if (lastReleases) {
-            swiperLast.update();
-        } else {
-            swiperMost.update();
-        }
+        const articles = generateCards(lang, json);
+        document.querySelector("main section:first-of-type > section > section > section > section").innerHTML = articles;
     } catch (error) {
         console.log(error.message);
     }

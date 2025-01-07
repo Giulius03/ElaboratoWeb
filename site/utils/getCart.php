@@ -1,7 +1,7 @@
 <?php
 require_once '../bootstrap.php';
 
-$cart = $dbh->getCart();
+$cart = $dbh->getCart($_SESSION["username"]);
 
 header('Content-Type: application/json');
 if (empty($cart)) {
