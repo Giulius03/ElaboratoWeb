@@ -2,7 +2,9 @@
 <section>
   <h2 id="txtLast"><?php echo $currentLanguage == "en" ? "Last Releases" : "Ultime Uscite" ?></h2>
   <section id="swiperLast" class="swiper">
+    <h2>tit</h2>
     <section class="swiper-wrapper">
+      <h2>tit</h2>
       <!-- Cards -->
     </section> 
     <!-- Navigation Buttons -->
@@ -13,7 +15,9 @@
 <section>
   <h2 id="txtMost"><?php echo $currentLanguage == "en" ? "Most Wanted" : "I Più Venduti" ?></h2>
   <section id="swiperMost" class="swiper">
+    <h2>tit</h2>
     <section class="swiper-wrapper">
+      <h2>tit</h2>
       <!-- Cards -->
     </section> 
     <!-- Navigation Buttons -->

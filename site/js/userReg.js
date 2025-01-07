@@ -43,7 +43,7 @@ function setUserRegFormLang(lang) {
     document.getElementById('lbllastname').textContent = lang === "en" ? "Last Name" : "Cognome";
     document.getElementById('lbldate').textContent = lang === "en" ? "Birth Date" : "Data di Nascita";
     document.getElementById('lbltaxid').textContent = lang === "en" ? "TaxID Code" : "Codice Fiscale";
-    document.getElementById('optDefault').textContent = lang === "en" ? "Nation" : "Nazione";
+    document.getElementById('lblnation').textContent = lang === "en" ? "Nation" : "Nazione";
     document.getElementById('lblcity').textContent = lang === "en" ? "City" : "Città";
     document.getElementById('lbladdress').textContent = lang === "en" ? "Address" : "Indirizzo";
     document.getElementById('lblhousenumber').textContent = lang === "en" ? "House Number" : "Numero Civico";

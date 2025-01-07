@@ -5,6 +5,7 @@ require_once 'bootstrap.php';
 $templateParams["titolo"] = "Recovery | Bugs Burnley";
 $templateParams["nome"] = "recoveryForms.php";
 $templateParams["js"] = array("js/recovery.js");
+$templateParams["css"] = array("css/adjustments.css");
 
 require 'template/base.php';
 ?>

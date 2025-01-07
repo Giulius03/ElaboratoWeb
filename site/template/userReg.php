@@ -20,9 +20,10 @@
             </li>
             <li class="form-floating mb-1">
                 <select name="nation" id="nationSelect" class="form-select" aria-label="Default select example" required>
-                    <option id="optDefault" disabled selected><?php echo $currentLanguage == "en" ? "Nation" : "Nazione" ?></option>
+                    <option value="" label=" " disabled selected></option>
                     <!-- Nations -->
                 </select>
+                <label id="lblnation" for="nationSelect"><?php echo $currentLanguage == "en" ? "Nation" : "Nazione" ?></label>
             </li>
             <li class="form-floating mb-1">
                 <input name="city" type="text" class="form-control" id="city" placeholder="city" required />
