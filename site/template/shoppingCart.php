@@ -2,6 +2,8 @@
     <h1 id="title"><?php echo $currentLanguage == "en" ? "SHOPPING CART" : "CARRELLO" ?></h1>
     <section id="articles">
         <!-- Articles in Cart -->
+    </section>
+    <section>
         <form action="payment.php" method="get">
             <input type="submit" id="btnBuy" value="<?php echo $currentLanguage == "en" ? "Buy Now" : "Acquista Ora" ?>">
         </form>

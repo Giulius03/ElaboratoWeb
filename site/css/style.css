@@ -455,14 +455,24 @@ main > section > section > form > input {
     font-weight: 500;
 }
 
+main > section > section > p{
+    margin-left: 300px;
+}
+
+main > section > section > article {
+    display: block;
+    align-items: center;
+    margin: 0 0 200px 0;
+}
 
 main > section > section > article > img {
+    float: left;
     width: 200px;
     height: 200px;
 }
 
-main > section > section > article > p {
-    display: inline-block;
+main > section > section > article > p:nth-of-type(2) {
+    margin-left: 300px;
 }
 
 /* #endregion */

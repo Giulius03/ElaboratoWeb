@@ -31,6 +31,7 @@ btnSeePw.addEventListener('click', (event) => {
 });
 
 function generateCards(lang, articoli) {
+    let totale = 0;
     let article = "";
 
     for (let i = 0; i < articoli.length; i++) {
@@ -44,7 +45,12 @@ function generateCards(lang, articoli) {
                 <p>€${articoli[i]["prezzo"]}</p>
             </article>
         `
+        totale += articoli[i]["prezzo"];
     }
+
+    article += '<p>'
+    article += lang === "en" ? 'Total:€' : 'Totale:€'
+    article += `${totale}</p>`
 
     return article;
 }
