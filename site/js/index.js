@@ -115,7 +115,7 @@ async function getArticlesData(lastReleases, lang) {
         const json = await response.json();
         console.log(json);
         const cards = generateCards(lang, json);
-        document.querySelector(lastReleases ? "main section:first-of-type > section > section" : "main section:nth-of-type(2) > section > section").innerHTML = cards;
+        document.querySelector(lastReleases ? "main > section:first-of-type > section > section" : "main > section:nth-of-type(2) > section > section").innerHTML = cards;
         if (lastReleases) {
             swiperLast.update();
         } else {

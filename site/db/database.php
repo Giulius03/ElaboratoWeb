@@ -42,6 +42,14 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function changePassword($username, $newPassword){
+        $hashNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+        $stmt = $this->db->prepare("UPDATE utenti SET password = ? WHERE username = ?");
+        $stmt->bind_param('ss', $hashNewPassword, $username);
+        $stmt->execute();
+        return $stmt->affected_rows;
+    }
+
     public function getCart($username){
         $stmt = $this->db->prepare("SELECT nomeita, nomeeng, nomeimmagine, prezzo, descrizioneita, descrizioneeng FROM carrelli c, articoli a, utenti u WHERE utenti u.username = ? AND
             c.proprietario = u.username AND a.nomeita = c.articolo");

@@ -12,6 +12,11 @@ function registerLoggedUser($user){
     $_SESSION["username"] = $user["username"];
 }
 
+function generateCode(){
+    $_SESSION["recoveryCode"] = strval(rand(1000, 99999));
+    return $_SESSION["recoveryCode"];
+}
+
 function getEmptyArticle(){
     return array("idarticolo" => "", "titoloarticolo" => "", "imgarticolo" => "", "testoarticolo" => "", "anteprimaarticolo" => "", "categorie" => array());
 }

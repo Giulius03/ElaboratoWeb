@@ -21,7 +21,7 @@
         endif;
         ?>
     </head>
-    <body onload="getArticlesData(true, '<?php echo $currentLanguage ?>'); getArticlesData(false, '<?php echo $currentLanguage ?>')">
+    <body onload="<?php echo isset($templateParams["onloadFunctions"]) ? $templateParams["onloadFunctions"] : "" ?>">
         <header>
             <nav>
                 <ul>
