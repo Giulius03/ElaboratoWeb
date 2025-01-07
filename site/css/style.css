@@ -371,6 +371,26 @@ main > section > form > ul > li:last-of-type a:hover {
 }
 /* #endregion */
 
+/* #region Common things for Shopping Cart*/
+main > section > section > form > input {
+    border: none;
+    background-color: #800020;
+    color: white;
+    margin-top: 15px;
+    float: right;
+    width: 130px;
+    height: 35px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+main > section > section > article > img{
+    width: 200px;
+    height: 200px;
+}
+
+/* #endregion */
+
 /* #region footer */
 footer {
     margin-top: 80px;

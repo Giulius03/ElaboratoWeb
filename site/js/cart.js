@@ -1,6 +1,6 @@
 function setUserLogFormLang(lang) {
     document.getElementById('title').textContent = lang === "en" ? "SHOPPING CART" : "CARRELLO";
-    document.getElementById('btnLog').setAttribute("value", lang === "en" ? "Buy Now" : "Acquista Ora");
+    document.getElementById('btnBuy').setAttribute("value", lang === "en" ? "Buy Now" : "Acquista Ora");
     document.getElementById('txtRel').textContent = lang === "en" ? "Releated Articles" : "Articoli Correlati";
     getArticlesData(lang);
 }
@@ -31,7 +31,7 @@ btnSeePw.addEventListener('click', (event) => {
 });
 
 function generateCards(lang, articoli) {
-    let article = "<section id=articles>";
+    let article = "";
 
     for (let i = 0; i < articoli.length; i++) {
         let nome = lang === "en" ? articoli[i]["nomeeng"] : articoli[i]["nomeita"];
@@ -46,8 +46,6 @@ function generateCards(lang, articoli) {
         `
     }
 
-    article += '</section>'
-
     return article;
 }
 
@@ -61,7 +59,7 @@ async function getArticlesData(lang) {
         const json = await response.json();
         console.log(json);
         const articles = generateCards(lang, json);
-        document.querySelector("main section:first-of-type > section > section > section > section").innerHTML = articles;
+        document.querySelector("main > section > section").innerHTML = articles;
     } catch (error) {
         console.log(error.message);
     }

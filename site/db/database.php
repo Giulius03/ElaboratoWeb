@@ -42,9 +42,13 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getCart($username){
-        $stmt = $this->db->prepare("SELECT nomeita, nomeeng, nomeimmagine, prezzo, descrizioneita, descrizioneeng FROM carrelli c, articoli a, utenti u WHERE utenti u.username = ? AND
-            c.proprietario = u.username AND a.nomeita = c.articolo");
+    public function getCart($uCF){
+        $stmt = $this->db->prepare("SELECT a.nomeita, a.nomeeng, a.nomeimmagine, a.prezzo, a.descrizioneita, a.descrizioneeng 
+        FROM carrelli c
+        JOIN articoli a ON a.nomeita = c.articolo
+        JOIN utenti u ON c.proprietario = u.CF
+        WHERE u.CF = ?");
+        $stmt->bind_param('s', $uCF);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
