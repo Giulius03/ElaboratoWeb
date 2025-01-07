@@ -294,14 +294,14 @@ main section form {
     padding: 0 10%
 }
 
-main section .form-control {
+main > section > form .form-control {
     border-top: none;
     border-left: none;
     border-right: none;
     border-radius: 0;
 }
 
-main section .form-control:focus {
+main > section > form .form-control:focus {
     border-bottom-color: #dee2e6;
 }
 
@@ -371,6 +371,77 @@ main > section > form > ul > li:last-of-type a:hover {
 }
 /* #endregion */
 
+/* #region Recovery password */
+main > section > section > form > section {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+main > section > section > form > section > input:first-of-type {
+    width: 85%;
+    margin-top: 5px;
+}
+
+main > section > section > form > section > input:last-of-type {
+    width: 15%;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: none;
+    background-color: #800020;
+    color: white;
+    font-weight: 500;
+}
+
+main > section > section:last-of-type > form {
+    display: none;
+}
+
+main > section > section:last-of-type > form .form-control:focus {
+    border-bottom-color: #dee2e6;
+}
+
+main > section > section > form > section > input:last-of-type:hover {
+    font-weight: 700;
+}
+
+main > section > section > form > ul {
+    list-style: none;
+    padding: 0;
+}
+
+main > section > section:last-of-type > form .form-control {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+}
+
+main > section > section > form > ul > li:nth-of-type(2) input, main > section > section > form > ul > li:nth-of-type(3) input {
+    border: none;
+}
+
+main > section > section > form > ul > li:nth-of-type(2) span, main > section > section > form > ul > li:nth-of-type(3) span {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+main > section > section > form > ul > li:nth-of-type(2), main > section > section > form > ul > li:nth-of-type(3) {
+    border-bottom: 1px solid #dee2e6;
+}
+
+main > section > section > form > ul > li:last-of-type input{
+    border: none;
+    background-color: #800020;
+    color: white;
+    margin-top: 15px;
+    float: right;
+    width: 80px;
+    height: 35px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+/* #endregion */
+
 /* #region Common things for Shopping Cart*/
 main > section > section > form > input {
     border: none;
@@ -384,9 +455,14 @@ main > section > section > form > input {
     font-weight: 500;
 }
 
-main > section > section > article > img{
+
+main > section > section > article > img {
     width: 200px;
     height: 200px;
+}
+
+main > section > section > article > p {
+    display: inline-block;
 }
 
 /* #endregion */
