@@ -7,8 +7,6 @@ if (!isset($_SESSION["username"]) && !isset($_SESSION["userCF"])) {
     $status["successful"] = true;
 }
 
-// unset($_SESSION["username"]);
-// unset($_SESSION["userCF"]);
 header('Content-Type: application/json');
 echo json_encode($status);
 ?>

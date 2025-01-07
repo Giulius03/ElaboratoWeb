@@ -66,7 +66,7 @@
                                 <li><a id="cartText" class="dropdown-item" href="cart.php"><?php echo $currentLanguage == "en" ? "Cart" : "Carrello" ?></a></li>
                                 <li><a id="ordersText" class="dropdown-item" href="orders.php"><?php echo $currentLanguage == "en" ? "Orders" : "Ordini" ?></a></li>
                                 <li><a id="favText" class="dropdown-item" href="favourites.php"><?php echo $currentLanguage == "en" ? "Favourites" : "Preferiti" ?></a></li>
-                                <li><a onclick="logOut()" id="logOutText" class="dropdown-item" href="index.php"><?php echo $currentLanguage == "en" ? "Log Out" : "Esci" ?></a></li>
+                                <li><a onclick="logOut('<?php echo $currentLanguage ?>')" id="logOutText" class="dropdown-item" href="index.php"><?php echo $currentLanguage == "en" ? "Log Out" : "Esci" ?></a></li>
                             <?php endif; ?>
                         </ul>
                     </li>
