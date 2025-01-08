@@ -1,6 +1,5 @@
 function setUserLogFormLang(lang) {
-    document.getElementById('title').textContent = lang === "en" ? "SHOPPING CART" : "CARRELLO";
-    document.getElementById('btnBuy').setAttribute("value", lang === "en" ? "Buy Now" : "Acquista Ora");
+    document.getElementById('title').textContent = lang === "en" ? "FAVOURITE PRODUCTS" : "PRODOTTI PREFERITI";
     document.getElementById('txtRel').textContent = lang === "en" ? "Releated Products" : "Articoli Correlati";
     getArticlesData(lang);
 }
@@ -27,8 +26,8 @@ btnEngPC.addEventListener('click', (event) => {
 });
 
 function generateCards(lang, articoli) {
-    let carrelloVuoto = lang === "en" ? 'Empty Cart!' : 'Carrello Vuoto!S'
-    let totale = 0;
+    let aggiungi = lang === "en" ? "Add To Cart" : "Aggiungi Al Carrello"
+    let noPreferiti = lang === "en" ? 'There are not favourite products!' : 'Non ci sono prodotti preferiti!'
     let article = "";
 
     if(articoli.length > 0){
@@ -40,29 +39,26 @@ function generateCards(lang, articoli) {
                     <img src="upload/${articoli[i]["nomeimmagine"]}" alt="${nome}">
                     <strong>${nome}</strong>
                     <p>${descrizione}</p>
-                    <p>Quantità:${articoli[i]["quantità"]}</p>
-                    <p>Prezzo Singolo:€${articoli[i]["prezzo"]}</p>
+                    <p>€${articoli[i]["prezzo"]}</p>
                 </article>
+                <form action="utils/addToCart.php" method="POST" onsubmit="addCart('<?php echo $currentLanguage ?>', event)">
+                    <input type="hidden" id="articleName${i}" name="articleName" value="${articoli[i]["nomeita"]}">
+                    <input type="submit" id="btnAdd" value="${aggiungi}">
+                </form>
             `
-            totale += (articoli[i]["prezzo"]*articoli[i]["quantità"]);
         }
     } else {
         article += `
                 <article>
-                    <strong>${carrelloVuoto}</strong>
+                    <strong>${noPreferiti}</strong>
                 </article>
             `
     }
-
-    article += '<p>'
-    article += lang === "en" ? 'Total:€' : 'Totale:€'
-    article += `${totale}</p>`
-
     return article;
 }
 
 async function getArticlesData(lang) {
-    const url = "utils/getCart.php";
+    const url = "utils/getFavourites.php";
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -72,6 +68,37 @@ async function getArticlesData(lang) {
         console.log(json);
         const articles = generateCards(lang, json);
         document.querySelector("main > section > section").innerHTML = articles;
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+async function addCart(lang, event) {
+    event.preventDefault();
+
+    const form = event.target.closest("form");
+    const articleName = form.querySelector('input[name="articleName"]').value;
+    const url = "utils/addToCart.php";
+    let formData = new FormData();
+    formData.append('articleName', articleName);
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",                   
+            body: formData
+        });
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        console.log(json);
+        if (json["successful"] === true) {
+            alert(lang === "en" ? "Product added to cart." : "Prodotto aggiunto al carrello.");
+            window.location.href = "favourites.php";
+        } else {
+            alert(json["error"]);
+        }
     } catch (error) {
         console.log(error.message);
     }

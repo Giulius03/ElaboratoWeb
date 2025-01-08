@@ -89,7 +89,7 @@ class DatabaseHelper{
     }
 
     public function getCart($uCF){
-        $stmt = $this->db->prepare("SELECT a.nomeita, a.nomeeng, a.nomeimmagine, a.prezzo, a.descrizioneita, a.descrizioneeng 
+        $stmt = $this->db->prepare("SELECT a.nomeita, a.nomeeng, a.nomeimmagine, a.prezzo, a.descrizioneita, a.descrizioneeng, c.quantità 
         FROM carrelli c
         JOIN articoli a ON a.nomeita = c.articolo
         JOIN utenti u ON c.proprietario = u.CF
@@ -98,6 +98,28 @@ class DatabaseHelper{
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getFavourites($uCF){
+        $stmt = $this->db->prepare("SELECT a.nomeita, a.nomeeng, a.nomeimmagine, a.prezzo, a.descrizioneita, a.descrizioneeng
+        FROM preferiti p
+        JOIN articoli a ON a.nomeita = p.articolo
+        JOIN utenti u ON p.utente = u.CF
+        WHERE u.CF = ?");
+        $stmt->bind_param('s', $uCF);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function addToCart($uCF, $articolo, $quantity){
+        $stmt = $this->db->prepare("DELETE FROM carrelli WHERE articolo = ? AND proprietario = ?");
+        $stmt->bind_param('ss', $articolo, $uCF);
+        $stmt->execute();
+        $stmt = $this->db->prepare("INSERT INTO carrelli (articolo, proprietario, quantità) VALUES (?, ?, ?)");
+        $stmt->bind_param('ssi', $articolo, $uCF, $quantity);
+        $stmt->execute();
+        return $stmt->insert_id;
     }
 
 }
