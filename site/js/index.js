@@ -87,17 +87,17 @@ const swiperMost = new Swiper(document.getElementById('swiperMost'), {
     },
 });
 
-function generateCards(lang, articoli) {
+function generateCards(lang, articles) {
     let cards = "";
 
-    for (let i = 0; i < articoli.length; i++) {
-        let nome = lang === "en" ? articoli[i]["nomeeng"] : articoli[i]["nomeita"];
+    for (let i = 0; i < articles.length; i++) {
+        let name = lang === "en" ? articles[i]["nomeeng"] : articles[i]["nomeita"];
         cards += `
         <section class="swiper-slide">
             <article class="card">
-                <img src="upload/${articoli[i]["nomeimmagine"]}" alt="${nome}">
-                <strong>${nome}</strong>
-                <p>€${articoli[i]["prezzo"]}</p>
+                <img src="upload/${articles[i]["nomeimmagine"]}" alt="${name}">
+                <strong>${name}</strong>
+                <p>€${articles[i]["prezzo"]}</p>
             </article>
         </section>`
     }

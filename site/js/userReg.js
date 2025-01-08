@@ -139,7 +139,9 @@ async function showSignUpResult(lang, event) {
     let formData = new FormData();
     formData.append('name', document.getElementById('name').value);
     formData.append('lastName', document.getElementById('lastname').value);
-    formData.append('birthDate', new Date(document.getElementById('date').value).getFullYear() + "-" + new Date(document.getElementById('date').value).getMonth() + "-" + new Date(document.getElementById('date').value).getDate());
+    let month = new Date(document.getElementById('date').value).getMonth()+1;
+    console.log(month);
+    formData.append('birthDate', new Date(document.getElementById('date').value).getFullYear() + "-" + month + "-" + new Date(document.getElementById('date').value).getDate());
     formData.append('taxIDCode', document.getElementById('taxid').value);
     formData.append('nation', nationsSelect.value);
     formData.append('city', document.getElementById('city').value);

@@ -47,3 +47,16 @@ main > section > form > ul > li:nth-of-type(4) > input:hover {
 main > section > section > h2, main > section > section > form h2 {
     display: none;
 }
+
+main > section > section > article {
+    margin-bottom: 0;
+}
+
+main > section > section > article {
+    border-top: 1px solid black;
+    height: 80px;
+}
+
+main > section > section > article:last-of-type {
+    border-bottom: 1px solid black;
+}

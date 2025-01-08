@@ -23,6 +23,10 @@
     h1 {
         margin: 20% 0;
     }
+
+    main > section > header > button:first-of-type {
+        margin-left: 83%;
+    }
 }
 
 @media (min-width: 576px) and (max-width: 767px){
@@ -105,6 +109,14 @@
         margin: 5% 0;
     }
 
+    main > section > header > button > span:last-of-type {
+        display: inline-block;
+    }
+
+    main > section > header > button:first-of-type {
+        margin-left: 54%;
+    }
+
     footer > ul:first-of-type {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -145,6 +157,10 @@
         padding: 0 30%;
     }
 
+    main > section > header > button:first-of-type {
+        margin-left: 65%;
+    }
+
     footer {
         font-size: 105%;
     }
@@ -165,5 +181,9 @@
 
     main section form {
         padding: 0 35%;
+    }
+
+    main > section > header > button:first-of-type {
+        margin-left: 70%;
     }
 } 

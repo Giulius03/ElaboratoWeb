@@ -87,6 +87,7 @@ create table NOTIFICHE (
      Titolo varchar(25) not null,
      NumeroSequenza int not null,
      Letta bool not null,
+     DataInvio date not null,
      constraint IDNOTIFICA primary key (Utente, Titolo, NumeroSequenza));
 
 create table ORDINI (

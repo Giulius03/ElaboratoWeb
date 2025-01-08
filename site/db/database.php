@@ -50,6 +50,44 @@ class DatabaseHelper{
         return $stmt->affected_rows;
     }
 
+    public function getNotifications($username){
+        $stmt = $this->db->prepare("SELECT m.titoloita AS titoloita, m.titoloeng AS titoloeng, m.testoita AS testoita, 
+            m.testoeng AS testoeng, n.letta AS letta, n.numerosequenza AS numseq FROM utenti u INNER JOIN notifiche n ON u.cf = n.utente INNER JOIN 
+            messaggi m ON n.titolo = m.titoloita WHERE u.username = ? ORDER BY n.datainvio DESC;");
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function deleteNotification($userCF, $title, $sequenceNumber) {
+        $stmt = $this->db->prepare("DELETE FROM notifiche WHERE utente = ? AND titolo = ? AND numerosequenza = ?");
+        $stmt->bind_param('ssi', $userCF, $title, $sequenceNumber);
+        $stmt->execute();
+        return $stmt->affected_rows;
+    }
+
+    public function deleteAllNotifications($userCF) {
+        $stmt = $this->db->prepare("DELETE FROM notifiche WHERE utente = ?");
+        $stmt->bind_param('s', $userCF);
+        $stmt->execute();
+        return $stmt->affected_rows;
+    }
+
+    public function readNotification($userCF, $title, $sequenceNumber) {
+        $stmt = $this->db->prepare("UPDATE notifiche SET letta = 1 WHERE utente = ? AND titolo = ? AND numerosequenza = ?");
+        $stmt->bind_param('ssi', $userCF, $title, $sequenceNumber);
+        $stmt->execute();
+        return $stmt->affected_rows;
+    }
+
+    public function readAllNotifications($userCF) {
+        $stmt = $this->db->prepare("UPDATE notifiche SET letta = 1 WHERE utente = ?");
+        $stmt->bind_param('s', $userCF);
+        $stmt->execute();
+        return $stmt->affected_rows;
+    }
+
     public function getCart($uCF){
         $stmt = $this->db->prepare("SELECT a.nomeita, a.nomeeng, a.nomeimmagine, a.prezzo, a.descrizioneita, a.descrizioneeng 
         FROM carrelli c
