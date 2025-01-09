@@ -69,15 +69,31 @@ async function changeStatusAllNotifications(lang, readAll) {
     }
 }
 
+function seeNotification(title, sequenceNumber) {
+    window.location.href = "notification.php?title=" + title + "&sequenceNumber=" + sequenceNumber;
+}
+
 function generateNotifications(lang, notifications) {
     let notsSections = "";
+
+    if (notifications.length === 0) {
+        let comunication = lang === "en" ? "You have no notification." : "Non hai nessuna notifica.";
+        notsSections = `
+        <p>${comunication}</p>
+        `;
+        return notsSections;
+    }
 
     for (let i = 0; i < notifications.length; i++) {
         let title = lang === "en" ? notifications[i]["titoloeng"] : notifications[i]["titoloita"];
         let text = lang === "en" ? notifications[i]["testoeng"] : notifications[i]["testoita"];
 
         notsSections += `
-        <article>
+        <article onclick="seeNotification('${notifications[i]["titoloita"]}', ${notifications[i]["numseq"]})`;
+        if (notifications[i]["letta"] === 0) {
+            notsSections += `; changeStatusNotification(true, '${lang}', '${notifications[i]["titoloita"]}', ${notifications[i]["numseq"]})`;
+        }
+        notsSections += `">
             <header>`;
         notsSections += notifications[i]["letta"] === 0 ? `<strong>${title}</strong>` : `<p>${title}</p>`;
         notsSections += `

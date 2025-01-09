@@ -521,6 +521,32 @@ main > section > section > article > p{
     margin-top: 1%;
 }
 
+main > article {
+    margin: 25px 4% 10% 4%;      
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;  
+}
+
+main > article > header {
+    margin-top: 15px;
+}
+
+main > article > header > strong {
+    font-size: 25px;
+}
+
+main > article > header > button {
+    float: right;
+    background-color: transparent;
+    border: none;
+    color: #800020;
+    font-size: 25px;
+}
+
+main > article > p {
+    margin-top: 20px;
+}
+
 /* #endregion */
 
 /* #region Common things for Shopping Cart*/

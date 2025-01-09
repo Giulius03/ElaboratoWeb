@@ -53,8 +53,18 @@ class DatabaseHelper{
     public function getNotifications($username){
         $stmt = $this->db->prepare("SELECT m.titoloita AS titoloita, m.titoloeng AS titoloeng, m.testoita AS testoita, 
             m.testoeng AS testoeng, n.letta AS letta, n.numerosequenza AS numseq FROM utenti u INNER JOIN notifiche n ON u.cf = n.utente INNER JOIN 
-            messaggi m ON n.titolo = m.titoloita WHERE u.username = ? ORDER BY n.datainvio DESC;");
+            messaggi m ON n.titolo = m.titoloita WHERE u.username = ? ORDER BY n.datainvio DESC");
         $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getNotification($userCF, $title, $sequenceNumber) {
+        $stmt = $this->db->prepare("SELECT m.titoloita AS titoloita, m.titoloeng AS titoloeng, m.testoita AS testoita, 
+            m.testoeng AS testoeng, n.numerosequenza AS numseq FROM utenti u INNER JOIN notifiche n ON u.cf = n.utente INNER JOIN 
+            messaggi m ON n.titolo = m.titoloita WHERE n.utente = ? AND n.titolo = ? AND n.numerosequenza = ?");
+        $stmt->bind_param('ssi', $userCF, $title, $sequenceNumber);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);

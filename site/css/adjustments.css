@@ -52,6 +52,11 @@ main > section > section > article {
     margin-bottom: 0;
 }
 
+main > section > section > p {
+    text-align: center;
+    margin: 70px 0 0 0;
+}
+
 main > section > section > article {
     border-top: 1px solid black;
     height: 80px;
