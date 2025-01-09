@@ -122,5 +122,27 @@ class DatabaseHelper{
         return $stmt->insert_id;
     }
 
+    public function deleteFromCart($uCF, $articolo){
+        $stmt = $this->db->prepare("DELETE FROM carrelli WHERE articolo = ? AND proprietario = ?");
+        $stmt->bind_param('ss', $articolo, $uCF);
+        $stmt->execute();
+        if ($stmt->affected_rows > 0) {
+            return ['success' => true];
+        } else {
+            return ['success' => false];
+        }
+    }
+
+    public function deleteFromFavs($uCF, $articolo){
+        $stmt = $this->db->prepare("DELETE FROM preferiti WHERE utente = ? AND articolo = ?");
+        $stmt->bind_param('ss', $uCF, $articolo);
+        $stmt->execute();
+        if ($stmt->affected_rows > 0) {
+            return ['success' => true];
+        } else {
+            return ['success' => false];
+        }
+    }
+
 }
 ?>
