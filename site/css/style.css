@@ -549,8 +549,20 @@ main > article > p {
 
 /* #endregion */
 
-/* #region Common things for Shopping Cart*/
+/* #region Common things for Shopping Cart and Favourites*/
 main > section > section > form > input {
+    border: none;
+    background-color: #800020;
+    color: white;
+    margin-top: 15px;
+    float: right;
+    width: 170px;
+    height: 35px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+main > section > section > article > form > button {
     border: none;
     background-color: #800020;
     color: white;

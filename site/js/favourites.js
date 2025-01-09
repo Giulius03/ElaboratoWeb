@@ -37,7 +37,13 @@ function generateCards(lang, articoli) {
             article += `
                 <article>
                     <img src="upload/${articoli[i]["nomeimmagine"]}" alt="${nome}">
-                    <strong>${nome}</strong>
+                    <strong>${nome}</strong><form action="utils/deleteFavs.php" method="POST" onsubmit="deleteFavs('<?php echo $currentLanguage ?>', event)">
+                        <input type="hidden" id="articleFavsName${i}" name="articleFavsName" value="${articoli[i]["nomeita"]}">
+                        <button class="btn-with-icon" type="submit">
+                            <i class="fa fa-trash"></i>
+                            Elimina
+                        </button>
+                    </form>
                     <p>${descrizione}</p>
                     <p>€${articoli[i]["prezzo"]}</p>
                 </article>
@@ -95,6 +101,36 @@ async function addCart(lang, event) {
         console.log(json);
         if (json["successful"] === true) {
             alert(lang === "en" ? "Product added to cart." : "Prodotto aggiunto al carrello.");
+            window.location.href = "favourites.php";
+        } else {
+            alert(json["error"]);
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+async function deleteFavs(lang, event) {
+    event.preventDefault();
+
+    const form = event.target.closest("form");
+    const articleName = form.querySelector('input[name="articleFavsName"]').value;
+    const url = "utils/deleteFavs.php";
+    let formData = new FormData();
+    formData.append('articleFavsName', articleName);
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",                   
+            body: formData
+        });
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        console.log(json);
+        if (json["successful"] === true) {
+            alert(lang === "en" ? "Product deleted from favourites." : "Prodotto eliminato dai preferiti.");
             window.location.href = "favourites.php";
         } else {
             alert(json["error"]);
