@@ -493,22 +493,27 @@ main > section > header > button span {
     color: #800020;
 }
 
-main > section > section > article {
+main > section > div > section:first-of-type {
+    width: 100%;
+}
+
+main > section > div > section:first-of-type > article {
     padding: 0 1.5%;
     cursor: pointer;
 }
 
-main > section > section > article > header {
+main > section > div > section:first-of-type > article > header {
     display: grid;
     grid-template-columns: 60% 40%;
 }
 
-main > section > section > article > header > p, main > section > section > article > header > strong {
+main > section > div > section:first-of-type > article > header > p, main > section > div > section:first-of-type > article > header > strong {
     margin: 5px 0 0 0;
     font-size: 20px;
 }
 
-main > section > section > article > header > section > button {
+main > section > div > section:first-of-type > article > header > section > button, 
+main > section > div > section:last-of-type > header > button {
     float: right;
     margin-right: 15px;
     background-color: transparent;
@@ -517,10 +522,37 @@ main > section > section > article > header > section > button {
     font-size: 25px;
 }
 
-main > section > section > article > p{
+main > section > div > section:first-of-type > article > p{
     margin-top: 1%;
 }
 
+main > section > div > section:last-of-type {
+    display: none;
+    width: 53%;
+    justify-content: center;
+    align-items: center;
+    border-left: solid 2px black;
+    margin-left: 15px;
+}
+
+main > section > div > section:last-of-type > header {
+    margin: 40px 0 20px 15px;
+}
+
+main > section > div > section:last-of-type > header > strong {
+    font-size: 25px;
+}
+
+main > section > div > section:last-of-type > header > button {
+    margin-right: 30px;
+    font-size: 40px;
+}
+
+main > section > div > section:last-of-type > p {
+    margin-left: 15px;
+}
+
+/* #region Window for single notification */
 main > article {
     margin: 25px 4% 10% 4%;      
     border-top: 1px solid black;
@@ -546,23 +578,12 @@ main > article > header > button {
 main > article > p {
     margin-top: 20px;
 }
+/* #endregion */
 
 /* #endregion */
 
-/* #region Common things for Shopping Cart and Favourites*/
+/* #region Common things for Shopping Cart*/
 main > section > section > form > input {
-    border: none;
-    background-color: #800020;
-    color: white;
-    margin-top: 15px;
-    float: right;
-    width: 170px;
-    height: 35px;
-    border-radius: 10px;
-    font-weight: 500;
-}
-
-main > section > section > article > form > button {
     border: none;
     background-color: #800020;
     color: white;

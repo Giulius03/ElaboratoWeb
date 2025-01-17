@@ -38,13 +38,7 @@ function generateCards(lang, articoli) {
             article += `
                 <article>
                     <img src="upload/${articoli[i]["nomeimmagine"]}" alt="${nome}">
-                    <strong>${nome}</strong><form action="utils/deleteCart.php" method="POST" onsubmit="deleteCart('<?php echo $currentLanguage ?>', event)">
-                        <input type="hidden" id="articleCartName${i}" name="articleCartName" value="${articoli[i]["nomeita"]}">
-                        <button class="btn-with-icon" type="submit">
-                            <i class="fa fa-trash"></i>
-                            Elimina
-                        </button>
-                    </form>
+                    <strong>${nome}</strong>
                     <p>${descrizione}</p>
                     <p>Quantità:${articoli[i]["quantità"]}</p>
                     <p>Prezzo Singolo:€${articoli[i]["prezzo"]}</p>
@@ -78,36 +72,6 @@ async function getArticlesData(lang) {
         console.log(json);
         const articles = generateCards(lang, json);
         document.querySelector("main > section > section").innerHTML = articles;
-    } catch (error) {
-        console.log(error.message);
-    }
-}
-
-async function deleteCart(lang, event) {
-    event.preventDefault();
-
-    const form = event.target.closest("form");
-    const articleName = form.querySelector('input[name="articleCartName"]').value;
-    const url = "utils/deleteCart.php";
-    let formData = new FormData();
-    formData.append('articleCartName', articleName);
-
-    try {
-        const response = await fetch(url, {
-            method: "POST",                   
-            body: formData
-        });
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
-        const json = await response.json();
-        console.log(json);
-        if (json["successful"] === true) {
-            alert(lang === "en" ? "Product deleted from cart." : "Prodotto eliminato dal carrello.");
-            window.location.href = "cart.php";
-        } else {
-            alert(json["error"]);
-        }
     } catch (error) {
         console.log(error.message);
     }

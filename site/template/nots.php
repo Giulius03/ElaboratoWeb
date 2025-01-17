@@ -9,8 +9,14 @@
         <p>|</p>
         <button onclick="changeStatusAllNotifications('<?php echo $currentLanguage ?>', false)"><span class="bi bi-trash"></span><span><?php echo $currentLanguage == "en" ? "Delete all" : "Elimina tutte" ?></button>
     </header>
-    <section>
-        <!-- Notifications -->
-    </section>
+    <div class="d-flex">
+        <section>
+            <!-- Notifications -->
+        </section>
+        <section>
+            <em><?php echo $currentLanguage == "en" ? "No notifications selected." : "Nessuna notifica selezionata." ?></em>
+            <!-- If selected, a notificaton will be shown below -->
+        </section>
+    </div>
 </section>
 <?php endif; ?>

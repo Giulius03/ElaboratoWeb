@@ -117,6 +117,14 @@
         margin-left: 54%;
     }
 
+    main > section > div > section:first-of-type {
+        width: 47%;
+    }
+    
+    main > section > div > section:last-of-type {
+        display: flex;
+    }
+
     footer > ul:first-of-type {
         grid-template-columns: repeat(3, 1fr);
     }
