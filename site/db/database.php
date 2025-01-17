@@ -154,5 +154,16 @@ class DatabaseHelper{
         }
     }
 
+    public function getOrders($uCF){
+        $stmt = $this->db->prepare("SELECT o.numero
+        FROM ordini o
+        JOIN utenti u ON o.CF = u.CF
+        WHERE u.CF = ?");
+        $stmt->bind_param('s', $uCF);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
 }
 ?>
