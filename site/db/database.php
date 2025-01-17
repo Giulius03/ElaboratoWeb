@@ -132,5 +132,38 @@ class DatabaseHelper{
         return $stmt->insert_id;
     }
 
+    public function deleteFromCart($uCF, $articolo){
+        $stmt = $this->db->prepare("DELETE FROM carrelli WHERE articolo = ? AND proprietario = ?");
+        $stmt->bind_param('ss', $articolo, $uCF);
+        $stmt->execute();
+        if ($stmt->affected_rows > 0) {
+            return ['success' => true];
+        } else {
+            return ['success' => false];
+        }
+    }
+
+    public function deleteFromFavs($uCF, $articolo){
+        $stmt = $this->db->prepare("DELETE FROM preferiti WHERE utente = ? AND articolo = ?");
+        $stmt->bind_param('ss', $uCF, $articolo);
+        $stmt->execute();
+        if ($stmt->affected_rows > 0) {
+            return ['success' => true];
+        } else {
+            return ['success' => false];
+        }
+    }
+
+    public function getOrders($uCF){
+        $stmt = $this->db->prepare("SELECT o.numero
+        FROM ordini o
+        JOIN utenti u ON o.CF = u.CF
+        WHERE u.CF = ?");
+        $stmt->bind_param('s', $uCF);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
 }
 ?>
