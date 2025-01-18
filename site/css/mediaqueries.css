@@ -169,6 +169,14 @@
         margin-left: 65%;
     }
 
+    main > section > div > section:first-of-type {
+        width: 40%;
+    }
+
+    main > section > div > section:last-of-type {
+        width: 60%;
+    }
+
     footer {
         font-size: 105%;
     }
@@ -193,5 +201,13 @@
 
     main > section > header > button:first-of-type {
         margin-left: 70%;
+    }
+
+    main > section > div > section:first-of-type {
+        width: 30%;
+    }
+
+    main > section > div > section:last-of-type {
+        width: 70%;
     }
 } 
