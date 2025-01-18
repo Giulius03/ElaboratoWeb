@@ -4,29 +4,49 @@ const btnEngPhone = document.getElementById("btnEng1");
 const btnEngPC = document.getElementById("btnEng2");
 const lblAllRead = document.querySelector("main > section > header > button:first-of-type > span:last-of-type");
 const lblDeleteAll = document.querySelector("main > section > header > button:last-of-type > span:last-of-type");
+const notTitle = document.querySelector("main > section > header > h1");
+let seqNumber = 0;
+let italianTitle = "";
 
 btnItaPhone.addEventListener('click', (event) => {
     lblAllRead.textContent = "Segna tutte come già lette";
     lblDeleteAll.textContent = "Elimina tutte";
+    notTitle.textContent = "Le Tue Notifiche";
     getNotifications("it");
 });
 
 btnItaPC.addEventListener('click', (event) => {
     lblAllRead.textContent = "Segna tutte come già lette";
     lblDeleteAll.textContent = "Elimina tutte";
+    notTitle.textContent = "Le Tue Notifiche";
     getNotifications("it");
+    console.log(italianTitle);
+    if (italianTitle === "") {
+        document.querySelector("main > section > div > section:last-of-type").style.display = 'flex';
+        document.querySelector("main > section > div > section:last-of-type > em").textContent = "Nessuna notifica selezionata.";
+    } else {
+        seeNotification("it", italianTitle, seqNumber);
+    }
 });
 
 btnEngPhone.addEventListener('click', (event) => {
     lblAllRead.textContent = "Mark all as read";
     lblDeleteAll.textContent = "Delete all";
+    notTitle.textContent = "Your Notifications";
     getNotifications("en");
 });
 
 btnEngPC.addEventListener('click', (event) => {
     lblAllRead.textContent = "Mark all as read";
     lblDeleteAll.textContent = "Delete all";
+    notTitle.textContent = "Your Notifications";
     getNotifications("en");
+    if (italianTitle === "") {
+        document.querySelector("main > section > div > section:last-of-type").style.display = 'flex';
+        document.querySelector("main > section > div > section:last-of-type > em").textContent = "No notifications selected.";
+    } else {
+        seeNotification("en", italianTitle, seqNumber);
+    }
 });
 
 async function changeStatusNotification(event, read, lang, title, sequenceNumber) {
@@ -51,7 +71,8 @@ async function changeStatusNotification(event, read, lang, title, sequenceNumber
         if (json["successful"] === true) {
             getNotifications(lang);
             if (!read && window.innerWidth >= 768) {
-                window.location.reload();
+                document.querySelector("main > section > div > section:last-of-type").style.display = 'flex';
+                getSingleNotification(lang, "", 0);
             }
         } else {
             alert(lang === "en" ? "Operation failed." : "Operazione fallita.");
@@ -71,8 +92,10 @@ async function changeStatusAllNotifications(lang, readAll) {
         }
         getNotifications(lang);
         if (!readAll && window.innerWidth >= 768) {
-            window.location.reload();
-        }    } catch (error) {
+            document.querySelector("main > section > div > section:last-of-type").style.display = 'flex';
+            getSingleNotification(lang, "", 0);
+        }    
+    } catch (error) {
         console.log(error.message);
     }
 }
@@ -148,6 +171,13 @@ async function getNotifications(lang) {
 
 function generateMessage(lang, message) {
     let articleNotification = "";
+
+    if (message === "") {
+        let communication = lang === "en" ? "No notifications selected." : "Nessuna notifica selezionata.";
+        articleNotification = `<em>${communication}</em>`;
+        return articleNotification;
+    }
+
     let title = lang === "en" ? message["titoloeng"] : message["titoloita"];
     let text = lang === "en" ? message["testoeng"].replace(/\n/, "<br>") : message["testoita"].replace(/\n/, "<br>");
     articleNotification += `
@@ -157,6 +187,7 @@ function generateMessage(lang, message) {
     </header>
     <p>${text}</p>
     `;
+    console.log(articleNotification);
 
     return articleNotification;
 }
@@ -173,7 +204,7 @@ async function getSingleNotification(lang, titleita, sequenceNumber) {
         const json = await response.json();
         console.log(json);
         
-        document.querySelector("main > section > div > section:last-of-type").innerHTML = generateMessage(lang, json[0]);
+        document.querySelector("main > section > div > section:last-of-type").innerHTML = generateMessage(lang, json.length !== 0 ? json[0] : "");
     
     } catch (error) {
         console.log(error.message);

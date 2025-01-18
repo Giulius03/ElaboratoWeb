@@ -52,11 +52,6 @@ main > section > section > article {
     margin-bottom: 0;
 }
 
-main > section > div > section:first-of-type > p, main > section > div > section:last-of-type > em {
-    text-align: center;
-    margin: 70px 0 0 0;
-}
-
 main > section > div > section:first-of-type > article {
     border-top: 1px solid black;
     height: 80px;

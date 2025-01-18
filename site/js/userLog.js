@@ -58,10 +58,9 @@ async function showLoginResult(lang, event) {
         const json = await response.json();
         console.log(json);
         if (json["successful"] === true) {
-            alert(lang === "en" ? "Login successful." : "Login avvenuto con successo.");
             window.location.href = "index.php";
         } else {
-            alert(json["error"]);
+            document.querySelector("main").innerHTML += `<p>${json["errore"]}</p>`;
         }
     } catch (error) {
         console.log(error.message);

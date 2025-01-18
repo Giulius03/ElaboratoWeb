@@ -1,4 +1,8 @@
 @media (min-width: 480px) {
+    main > section > header > button:first-of-type {
+        margin-left: 20%;
+    }
+
     footer {
         font-size: 98%;
     }
@@ -25,7 +29,7 @@
     }
 
     main > section > header > button:first-of-type {
-        margin-left: 83%;
+        margin-left: 35%;
     }
 }
 
@@ -114,7 +118,7 @@
     }
 
     main > section > header > button:first-of-type {
-        margin-left: 54%;
+        margin-left: 18%;
     }
 
     main > section > div > section:first-of-type {
@@ -123,6 +127,8 @@
     
     main > section > div > section:last-of-type {
         display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     footer > ul:first-of-type {
@@ -166,7 +172,7 @@
     }
 
     main > section > header > button:first-of-type {
-        margin-left: 65%;
+        margin-left: 37%;
     }
 
     main > section > div > section:first-of-type {
@@ -200,7 +206,7 @@
     }
 
     main > section > header > button:first-of-type {
-        margin-left: 70%;
+        margin-left: 48%;
     }
 
     main > section > div > section:first-of-type {

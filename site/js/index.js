@@ -1,5 +1,6 @@
 function setHomeLang(lang) {
-    document.getElementById("title").textContent = lang === "en" ? "WELCOME" : "BENVENUTO";
+    let name = document.getElementById("title").textContent.split(" ")[1];
+    document.getElementById("title").textContent = (lang === "en" ? "WELCOME " : "BENVENUTO ") + name;
     document.getElementById("txtLast").textContent = lang === "en" ? "Last Releases" : "Ultime Uscite";
     document.getElementById("txtMost").textContent = lang === "en" ? "Most Wanted" : "I Più Venduti";
     document.getElementById("txtUs").textContent = lang === "en" ? "About Us" : "Su di Noi";

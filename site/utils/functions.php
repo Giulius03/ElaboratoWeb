@@ -10,6 +10,7 @@ function isUserLoggedIn(){
 function registerLoggedUser($user){
     $_SESSION["userCF"] = $user["cf"];
     $_SESSION["username"] = $user["username"];
+    $_SESSION["name"] = $user["nome"];
 }
 
 function generateCode(){

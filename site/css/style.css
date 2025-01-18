@@ -289,6 +289,15 @@ main > section > h1 {
     font-size: 30px;
 }
 
+main > section > header > h1 {
+    font-style: normal;
+    font-weight: 700;
+    text-shadow: none;
+    font-size: 30px;
+    margin: 10px 0;
+    margin-left: 10px;
+}
+
 /* #region Common things for Sign Up and Log In */
 main section form {
     padding: 0 10%
@@ -467,7 +476,7 @@ main > section > header {
 }
 
 main > section > header > button:first-of-type {
-    margin-left: 75%;
+    margin-left: 10%;
 }
 
 main > section > header > button {
@@ -529,8 +538,6 @@ main > section > div > section:first-of-type > article > p{
 main > section > div > section:last-of-type {
     display: none;
     width: 53%;
-    justify-content: center;
-    align-items: center;
     border-left: solid 2px black;
     margin-left: 15px;
 }
@@ -551,6 +558,15 @@ main > section > div > section:last-of-type > header > button {
 main > section > div > section:last-of-type > p {
     margin-left: 15px;
 }
+
+main > section > div > section:first-of-type > p, main > section > div > section:last-of-type > em {
+    text-align: center;
+    margin: 70px 0 0 0;
+}
+
+/* main > section > div > section:last-of-type > em {
+
+} */
 
 /* #region Window for single notification */
 main > article {

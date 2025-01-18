@@ -1,4 +1,4 @@
-<h1 id="title"><?php echo $currentLanguage == "en" ? "WELCOME" : "BENVENUTO" ?></h1>
+<h1 id="title"><?php echo ($currentLanguage == "en" ? "WELCOME " : "BENVENUTO ") . (isUserLoggedIn() ? $_SESSION["name"] : "") ?><h1></h1></h1>
 <section>
   <h2 id="txtLast"><?php echo $currentLanguage == "en" ? "Last Releases" : "Ultime Uscite" ?></h2>
   <section id="swiperLast" class="swiper">
