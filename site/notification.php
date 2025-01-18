@@ -5,6 +5,7 @@ require_once 'bootstrap.php';
 $templateParams["titolo"] = "Notification | Bugs Burnley";
 $templateParams["nome"] = "notTempl.php";
 $templateParams["js"] = array("js/notification.js");
+$templateParams["css"] = array("css/adjustments.css");
 
 $titleita = $_GET["title"];
 $sequenceNumber = $_GET["sequenceNumber"];

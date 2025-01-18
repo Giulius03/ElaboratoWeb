@@ -44,7 +44,7 @@ main > section > form > ul > li:nth-of-type(4) > input:hover {
     font-weight: 700;
 }
 
-main > section > section > h2, main > section > section > form h2, main > section > div section > h2,
+main > section > section > h2, main > section > section > form h2, main > section > div section > h2, main > article > h2,
 main > section > div > section > article > h2, main > section > div > section > article > section  > h2 {
     display: none;
 }
