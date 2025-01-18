@@ -60,7 +60,7 @@ async function showLoginResult(lang, event) {
         if (json["successful"] === true) {
             window.location.href = "index.php";
         } else {
-            document.querySelector("main").innerHTML += `<p>${json["errore"]}</p>`;
+            document.querySelector("main").innerHTML += `<p style="text-align: center;">${json["error"]}</p>`;
         }
     } catch (error) {
         console.log(error.message);

@@ -113,20 +113,20 @@ function is16YearsOld() {
 }
 
 function signUpFormValid(lang) {    
+    let problem = "";
     if (!is16YearsOld()) {
-        alert(lang === "en" ? "You have to be at least 16 years old to sign up." : "Devi avere almeno 16 anni per iscriverti.");
-        return false;
-    }
-    if (nationsSelect.value === "Nation" || nationsSelect.value === "Nazione") {
-        alert(lang === "en" ? "You have to select a nation." : "Devi selezionare una nazione.");
+        problem = lang === "en" ? "You have to be at least 16 years old to sign up." : "Devi avere almeno 16 anni per iscriverti.";
+        document.querySelector("main").innerHTML += `<p style="text-align: center;">${problem}</p>`;
         return false;
     }
     if (document.getElementById('housenumber').value <= 0) {
-        alert(lang === "en" ? "House number not valid." : "Numero civico non valido.");
+        problem = lang === "en" ? "House number not valid." : "Numero civico non valido.";
+        document.querySelector("main").innerHTML += `<p style="text-align: center;">${problem}</p>`;
         return false;
     }
     if (document.getElementById('password').value !== document.getElementById('confpassword').value) {
-        alert(lang === "en" ? "The passwords don't match." : "Le password non corrispondono.");
+        problem = lang === "en" ? "The passwords don't match." : "Le password non corrispondono.";
+        document.querySelector("main").innerHTML += `<p style="text-align: center;">${problem}</p>`;
         return false;
     }
     return true;
@@ -140,9 +140,9 @@ async function showSignUpResult(lang, event) {
     formData.append('name', document.getElementById('name').value);
     formData.append('lastName', document.getElementById('lastname').value);
     let month = new Date(document.getElementById('date').value).getMonth()+1;
-    console.log(month);
     formData.append('birthDate', new Date(document.getElementById('date').value).getFullYear() + "-" + month + "-" + new Date(document.getElementById('date').value).getDate());
-    formData.append('taxIDCode', document.getElementById('taxid').value);
+    let taxIDCode = document.getElementById('taxid').value
+    formData.append('taxIDCode', taxIDCode);
     formData.append('nation', nationsSelect.value);
     formData.append('city', document.getElementById('city').value);
     formData.append('address', document.getElementById('address').value);
@@ -165,12 +165,30 @@ async function showSignUpResult(lang, event) {
         const json = await response.json();
         console.log(json);
         if (json["successful"] === true) {
-            alert(lang === "en" ? "Registration successful, now you can log in." : "Registrazione avvenuta con successo, ora puoi accedere.");
-            window.location.href = "login.php";
+            sendWelcomeNotification(taxIDCode);
         } else {
-            alert(json["error"]);
+            document.querySelector("main").innerHTML += `<p style="text-align: center;">${json["error"]}</p>`;
         }
     } catch (error) {
         console.log(error.message)
+    }
+}
+
+async function sendWelcomeNotification(user) {
+    const url = "utils/sendNotification.php?user=" + user + "&title=Sconto di benvenuto !";
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        console.log(json);
+        if (json["successful"] === false) {
+            console.log(json["error"]);
+        } else {
+            window.location.href = "login.php";
+        }
+    } catch (error) {
+        console.log(error.message);
     }
 }

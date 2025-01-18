@@ -75,7 +75,8 @@ async function changeStatusNotification(event, read, lang, title, sequenceNumber
                 getSingleNotification(lang, "", 0);
             }
         } else {
-            alert(lang === "en" ? "Operation failed." : "Operazione fallita.");
+            let problem = lang === "en" ? "Operation failed." : "Operazione fallita.";
+            document.querySelector("main").innerHTML += `<p style="text-align: center;">${problem}</p>`;
         }
 
     } catch (error) {
@@ -110,7 +111,9 @@ function seeNotification(lang, title, sequenceNumber) {
 }
 
 function generateNotifications(lang, notifications) {
-    let notsSections = "";
+    let notsSections = `
+    <h2>tit</h2>
+    `;
 
     if (notifications.length === 0) {
         let comunication = lang === "en" ? "You have no notification." : "Non hai nessuna notifica.";
@@ -130,10 +133,12 @@ function generateNotifications(lang, notifications) {
             notsSections += `; changeStatusNotification(event, true, '${lang}', '${notifications[i]["titoloita"]}', ${notifications[i]["numseq"]})`;
         }
         notsSections += `">
+            <h2>tit</h2>
             <header>`;
         notsSections += notifications[i]["letta"] === 0 ? `<strong>${title}</strong>` : `<p>${title}</p>`;
         notsSections += `
-                <section>`;
+                <section>
+                    <h2>tit</h2>`;
         notsSections += `<button onclick="changeStatusNotification(event, false, '${lang}', '${notifications[i]["titoloita"]}', ${notifications[i]["numseq"]})"><span class="bi bi-trash"></button>`;
         notsSections += notifications[i]["letta"] === 0 ? `<button><span class="bi bi-envelope"></button>` : `<button><span class="bi bi-envelope-open"></button>`;
         if (notifications[i]["letta"] === 0) {
@@ -170,7 +175,9 @@ async function getNotifications(lang) {
 }
 
 function generateMessage(lang, message) {
-    let articleNotification = "";
+    let articleNotification = `
+    <h2>tit</h2>
+    `;
 
     if (message === "") {
         let communication = lang === "en" ? "No notifications selected." : "Nessuna notifica selezionata.";
@@ -187,7 +194,6 @@ function generateMessage(lang, message) {
     </header>
     <p>${text}</p>
     `;
-    console.log(articleNotification);
 
     return articleNotification;
 }

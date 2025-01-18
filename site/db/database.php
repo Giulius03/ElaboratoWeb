@@ -98,6 +98,25 @@ class DatabaseHelper{
         return $stmt->affected_rows;
     }
 
+    private function calculateSequenceNumber($userCF, $title) {
+        $stmt = $this->db->prepare("SELECT MAX(NumeroSequenza) as seqNumMax FROM notifiche WHERE utente = ? AND titolo = ?");
+        $stmt->bind_param('ss', $userCF, $title);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function sendNotification($userCF, $title) {
+        $result = $this->calculateSequenceNumber($userCF, $title);
+        $stmt = $this->db->prepare("INSERT INTO notifiche (utente, titolo, numerosequenza, letta, datainvio) VALUES 
+            (?, ?, ?, 0, ?)");
+        $sequenceNumber = is_null($result[0]["seqNumMax"]) ? 1 : $result[0]["seqNumMax"];
+        $today = date("Y-m-d");
+        $stmt->bind_param('ssis', $userCF, $title, $sequenceNumber, $today);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
+
     public function getCart($uCF){
         $stmt = $this->db->prepare("SELECT a.nomeita, a.nomeeng, a.nomeimmagine, a.prezzo, a.descrizioneita, a.descrizioneeng, c.quantità 
         FROM carrelli c

@@ -67,7 +67,8 @@ async function checkCode(lang, event) {
             document.getElementById("codeForm").style.display = 'none';
             document.getElementById("newForm").style.display = 'block';
         } else {
-            alert(lang === "en" ? "Wrong code." : "Codice errato.");
+            let problem = lang === "en" ? "Wrong code." : "Codice errato.";
+            document.querySelector("main").innerHTML += `<p style="text-align: center;">${problem}</p>`;
         }
     } catch (error) {
         console.log(error.message);
@@ -84,7 +85,8 @@ async function changePassword(lang, event) {
     formData.append('password', password);
     try {
         if (password !== document.getElementById('confpassword').value) {
-            alert(lang === "en" ? "The passwords don't match." : "Le password non corrispondono.");
+            let problem = lang === "en" ? "The passwords don't match." : "Le password non corrispondono.";
+            document.querySelector("main").innerHTML += `<p style="text-align: center;">${problem}</p>`;
             throw new Error('');
         }
         const response = await fetch(url, {
@@ -97,10 +99,9 @@ async function changePassword(lang, event) {
         const json = await response.json();
         console.log(json);
         if (json["successful"] === true) {
-            alert(lang === "en" ? "Password changed successfully." : "Password cambiata correttamente.");
             window.location.href = "login.php";
         } else {
-            alert(json["error"]);
+            document.querySelector("main").innerHTML += `<p style="text-align: center;">${json["error"]}</p>`;
         }
     } catch (error) {
         console.log(error.message);

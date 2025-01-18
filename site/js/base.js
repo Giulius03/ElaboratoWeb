@@ -36,8 +36,11 @@ async function logOut(lang) {
         const json = await response.json();
         console.log(json);
         if (json["successful"] === true) {
-            alert(lang === "en" ? "Logout successful." : "Logout avvenuto con successo.");
-            window.location.href = "index.php";
+            if (window.location.href === "index.php") {
+                window.location.reload();
+            } else {
+                window.location.href = "index.php";
+            }
         }
     } catch (error) {
         console.log(error.message);

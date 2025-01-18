@@ -40,7 +40,8 @@ async function deleteNotification(lang, titleita, sequenceNumber) {
         if (json["successful"] === true) {
             window.location.href = "notifications.php";
         } else {
-            alert(lang === "en" ? "Operation failed." : "Operazione fallita.");
+            let problem = lang === "en" ? "Operation failed." : "Operazione fallita."
+            document.querySelector("main").innerHTML += `<p style="text-align: center;">${problem}</p>`;
         }
 
     } catch (error) {
@@ -49,7 +50,9 @@ async function deleteNotification(lang, titleita, sequenceNumber) {
 }
 
 function generateMessage(lang, message) {
-    let articleNotification = "";
+    let articleNotification = `
+    <h2>tit</h2>
+    `;
     let title = lang === "en" ? message["titoloeng"] : message["titoloita"];
     let text = lang === "en" ? message["testoeng"].replace(/\n/, "<br>") : message["testoita"].replace(/\n/, "<br>");
     articleNotification += `
