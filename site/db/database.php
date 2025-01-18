@@ -184,5 +184,17 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getArticlesInOrder($numeroOrdine){
+        $stmt = $this->db->prepare("SELECT aio.nome, aio.quantità, aio.taglia, c.numeroordine
+        FROM articoli_in_ordine aio
+        JOIN composizioni c ON aio.Id = c.idarticolo
+        WHERE c.numeroordine = ?");
+        $stmt->bind_param('i', $numeroOrdine);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+
 }
 ?>

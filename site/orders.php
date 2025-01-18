@@ -5,7 +5,7 @@ require_once 'bootstrap.php';
 $templateParams["titolo"] = "Orders | Bugs Burnley";
 $templateParams["nome"] = "ordersTempl.php";
 $templateParams["js"] = array("js/orders.js");
-$templateParams["onloadFunctions"] = "getArticlesData('$currentLanguage')";
+$templateParams["onloadFunctions"] = "getArticlesInOrder('$currentLanguage')";
 
 require 'template/base.php';
 ?>

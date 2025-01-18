@@ -1,7 +1,7 @@
 function setUserLogFormLang(lang) {
     document.getElementById('title').textContent = lang === "en" ? "MY ORDERS" : "I MIEI ORDINI";
     document.getElementById('txtRel').textContent = lang === "en" ? "Releated Products" : "Articoli Correlati";
-    getArticlesData(lang);
+    getArticlesInOrder(lang);
 }
 
 const btnItaPhone = document.getElementById("btnIta1");
@@ -25,69 +25,30 @@ btnEngPC.addEventListener('click', (event) => {
     setUserLogFormLang("en");
 });
 
-function generateArticles(lang, ordini) {
+function generateCards(lang, articoli, number) {
+    let order = lang === "en" ? "Order Number" : "Numero Ordine"
     let view = lang === "en" ? "View Order" : "Vedi Ordine"
-    let noOrdini = lang === "en" ? 'There are no orders to see!' : 'Non ci sono ordini da vedere!'
-    let ordine = lang === "en" ? 'Order Number' : 'Numero Ordine'
-    let article = "";
+    let article = `<article>
+                        <strong>${order}: ${articoli[0]["numeroordine"]}
+                        <ul>
+                        `;
 
-    if(ordini.length > 0){
-        for (let i = 0; i < ordini.length; i++) {
-            article += `
-                <article>
-                    <strong>${ordine}: ${ordini[i]["numero"]}</strong>
-                </article>
-                <form action="utils/singleOrder.php" method="POST">
-                    <input type="hidden" id="orderNumber${i}" name="orderNumber" value="${ordini[i]["numero"]}">
-                    <input type="submit" id="btnAdd" value="${view}">
-                </form>
-            `
-        }
-    } else {
+    for (let i = 0; i < articoli.length; i++) {
+        let nome = lang === "en" ? articoli[i]["nomeeng"] : articoli[i]["nomeita"];
         article += `
-                <article>
-                    <strong>${noOrdini}</strong>
-                </article>
-            `
+                <li>${articoli[i]["nome"]} ${articoli[i]["taglia"]}     X ${articoli[i]["quantità"]}</li>
+        `
     }
-    return article;
-}
 
-function generateCards(lang, articoli) {
-    let view = lang === "en" ? "View Order" : "Vedi Ordine"
-    let noOrdini = lang === "en" ? 'There are no orders to see!' : 'Non ci sono ordini da vedere!'
-    let article = "";
+    article += `
+        </ul>
+        <form action="utils/singleOrder.php" method="POST" onsubmit="addCart('<?php echo $currentLanguage ?>', event)">
+            <input type="hidden" id="orderNumber${number}" name="orderNumber" value="${number}">
+            <input type="submit" id="btnAdd" value="${view}">
+        </form>
+    </article>
+    `
 
-    if(articoli.length > 0){
-        for (let i = 0; i < articoli.length; i++) {
-            let nome = lang === "en" ? articoli[i]["nomeeng"] : articoli[i]["nomeita"];
-            let descrizione = lang === "en" ? articoli[i]["descrizioneeng"] : articoli[i]["descrizioneita"];
-            article += `
-                <article>
-                    <img src="upload/${articoli[i]["nomeimmagine"]}" alt="${nome}">
-                    <strong>${nome}</strong><form action="utils/deleteFavs.php" method="POST" onsubmit="deleteFavs('<?php echo $currentLanguage ?>', event)">
-                        <input type="hidden" id="articleFavsName${i}" name="articleFavsName" value="${articoli[i]["nomeita"]}">
-                        <button class="btn-with-icon" type="submit">
-                            <i class="fa fa-trash"></i>
-                            Elimina
-                        </button>
-                    </form>
-                    <p>${descrizione}</p>
-                    <p>€${articoli[i]["prezzo"]}</p>
-                </article>
-                <form action="utils/addToCart.php" method="POST" onsubmit="addCart('<?php echo $currentLanguage ?>', event)">
-                    <input type="hidden" id="articleName${i}" name="articleName" value="${articoli[i]["nomeita"]}">
-                    <input type="submit" id="btnAdd" value="${aggiungi}">
-                </form>
-            `
-        }
-    } else {
-        article += `
-                <article>
-                    <strong>${noPreferiti}</strong>
-                </article>
-            `
-    }
     return article;
 }
 
@@ -106,21 +67,37 @@ async function getOrdersData() {
     }
 }
 
-async function getArticleInOrder(lang) {
-    const orders = getOrdersData();
-    for(let i = 0; i < orders.length; i++){
-        const url = "utils/getArticleInOrder.php";
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`Response status: ${response.status}`);
-            }
-            const json = await response.json();
-            console.log(json);
-            const articles = generateCards(lang, json);
-            document.querySelector("main > section > section").innerHTML = articles;
-        } catch (error) {
-            console.log(error.message);
+async function getArticlesInOrder(lang) {
+    let allArticles = "";
+    try {
+        // Ottieni gli ordini
+        const orders = await getOrdersData(); // Attendi il completamento della funzione asincrona
+        if (orders.length === 0) {
+            console.log("Nessun ordine trovato.");
+            return;
         }
+
+        // Cicla attraverso gli ordini
+        for (let i = 0; i < orders.length; i++) {
+            const orderId = orders[i]["numero"]; // Supponendo che ogni ordine abbia un campo "id"
+            const url = `utils/getArticleInOrder.php?orderId=${orderId}`; // Passa l'ID ordine nella query string
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Errore nel recupero articoli per ordine ${orderId}: ${response.status}`);
+                }
+                const json = await response.json(); // Articoli per l'ordine corrente
+                console.log(json);
+
+                // Genera e aggiungi le carte per gli articoli all'HTML
+                allArticles += generateCards(lang, json, orderId); // `generateCards` genera HTML per gli articoli
+            } catch (error) {
+                console.log(error.message);
+            }
+            document.querySelector("main > section > section").innerHTML = allArticles;
+        }
+    } catch (error) {
+        console.log(error.message);
     }
 }
