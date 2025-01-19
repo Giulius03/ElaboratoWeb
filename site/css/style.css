@@ -630,12 +630,23 @@ main > article > button:hover, main > section > div > section:last-of-type > but
 
 /* #endregion */
 
-/* #region Common things for Shopping Cart*/
-main > section > section > form > input {
+/* #region Common things for Shopping Cart and Favourites*/
+main > section > section > form > input{
     border: none;
     background-color: #800020;
     color: white;
     margin-top: 15px;
+    float: right;
+    width: 170px;
+    height: 35px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+main > section > section > article > form > button {
+    border: none;
+    background-color: #800020;
+    color: white;
     float: right;
     width: 130px;
     height: 35px;
@@ -644,13 +655,14 @@ main > section > section > form > input {
 }
 
 main > section > section > p{
-    margin-left: 300px;
+    padding-left: 300px;
 }
 
 main > section > section > article {
     display: block;
     align-items: center;
-    margin: 0 0 200px 0;
+    padding: 50px 0 50px 0;
+    border-bottom: 1px solid;
 }
 
 main > section > section > article > img {
@@ -661,6 +673,29 @@ main > section > section > article > img {
 
 main > section > section > article > p:nth-of-type(2) {
     margin-left: 300px;
+}
+
+main > section > section > article > form {
+    margin-bottom: 50px;
+    /*border-bottom: 1px solid;*/
+}
+
+/* #endregion */
+
+/* #region Common things for Orders*/
+main > section > section > p {
+    padding: 50px 0 50px 300px;
+    border-bottom: 1px solid;
+}
+
+main > section > section > ul, main > section > section > strong{
+    margin-left: 30px;
+}
+
+main > section > section > ul > li > img {
+    width: 200px;
+    height: 200px;
+    display: none;
 }
 
 /* #endregion */
