@@ -131,6 +131,10 @@
         align-items: center;
     }
 
+    main > section > section > ul > li > img {
+        display: inline;
+    }
+
     footer > ul:first-of-type {
         grid-template-columns: repeat(3, 1fr);
     }

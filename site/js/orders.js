@@ -25,19 +25,20 @@ btnEngPC.addEventListener('click', (event) => {
     setUserLogFormLang("en");
 });
 
-function generateCards(lang, articoli, number) {
+function generateCards(lang, ordini, number) {
+    let prezzo = 0;
     let order = lang === "en" ? "Order Number" : "Numero Ordine"
     let view = lang === "en" ? "View Order" : "Vedi Ordine"
-    let article = `<article>
-                        <strong>${order}: ${articoli[0]["numeroordine"]}
+    let article = `<strong>${order}: ${number}</strong>
                         <ul>
                         `;
 
-    for (let i = 0; i < articoli.length; i++) {
-        let nome = lang === "en" ? articoli[i]["nomeeng"] : articoli[i]["nomeita"];
+    for (let i = 0; i < ordini.length; i++) {
+        let nome = lang === "en" ? ordini[i]["nomeeng"] : ordini[i]["nomeita"];
         article += `
-                <li>${articoli[i]["nome"]} ${articoli[i]["taglia"]}     X ${articoli[i]["quantità"]}</li>
+                <li><img src="upload/${ordini[i]["nomeimmagine"]}" alt="${nome}"> ${nome} ${ordini[i]["taglia"]}     X ${ordini[i]["quantità"]}</li>
         `
+        prezzo += ordini[i]["quantità"] * ordini[i]["prezzo"];
     }
 
     article += `
@@ -46,8 +47,11 @@ function generateCards(lang, articoli, number) {
             <input type="hidden" id="orderNumber${number}" name="orderNumber" value="${number}">
             <input type="submit" id="btnAdd" value="${view}">
         </form>
-    </article>
-    `
+        <p>
+        `
+    article += lang === "en" ? 'Total:€' : 'Totale:€'
+    article += `${prezzo}</p>`
+    
 
     return article;
 }
@@ -79,7 +83,8 @@ async function getArticlesInOrder(lang) {
 
         // Cicla attraverso gli ordini
         for (let i = 0; i < orders.length; i++) {
-            const orderId = orders[i]["numero"]; // Supponendo che ogni ordine abbia un campo "id"
+            let articlesList = [];
+            const orderId = orders[i]["numero"];
             const url = `utils/getArticleInOrder.php?orderId=${orderId}`; // Passa l'ID ordine nella query string
 
             try {
@@ -90,8 +95,26 @@ async function getArticlesInOrder(lang) {
                 const json = await response.json(); // Articoli per l'ordine corrente
                 console.log(json);
 
-                // Genera e aggiungi le carte per gli articoli all'HTML
-                allArticles += generateCards(lang, json, orderId); // `generateCards` genera HTML per gli articoli
+                const articlesInOrder = json;
+                for (let j = 0; j < articlesInOrder.length; j++){
+                    const articleID = articlesInOrder[j]["Id"];
+                    const url = `utils/getArticleInfo.php?articleID=${articleID}`;
+
+                    try {
+                        const response = await fetch(url);
+                        if (!response.ok) {
+                            throw new Error(`Response status: ${response.status}`);
+                        }
+                        const jsonArt = await response.json(); // Articoli per l'ordine corrente
+                        console.log(jsonArt);
+
+                        articlesList = articlesList.concat(jsonArt);
+
+                    } catch (error) {
+                        console.log(error.message);
+                    }
+                }
+                allArticles += generateCards(lang, articlesList, orderId);
             } catch (error) {
                 console.log(error.message);
             }

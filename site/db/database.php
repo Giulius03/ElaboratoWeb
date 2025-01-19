@@ -195,6 +195,17 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getArticleInfo($IDArticolo){
+        $stmt = $this->db->prepare("SELECT a.nomeita, a.nomeeng, a.nomeimmagine, a.prezzo, aio.quantità, aio.taglia
+        FROM articoli a
+        JOIN articoli_in_ordine aio ON a.nomeita = aio.nome
+        WHERE aio.Id = ?");
+        $stmt->bind_param('i', $IDArticolo);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function startOrder($sequenceNumber) {
         $stmt = $this->db->prepare("UPDATE ordini SET stato = 1 WHERE numero = (SELECT numero FROM ordini ORDER BY 
             datainserimento LIMIT 1 OFFSET ?)");
