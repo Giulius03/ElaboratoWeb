@@ -564,10 +564,6 @@ main > section > div > section:first-of-type > p, main > section > div > section
     margin: 70px 0 0 0;
 }
 
-/* main > section > div > section:last-of-type > em {
-
-} */
-
 /* #region Window for single notification */
 main > article {
     margin: 25px 4% 10% 4%;      
@@ -593,6 +589,25 @@ main > article > header > button {
 
 main > article > p {
     margin-top: 20px;
+}
+
+main > article > button, main > section > div > section:last-of-type > button {
+    width: 20%;
+    border-radius: 5px;
+    border: none;
+    background-color: #800020;
+    color: white;
+    font-weight: 500;
+    height: 30px;
+    margin-bottom: 15px;
+}
+
+main > section > div > section:last-of-type > button {
+    margin-left: 15px;
+}
+
+main > article > button:hover, main > section > div > section:last-of-type > button:hover {
+    font-weight: 700;
 }
 /* #endregion */
 

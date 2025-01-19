@@ -8,5 +8,4 @@ if (isset($_GET["title"]) && isset($_GET["sequenceNumber"])) {
 
 header('Content-Type: application/json');
 echo json_encode($notification);
-
 ?>

@@ -92,8 +92,9 @@ create table NOTIFICHE (
 
 create table ORDINI (
      Numero int not null,
-     Stato varchar(100) not null,
+     Stato int,
      CF varchar(16) not null,
+     DataInserimento datetime not null,
      constraint IDORDINE primary key (Numero));
 
 create table PARTITE (

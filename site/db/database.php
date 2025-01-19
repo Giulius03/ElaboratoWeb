@@ -110,7 +110,7 @@ class DatabaseHelper{
         $result = $this->calculateSequenceNumber($userCF, $title);
         $stmt = $this->db->prepare("INSERT INTO notifiche (utente, titolo, numerosequenza, letta, datainvio) VALUES 
             (?, ?, ?, 0, ?)");
-        $sequenceNumber = is_null($result[0]["seqNumMax"]) ? 1 : $result[0]["seqNumMax"];
+        $sequenceNumber = is_null($result[0]["seqNumMax"]) ? 1 : ($result[0]["seqNumMax"] + 1);
         $today = date("Y-m-d");
         $stmt->bind_param('ssis', $userCF, $title, $sequenceNumber, $today);
         $stmt->execute();
@@ -195,6 +195,22 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function startOrder($sequenceNumber) {
+        $stmt = $this->db->prepare("UPDATE ordini SET stato = 1 WHERE numero = (SELECT numero FROM ordini ORDER BY 
+            datainserimento LIMIT 1 OFFSET ?)");
+        $sequenceNumber--;
+        $stmt->bind_param('i', $sequenceNumber);
+        $stmt->execute();
+        return $stmt->affected_rows;
+    }
 
+    public function getUserFromNthOrder($sequenceNumber) {
+        $stmt = $this->db->prepare("SELECT cf FROM ordini ORDER BY datainserimento LIMIT 1 OFFSET ?");
+        $sequenceNumber--;
+        $stmt->bind_param('i', $sequenceNumber);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>
