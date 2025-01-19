@@ -602,7 +602,24 @@ main > article > button, main > section > div > section:last-of-type > button {
     margin-bottom: 15px;
 }
 
-main > section > div > section:last-of-type > button {
+main > article > div, main > section > div > section:last-of-type > div {
+    justify-content: center;
+    align-items: center;
+}
+
+main > article > div button, main > section > div > section:last-of-type > div button {
+    border: none;
+    background-color: transparent;
+    color: #800020;
+    font-size: 25px;
+    margin-bottom: 15px;
+}
+
+main > article > div button:not(:last-of-type), main > section > div > section:last-of-type > div button:not(:last-of-type) {
+    margin-right: 5px;
+}
+
+main > section > div > section:last-of-type > button, main > section > div > section:last-of-type > div button:first-of-type {
     margin-left: 15px;
 }
 

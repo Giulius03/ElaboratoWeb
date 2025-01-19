@@ -29,7 +29,6 @@ create table ARTICOLI (
      DataInserimento datetime not null,
      Quantità int not null,
      Gruppo varchar(25) not null,
-     Valutazione float not null,
      Categoria varchar(15) not null,
      constraint IDTIPO_ARTICOLO primary key (NomeITA),
      constraint IDTIPO_ARTICOLO_1 unique (NomeENG));
@@ -39,6 +38,7 @@ create table ARTICOLI_IN_ORDINE (
      Nome varchar(25) not null,
      Quantità int not null,
      Taglia varchar(3) not null,
+     Valutazione float,
      constraint FKR_ID primary key (Id));
 
 create table BIGLIETTI (

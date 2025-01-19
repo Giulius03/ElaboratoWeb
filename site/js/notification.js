@@ -73,7 +73,7 @@ function generateMessage(lang, message) {
         `;
         for (let i = 0; i < 5; i++) {
             articleNotification += `
-            <button><span class="bi bi-star"></span></button>
+            <button onclick="evaluation(${i+1})"><span id="star${i}" class="bi bi-star"></span></button>
             `;
         }
         articleNotification += `
@@ -150,5 +150,14 @@ async function sendConfirmNotification(numSeq) {
         } catch (error) {
             console.log(error.message);
         }
+    }
+}
+
+function evaluation(value) {
+    for (let i = 0; i < 5; i++) {
+        document.getElementById("star"+i).className = "bi bi-star";
+    }
+    for (let i = 0; i < value; i++) {
+        document.getElementById("star"+i).className = "bi bi-star-fill";
     }
 }
