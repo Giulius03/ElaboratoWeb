@@ -49,7 +49,7 @@ async function deleteNotification(lang, titleita, sequenceNumber) {
     }
 }
 
-function generateMessage(lang, message) {
+async function generateMessage(lang, message) {
     let articleNotification = `
     <h2>tit</h2>
     `;
@@ -71,17 +71,37 @@ function generateMessage(lang, message) {
         articleNotification += `
         <div class="d-flex">
         `;
+        const order = await findOrder(message["numseq"]);
         for (let i = 0; i < 5; i++) {
+            let className = (order["valutazione"] !== null && i < order["valutazione"]) ? "bi bi-star-fill" : "bi bi-star";
             articleNotification += `
-            <button onclick="evaluation(${i+1})"><span id="star${i}" class="bi bi-star"></span></button>
+            <button onclick="evaluation(${i+1}, ${message["numseq"]})"><span id="star${i}" class="${className}"></span></button>
             `;
         }
         articleNotification += `
         </div>
         `;
+        let orderText = (lang === "en" ? "Order number: " : "Numero ordine: ") + order["numordine"];
+        articleNotification += `
+        <p style="text-align: center">${orderText}</p>
+        `;
     }
 
     return articleNotification;
+}
+
+async function findOrder(sequenceNumber) {
+    let url = "utils/orderAlreadyEvaluated.php?seqNum=" + sequenceNumber;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        return json[0];
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 
 async function seeNotification(lang, titleita, sequenceNumber) {
@@ -96,7 +116,7 @@ async function seeNotification(lang, titleita, sequenceNumber) {
         const json = await response.json();
         console.log(json);
         
-        document.querySelector("main > article").innerHTML = generateMessage(lang, json[0]);
+        document.querySelector("main > article").innerHTML = await generateMessage(lang, json[0]);
     
     } catch (error) {
         console.log(error.message);
@@ -153,11 +173,25 @@ async function sendConfirmNotification(numSeq) {
     }
 }
 
-function evaluation(value) {
-    for (let i = 0; i < 5; i++) {
-        document.getElementById("star"+i).className = "bi bi-star";
-    }
-    for (let i = 0; i < value; i++) {
-        document.getElementById("star"+i).className = "bi bi-star-fill";
+async function evaluation(value, seqNum) {
+    const url = "utils/evaluateOrder.php?seqNum=" + seqNum + "&value=" + value;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        if (json["successful"] === true) {
+            for (let i = 0; i < 5; i++) {
+                document.getElementById("star"+i).className = "bi bi-star";
+            }
+            for (let i = 0; i < value; i++) {
+                document.getElementById("star"+i).className = "bi bi-star-fill";
+            }
+        } else {
+            console.log(json["error"]);
+        }
+    } catch (error) {
+        console.log(error.message);
     }
 }

@@ -38,7 +38,6 @@ create table ARTICOLI_IN_ORDINE (
      Nome varchar(25) not null,
      Quantità int not null,
      Taglia varchar(3) not null,
-     Valutazione float,
      constraint FKR_ID primary key (Id));
 
 create table BIGLIETTI (
@@ -67,6 +66,7 @@ create table CATEGORIE (
 create table COMPOSIZIONI (
      IdArticolo int not null,
      NumeroOrdine int not null,
+     Valutazione int,
      constraint IDComposizione primary key (NumeroOrdine, IdArticolo));
 
 create table DISPONIBILITA (
@@ -95,6 +95,7 @@ create table ORDINI (
      Stato int,
      CF varchar(16) not null,
      DataInserimento datetime not null,
+     DataConsegna datetime,
      constraint IDORDINE primary key (Numero));
 
 create table PARTITE (

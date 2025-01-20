@@ -223,5 +223,24 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function evaluateOrder($userCF, $value, $sequenceNumber) {
+        $stmt = $this->db->prepare("UPDATE composizioni SET valutazione = ? WHERE numeroordine = (SELECT numero FROM 
+            ordini WHERE cf = ? ORDER BY dataconsegna LIMIT 1 OFFSET ?)");
+        $sequenceNumber--;
+        $stmt->bind_param('isi', $value, $userCF, $sequenceNumber);
+        $stmt->execute();
+        return $stmt->affected_rows;
+    }
+
+    public function isOrderAlreadyEvaluated($userCF, $sequenceNumber) {
+        $stmt = $this->db->prepare("SELECT o.numero AS numordine, c.valutazione AS valutazione FROM ordini o INNER JOIN composizioni c ON o.numero =
+        c.numeroordine WHERE o.numero = (SELECT numero FROM ordini WHERE cf = ? ORDER BY dataconsegna LIMIT 1 OFFSET ?) GROUP BY o.numero");
+        $sequenceNumber--;
+        $stmt->bind_param('si',$userCF, $sequenceNumber);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>
