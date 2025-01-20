@@ -100,10 +100,10 @@ async function addCart(lang, event) {
         const json = await response.json();
         console.log(json);
         if (json["successful"] === true) {
-            alert(lang === "en" ? "Product added to cart." : "Prodotto aggiunto al carrello.");
+            console.log(lang === "en" ? "Product added to cart." : "Prodotto aggiunto al carrello.");
             window.location.href = "favourites.php";
         } else {
-            alert(json["error"]);
+            console.log(json["error"]);
         }
     } catch (error) {
         console.log(error.message);
@@ -130,10 +130,10 @@ async function deleteFavs(lang, event) {
         const json = await response.json();
         console.log(json);
         if (json["successful"] === true) {
-            alert(lang === "en" ? "Product deleted from favourites." : "Prodotto eliminato dai preferiti.");
+            console.log(lang === "en" ? "Product deleted from favourites." : "Prodotto eliminato dai preferiti.");
             window.location.href = "favourites.php";
         } else {
-            alert(json["error"]);
+            console.log(json["error"]);
         }
     } catch (error) {
         console.log(error.message);

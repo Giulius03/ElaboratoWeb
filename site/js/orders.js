@@ -1,6 +1,5 @@
 function setUserLogFormLang(lang) {
     document.getElementById('title').textContent = lang === "en" ? "MY ORDERS" : "I MIEI ORDINI";
-    document.getElementById('txtRel').textContent = lang === "en" ? "Releated Products" : "Articoli Correlati";
     getArticlesInOrder(lang);
 }
 

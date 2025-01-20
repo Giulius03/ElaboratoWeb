@@ -103,10 +103,10 @@ async function deleteCart(lang, event) {
         const json = await response.json();
         console.log(json);
         if (json["successful"] === true) {
-            alert(lang === "en" ? "Product deleted from cart." : "Prodotto eliminato dal carrello.");
+            console.log(lang === "en" ? "Product deleted from cart." : "Prodotto eliminato dal carrello.");
             window.location.href = "cart.php";
         } else {
-            alert(json["error"]);
+            console.log(json["error"]);
         }
     } catch (error) {
         console.log(error.message);
