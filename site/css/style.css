@@ -631,7 +631,7 @@ main > article > button:hover, main > section > div > section:last-of-type > but
 /* #endregion */
 
 /* #region Common things for Shopping Cart and Favourites*/
-main > section > section > form > input{
+main > section > section > form > input, main > section > section > article > form > input {
     border: none;
     background-color: #800020;
     color: white;
@@ -696,6 +696,35 @@ main > section > section > ul > li > img {
     width: 200px;
     height: 200px;
     display: none;
+}
+
+main > section > section > form.orderForm{
+    display: block;
+}
+
+/* #endregion */
+
+/* #region Common things for Products*/
+main > section > button {
+    border: 1px solid;
+    background-color: white;
+    color: black;
+    margin-left: 50px;
+    width: 130px;
+    height: 35px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+main > section > button:hover {
+    background-color: gray;
+}
+
+main > section > form > div {
+    display: none;
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 0px 10px;
 }
 
 /* #endregion */

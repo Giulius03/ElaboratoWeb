@@ -185,7 +185,7 @@ class DatabaseHelper{
     }
 
     public function getArticlesInOrder($numeroOrdine){
-        $stmt = $this->db->prepare("SELECT aio.nome, aio.quantità, aio.taglia, c.numeroordine
+        $stmt = $this->db->prepare("SELECT aio.Id, aio.nome, aio.quantità, aio.taglia, c.numeroordine
         FROM articoli_in_ordine aio
         JOIN composizioni c ON aio.Id = c.idarticolo
         WHERE c.numeroordine = ?");
@@ -244,7 +244,7 @@ class DatabaseHelper{
     }
 
     public function getArticlesByCat($gruppo){
-        $stmt = $this->db->prepare("SELECT a.nomeita, a.nomeeng, a.nomeimmagine, a.prezzo
+        $stmt = $this->db->prepare("SELECT a.gruppo, a.nomeita, a.nomeeng, a.nomeimmagine, a.prezzo
         FROM articoli a
         WHERE a.gruppo = ?");
         $stmt->bind_param('s', $gruppo);

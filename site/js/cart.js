@@ -27,7 +27,10 @@ btnEngPC.addEventListener('click', (event) => {
 });
 
 function generateCards(lang, articoli) {
-    let carrelloVuoto = lang === "en" ? 'Empty Cart!' : 'Carrello Vuoto!S'
+    let carrelloVuoto = lang === "en" ? 'Empty Cart!' : 'Carrello Vuoto!'
+    let elimina = lang === "en" ? 'Delete' : 'Elimina'
+    let quantità = lang === "en" ? 'Quantity' : 'Quantità'
+    let prezzo = lang === "en" ? 'Cost Single Product' : 'Prezzo Singolo Prodotto'
     let totale = 0;
     let article = "";
 
@@ -42,12 +45,12 @@ function generateCards(lang, articoli) {
                         <input type="hidden" id="articleCartName${i}" name="articleCartName" value="${articoli[i]["nomeita"]}">
                         <button class="btn-with-icon" type="submit">
                             <i class="fa fa-trash"></i>
-                            Elimina
+                            ${elimina}
                         </button>
                     </form>
                     <p>${descrizione}</p>
-                    <p>Quantità:${articoli[i]["quantità"]}</p>
-                    <p>Prezzo Singolo:€${articoli[i]["prezzo"]}</p>
+                    <p>${quantità}: ${articoli[i]["quantità"]}</p>
+                    <p>${prezzo}: €${articoli[i]["prezzo"]}</p>
                 </article>
             `
             totale += (articoli[i]["prezzo"]*articoli[i]["quantità"]);
@@ -103,10 +106,10 @@ async function deleteCart(lang, event) {
         const json = await response.json();
         console.log(json);
         if (json["successful"] === true) {
-            console.log(lang === "en" ? "Product deleted from cart." : "Prodotto eliminato dal carrello.");
+            alert(lang === "en" ? "Product deleted from cart." : "Prodotto eliminato dal carrello.");
             window.location.href = "cart.php";
         } else {
-            console.log(json["error"]);
+            alert(json["error"]);
         }
     } catch (error) {
         console.log(error.message);

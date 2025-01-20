@@ -28,6 +28,8 @@ btnEngPC.addEventListener('click', (event) => {
 function generateCards(lang, articoli) {
     let aggiungi = lang === "en" ? "Add To Cart" : "Aggiungi Al Carrello"
     let noPreferiti = lang === "en" ? 'There are not favourite products!' : 'Non ci sono prodotti preferiti!'
+    let elimina = lang === "en" ? 'Delete' : 'Elimina'
+    let prezzo = lang === "en" ? 'Cost' : 'Prezzo'
     let article = "";
 
     if(articoli.length > 0){
@@ -41,16 +43,16 @@ function generateCards(lang, articoli) {
                         <input type="hidden" id="articleFavsName${i}" name="articleFavsName" value="${articoli[i]["nomeita"]}">
                         <button class="btn-with-icon" type="submit">
                             <i class="fa fa-trash"></i>
-                            Elimina
+                            ${elimina}
                         </button>
                     </form>
                     <p>${descrizione}</p>
-                    <p>€${articoli[i]["prezzo"]}</p>
+                    <p>${prezzo}: €${articoli[i]["prezzo"]}</p>
+                    <form action="utils/addToCart.php" method="POST" onsubmit="addCart('<?php echo $currentLanguage ?>', event)">
+                        <input type="hidden" id="articleName${i}" name="articleName" value="${articoli[i]["nomeita"]}">
+                        <input type="submit" id="btnAdd" value="${aggiungi}">
+                    </form>
                 </article>
-                <form action="utils/addToCart.php" method="POST" onsubmit="addCart('<?php echo $currentLanguage ?>', event)">
-                    <input type="hidden" id="articleName${i}" name="articleName" value="${articoli[i]["nomeita"]}">
-                    <input type="submit" id="btnAdd" value="${aggiungi}">
-                </form>
             `
         }
     } else {
