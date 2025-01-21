@@ -42,7 +42,7 @@ function generateCards(lang, ordini, number) {
 
     article += `
         </ul>
-        <form action="utils/singleOrder.php" method="POST" onsubmit="addCart('<?php echo $currentLanguage ?>', event)">
+        <form class="orderForm" action="singleOrder.php" method="POST">
             <input type="hidden" id="orderNumber${number}" name="orderNumber" value="${number}">
             <input type="submit" id="btnAdd" value="${view}">
         </form>

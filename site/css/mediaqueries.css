@@ -132,7 +132,17 @@
     }
 
     main > section > section > ul > li > img {
-        display: inline;
+        display: inline-block;
+    }
+
+    main > section > form > div > label, main > section > form > div > button{
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    main > section > form > div {
+        display: inline-block;
+        width: 150px;
     }
 
     footer > ul:first-of-type {
