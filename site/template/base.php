@@ -42,12 +42,12 @@
                         <a id="productsLink" href="products.php"><span class="fa fa-shirt"></span><span id="prodTextPC"><?php echo $currentLanguage == "en" ? "Products" : "Prodotti" ?></span></a>
                         <ul id="productsMenu" class="dropdown-menu">
                             <li><a id="clotTextPC" class="dropdown-item" href="products.php"><?php echo $currentLanguage == "en" ? "Clothing" : "Abbigliamento" ?></a></li>
-                            <li><a id="kitsTextPC" class="dropdown-item" href="products.php"><?php echo $currentLanguage == "en" ? "Kits" : "Divise" ?></a></li>
-                            <li><a id="hoodTextPC" class="dropdown-item" href="products.php"><?php echo $currentLanguage == "en" ? "Hoodies" : "Felpe" ?></a></li>
-                            <li><a id="tsTextPC" class="dropdown-item" href="products.php"><?php echo $currentLanguage == "en" ? "T-Shirts" : "Magliette" ?></a></li>
-                            <li><a id="capsTextPC" class="dropdown-item" href="products.php"><?php echo $currentLanguage == "en" ? "Caps" : "Cappelli" ?></a></li>
-                            <li><a id="trouTextPC" class="dropdown-item" href="products.php"><?php echo $currentLanguage == "en" ? "Trousers" : "Pantaloni" ?></a></li>
-                            <li><a class="dropdown-item" href="products.php">Souvenirs</a></li>
+                            <li><a id="kitsTextPC" class="dropdown-item" href="products.php?category=Divise"><?php echo $currentLanguage == "en" ? "Kits" : "Divise" ?></a></li>
+                            <li><a id="hoodTextPC" class="dropdown-item" href="products.php?category=Felpe"><?php echo $currentLanguage == "en" ? "Hoodies" : "Felpe" ?></a></li>
+                            <li><a id="tsTextPC" class="dropdown-item" href="products.php?category=Magliette"><?php echo $currentLanguage == "en" ? "T-Shirts" : "Magliette" ?></a></li>
+                            <li><a id="capsTextPC" class="dropdown-item" href="products.php?category=Cappelli"><?php echo $currentLanguage == "en" ? "Caps" : "Cappelli" ?></a></li>
+                            <li><a id="trouTextPC" class="dropdown-item" href="products.php?category=Pantaloni"><?php echo $currentLanguage == "en" ? "Trousers" : "Pantaloni" ?></a></li>
+                            <li><a class="dropdown-item" href="products.php?category=Souvenirs">Souvenirs</a></li>
                         </ul>
                     </li>
                     <li>
@@ -108,11 +108,11 @@
                                     <li><a id="clotText" href="products.php" class="nav-link"><?php echo $currentLanguage == "en" ? "Clothing" : "Abbigliamento" ?></a></li>
                                     <li>
                                         <ul>
-                                            <li><a id="kitsText" href="products.php" class="nav-link"><?php echo $currentLanguage == "en" ? "Kits" : "Divise" ?></a></li>
-                                            <li><a id="hoodText" href="products.php" class="nav-link"><?php echo $currentLanguage == "en" ? "Hoodies" : "Felpe" ?></a></li>
-                                            <li><a id="tsText" href="products.php" class="nav-link"><?php echo $currentLanguage == "en" ? "T-Shirts" : "Magliette" ?></a></li>
-                                            <li><a id="capsText" href="products.php" class="nav-link"><?php echo $currentLanguage == "en" ? "Caps" : "Cappelli" ?></a></li>
-                                            <li><a id="trouText" href="products.php" class="nav-link"><?php echo $currentLanguage == "en" ? "Trousers" : "Pantaloni" ?></a></li>
+                                        <li><a id="kitsText" href="products.php?category=Divise" class="nav-link"><?php echo $currentLanguage == "en" ? "Kits" : "Divise" ?></a></li>
+                                            <li><a id="hoodText" href="products.php?category=Felpe" class="nav-link"><?php echo $currentLanguage == "en" ? "Hoodies" : "Felpe" ?></a></li>
+                                            <li><a id="tsText" href="products.php?category=Magliette" class="nav-link"><?php echo $currentLanguage == "en" ? "T-Shirts" : "Magliette" ?></a></li>
+                                            <li><a id="capsText" href="products.php?category=Cappelli" class="nav-link"><?php echo $currentLanguage == "en" ? "Caps" : "Cappelli" ?></a></li>
+                                            <li><a id="trouText" href="products.php?category=Pantaloni" class="nav-link"><?php echo $currentLanguage == "en" ? "Trousers" : "Pantaloni" ?></a></li>
                                         </ul>
                                     </li>
                                     <li><a href="products.php" class="nav-link">Souvenirs</a></li>
