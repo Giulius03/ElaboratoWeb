@@ -266,5 +266,15 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getShippingInfo($numeroOrdine){
+        $stmt = $this->db->prepare("SELECT o.datainserimento, o.stato
+        FROM ordini o
+        WHERE o.numero = ?");
+        $stmt->bind_param('i', $numeroOrdine);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>

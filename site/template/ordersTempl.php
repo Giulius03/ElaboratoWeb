@@ -3,4 +3,8 @@
     <section id="articles">
         <!-- My orders -->
     </section>
+    <section id="releatedProducts">
+        <h2 id="txtRel"><?php echo $currentLanguage == "en" ? "Releated Products" : "Articoli Correlati" ?></h2>
+        <!-- Releated Articles -->
+    </section>
 </section>

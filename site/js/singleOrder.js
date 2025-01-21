@@ -52,6 +52,21 @@ function generateCards(lang, ordini, number) {
     return article;
 }
 
+function generateShippingInfo(lang, shipping) {
+    let dateDel = lang === "en" ? "Estimate Date of Delivery" : "Data Prevista di Consegna"
+    let ritiro = lang === "en" ? 'Schedule for pick-up' : 'Pronto per il ritiro'
+    let partitoSede = lang === "en" ? 'Departed to Shipping Facility' : 'Partito per la sede più vicina'
+    let arrivoSede = lang === "en" ? 'Arrived to Shipping Facility' : 'Arrivato nella sede più vicina'
+    let preso = lang === "en" ? 'Picked up by courier' : 'Preso in consegna dal corriere'
+    let consegnato = lang === "en" ? 'Delivered' : 'Consegnato'
+    let article = `
+        <p>${dateDel}: ${shipping[0]["datainserimento"]}</p>
+    `;
+
+    
+    return article;
+}
+
 async function getArticlesInOrder(lang, orderNumber) {
     let allArticles = "";
     try {
@@ -91,6 +106,20 @@ async function getArticlesInOrder(lang, orderNumber) {
                 console.log(error.message);
             }
             document.querySelector("main > section > section").innerHTML = allArticles;
+
+            const urlShip = `utils/getShippingInfo.php?orderID=${orderID}`;
+            try {
+                const responseShip = await fetch(urlShip);
+                if (!responseShip.ok) {
+                    throw new Error(`Response status: ${responseShip.status}`);
+                }
+                const jsonShip = await responseShip.json(); // Articoli per l'ordine corrente
+                console.log(jsonShip);
+                const shippingInfo = generateShippingInfo(lang, jsonShip);
+                document.querySelector("main > section > section:nth-of-type(2)").innerHTML = shippingInfo;
+            } catch (error) {
+                console.log(error.message);
+            }
 
     } catch (error) {
         console.log(error.message);
