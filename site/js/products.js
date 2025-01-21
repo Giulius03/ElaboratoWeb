@@ -122,7 +122,7 @@ function generateCards(lang, articoli) {
                     <img src="upload/${articoli[i]["nomeimmagine"]}" alt="${nome}">
                     <strong>${nome}</strong>
                     <p>${prezzo}: €${articoli[i]["prezzo"]}</p>
-                    <form action="singleProduct.php" method="POST">
+                    <form action="singleProduct.php?product=${articoli[i]["nomeita"]}" method="GET">
                         <input type="hidden" id="articleName${i}" name="articleName" value="${articoli[i]["nomeita"]}">
                         <input type="submit" id="btnView" value="${view}">
                     </form>
