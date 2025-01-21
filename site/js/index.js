@@ -15,6 +15,8 @@ const btnItaPhone = document.getElementById("btnIta1");
 const btnItaPC = document.getElementById("btnIta2");
 const btnEngPhone = document.getElementById("btnEng1");
 const btnEngPC = document.getElementById("btnEng2");
+let swiperLast = "";
+let swiperMost = "";
 
 btnItaPhone.addEventListener('click', (event) => {
     setHomeLang("it");
@@ -30,62 +32,6 @@ btnEngPhone.addEventListener('click', (event) => {
 
 btnEngPC.addEventListener('click', (event) => {
     setHomeLang("en");
-});
-
-const swiperLast = new Swiper(document.getElementById('swiperLast'), {
-    loop: true, // Enables infinite scrolling
-    slidesPerView: 1, // Default: 1 product visible
-    navigation: {
-        nextEl: document.getElementById('nextLast'),
-        prevEl: document.getElementById('prevLast'),
-    },
-    pagination: false, // No dots at the bottom
-    breakpoints: {
-        576: {
-            slidesPerView: 2,
-            spaceBetween: 0,
-        },
-        768: {
-            slidesPerView: 3,
-            spaceBetween: 40,
-        },
-        992: {
-            slidesPerView: 3,
-            spaceBetween: 90,
-        },
-        1200: {
-            slidesPerView: 3,
-            spaceBetween: 130,
-        }
-    },
-});
-
-const swiperMost = new Swiper(document.getElementById('swiperMost'), {
-    loop: true, // Enables infinite scrolling
-    slidesPerView: 1, // Default: 1 product visible
-    navigation: {
-        nextEl: document.getElementById('nextMost'),
-        prevEl: document.getElementById('prevMost'),
-    },
-    pagination: false, // No dots at the bottom
-    breakpoints: {
-        576: {
-            slidesPerView: 2,
-            spaceBetween: 0,
-        },
-        768: {
-            slidesPerView: 3,
-            spaceBetween: 40,
-        },
-        992: {
-            slidesPerView: 3,
-            spaceBetween: 90,
-        },
-        1200: {
-            slidesPerView: 3,
-            spaceBetween: 130,
-        }
-    },
 });
 
 function generateCards(lang, articles) {
@@ -120,9 +66,61 @@ async function getArticlesData(lastReleases, lang) {
         const cards = generateCards(lang, json);
         document.querySelector(lastReleases ? "main > section:first-of-type > section > section" : "main > section:nth-of-type(2) > section > section").innerHTML = cards;
         if (lastReleases) {
-            swiperLast.update();
+            swiperLast = new Swiper('#swiperLast', {
+                loop: true, // Enables infinite scrolling
+                slidesPerView: 1, // Default: 1 product visible
+                navigation: {
+                    nextEl: '#nextLast',
+                    prevEl: '#prevLast',
+                },
+                pagination: false, // No dots at the bottom
+                breakpoints: {
+                    576: {
+                        slidesPerView: 2,
+                        spaceBetween: 0,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 40,
+                    },
+                    992: {
+                        slidesPerView: 3,
+                        spaceBetween: 90,
+                    },
+                    1200: {
+                        slidesPerView: 3,
+                        spaceBetween: 130,
+                    }
+                },
+            });
         } else {
-            swiperMost.update();
+            swiperMost = new Swiper('#swiperMost', {
+                loop: true, // Enables infinite scrolling
+                slidesPerView: 1, // Default: 1 product visible
+                navigation: {
+                    nextEl: '#nextMost',
+                    prevEl: '#prevMost',
+                },
+                pagination: false, // No dots at the bottom
+                breakpoints: {
+                    576: {
+                        slidesPerView: 2,
+                        spaceBetween: 0,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 40,
+                    },
+                    992: {
+                        slidesPerView: 3,
+                        spaceBetween: 90,
+                    },
+                    1200: {
+                        slidesPerView: 3,
+                        spaceBetween: 130,
+                    }
+                },
+            });
         }
     } catch (error) {
         console.log(error.message);
