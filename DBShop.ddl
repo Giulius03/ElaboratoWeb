@@ -57,7 +57,8 @@ create table CARRELLI (
      Articolo varchar(25) not null,
      Proprietario varchar(16) not null,
      Quantità int not null,
-     constraint IDCARRELLO primary key (Articolo, Proprietario));
+     Taglia varchar(3) not null,
+     constraint IDCARRELLO primary key (Articolo, Proprietario, Taglia));
 
 create table CATEGORIE (
      Nome varchar(25) not null,
@@ -113,7 +114,8 @@ create table PARTITE (
 create table PREFERITI (
      Utente varchar(25) not null,
      Articolo varchar(25) not null,
-     constraint IDPreferito primary key (Articolo, Utente));
+     Taglia varchar(3) not null,
+     constraint IDPreferito primary key (Articolo, Utente, Taglia));
 
 create table TAGLIE (
      Nome varchar(3) not null,
@@ -179,6 +181,10 @@ alter table CARRELLI add constraint FKArticolo
      foreign key (Articolo)
      references ARTICOLI (NomeITA);
 
+alter table CARRELLI add constraint FKTagliaCarrello
+     foreign key (Taglia)
+     references TAGLIE (Nome);
+
 -- Not implemented
 -- alter table CATEGORIA add constraint IDCATEGORIA_CHK
 --     check(exists(select * from ARTICOLO
@@ -229,6 +235,10 @@ alter table PREFERITI add constraint FKNomeITA
 alter table PREFERITI add constraint FKUsername
      foreign key (Utente)
      references UTENTI (CF);
+
+alter table PREFERITI add constraint FKTagliaPreferiti
+     foreign key (Taglia)
+     references TAGLIE (Nome);
 
 
 -- Index Section

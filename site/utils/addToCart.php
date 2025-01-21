@@ -4,19 +4,19 @@ require_once '../bootstrap.php';
 $status["successful"] = false;
 $status["error"] = "";
 
-if (isset($_SESSION["userCF"]) && isset($_POST["articleName"])) {
-    $quantityArticole = 0;
-    $cart = $dbh->getCart($_SESSION["userCF"], $_POST["articleName"]);
-    foreach ($cart as $articole) {
-        if ($articole['nomeita'] === $_POST["articleName"]) {
-            $quantityArticole = $articole['quantità'];
+if (isset($_SESSION["userCF"]) && isset($_POST["articleName"]) && isset($_POST["size"])) {
+    $quantityArticle = 0;
+    $cart = $dbh->getCart($_SESSION["userCF"]);
+    foreach ($cart as $article) {
+        if ($article['nomeita'] == $_POST["articleName"] && $article["taglia"] == $_POST["size"]) {
+            $quantityArticle = $article['quantità'];
         }
     }
-    if ($quantityArticole == 0) {
-        $addCart = $dbh->addToCart($_SESSION["userCF"], $_POST["articleName"], 1);
+    if ($quantityArticle == 0) {
+        $addCart = $dbh->addToCart($_SESSION["userCF"], $_POST["articleName"], 1, $_POST["size"]);
     } else {
-        $quantityArticole += 1;
-        $addCart = $dbh->addToCart($_SESSION["userCF"], $_POST["articleName"], $quantityArticole);
+        $quantityArticle += isset($_POST["quantity"]) ? $_POST["quantity"] : 1;
+        $addCart = $dbh->addToCart($_SESSION["userCF"], $_POST["articleName"], $quantityArticle, $_POST["size"]);
     }
     $status["successful"] = true;
 }

@@ -23,7 +23,7 @@
             <div class="card card-body">
                 <!-- opzioni -->
                 <p><!-- disponibile? --></p>
-                <form action="#">
+                <form action="#" onsubmit="return handleSubmit('<?php echo $currentLanguage ?>', event)">
                     <select name="quantity" id="quantity" class="form-select" aria-label="Default select example">
                         <!-- quantità -->
                     </select>
@@ -37,8 +37,8 @@
                     </select>
                     <label for="color" class="visually-hidden">Select color</label>
                     <section>
-                        <input type="submit" id="btnBuyNow" value="<?php echo $currentLanguage == "en" ? "Buy Now" : "Compra Ora" ?>" />
-                        <input type="submit" id="btnAddToCart" value="<?php echo $currentLanguage == "en" ? "Add to Cart" : "Aggiungi al Carrello" ?>" />
+                        <input type="submit" id="btnBuyNow" name="btnBuyNow" value="<?php echo $currentLanguage == "en" ? "Buy Now" : "Compra Ora" ?>" />
+                        <input type="submit" id="btnAddToCart" name="btnAddToCart" value="<?php echo $currentLanguage == "en" ? "Add to Cart" : "Aggiungi al Carrello" ?>" />
                     </section>            
                 </form>
             </div>

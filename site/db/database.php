@@ -118,7 +118,7 @@ class DatabaseHelper{
     }
 
     public function getCart($uCF){
-        $stmt = $this->db->prepare("SELECT a.nomeita, a.nomeeng, a.nomeimmagine, a.prezzo, a.descrizioneita, a.descrizioneeng, c.quantità 
+        $stmt = $this->db->prepare("SELECT a.nomeita, a.nomeeng, a.nomeimmagine, a.prezzo, a.descrizioneita, a.descrizioneeng, c.quantità, c.taglia 
         FROM carrelli c
         JOIN articoli a ON a.nomeita = c.articolo
         JOIN utenti u ON c.proprietario = u.CF
@@ -141,12 +141,12 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function addToCart($uCF, $articolo, $quantity){
-        $stmt = $this->db->prepare("DELETE FROM carrelli WHERE articolo = ? AND proprietario = ?");
-        $stmt->bind_param('ss', $articolo, $uCF);
+    public function addToCart($uCF, $articolo, $quantity, $size){
+        $stmt = $this->db->prepare("DELETE FROM carrelli WHERE articolo = ? AND proprietario = ? AND taglia = ?");
+        $stmt->bind_param('sss', $articolo, $uCF, $size);
         $stmt->execute();
-        $stmt = $this->db->prepare("INSERT INTO carrelli (articolo, proprietario, quantità) VALUES (?, ?, ?)");
-        $stmt->bind_param('ssi', $articolo, $uCF, $quantity);
+        $stmt = $this->db->prepare("INSERT INTO carrelli (articolo, proprietario, taglia, quantità) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param('sssi', $articolo, $uCF, $size, $quantity);
         $stmt->execute();
         return $stmt->insert_id;
     }
@@ -208,11 +208,11 @@ class DatabaseHelper{
 
     public function getArticleByName($italianName, $size){
         $stmt = $this->db->prepare("SELECT a.nomeita AS nomeita, a.nomeeng AS nomeeng, a.nomeimmagine AS img, a.prezzo AS 
-        prezzo, a.descrizioneita AS descita, a.descrizioneeng AS desceng, a.gruppo AS gruppo, 
-        (SELECT COUNT(articolo) FROM preferiti WHERE articolo = nomeita) AS likes, 
+        prezzo, a.descrizioneita AS descita, a.descrizioneeng AS desceng, a.gruppo AS gruppo, a.categoria AS categoria, 
+        a.quantità AS quantTot, (SELECT COUNT(articolo) FROM preferiti WHERE articolo = nomeita) AS likes, 
         (SELECT AVG(c.valutazione) FROM articoli_in_ordine aio INNER JOIN composizioni c ON aio.Id = c.IdArticolo WHERE 
         aio.Nome = nomeita) AS valutazione,
-        (SELECT quantità FROM disponibilita WHERE taglia = ? AND articolo = nomeita) AS quantDisp
+        (SELECT quantità FROM disponibilita WHERE taglia = ? AND articolo = nomeita) AS quantDispTaglia
         FROM articoli a WHERE a.nomeita = ?");
         $stmt->bind_param('ss', $size, $italianName);
         $stmt->execute();

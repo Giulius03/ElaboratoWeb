@@ -22,6 +22,8 @@ btnEngPC.addEventListener('click', (event) => {
 });
 
 function setProductLang(lang) {
+    document.querySelector("main > section > section:nth-of-type(3) > div > div > form").setAttribute("onsubmit", 
+        "return handleSubmit('" + lang + "', event)");
     getProduct(lang, nameita, initialSize);
     let textDetails = lang === "en" ? "Product Details" : "Dettagli Prodotto";
     document.querySelector("main > section > section:nth-of-type(2) > button").innerHTML = `
@@ -33,10 +35,6 @@ function setProductLang(lang) {
     `;
     document.querySelector("main > section > section:nth-of-type(3) > div > div > form input:first-of-type").setAttribute("value", lang === "en" ? "Buy Now" : "Compra Ora");
     document.querySelector("main > section > section:nth-of-type(3) > div > div > form input:last-of-type").setAttribute("value", lang === "en" ? "Add to Cart" : "Aggiungi al Carrello");
-}
-
-function isAnInt(num) {
-    return num % 1 === 0;
 }
 
 function generateGeneralView(lang, article) {
@@ -106,7 +104,6 @@ function generateOptions(lang, id, defaultSize) {
             let white = lang === "en" ? "White" : "Bianco";
             let black = lang === "en" ? "Black" : "Nero";
             let currentColor = nameita.split(" ")[1];
-            console.log(currentColor);
             let colors = ['Ner', 'Bianc', 'Bordeaux'];
             let colorsOptions = "";
 
@@ -180,13 +177,68 @@ async function getProduct(lang, italianName, size) {
         let availableText = lang === "en" ? "Product available" : "Prodotto disponibile";
         let notAvailableText = lang === "en" ? "Product not available" : "Prodotto non disponibile";
         let pAvailable = document.querySelector("main > section > section:nth-of-type(3) > div > div > p");
-        pAvailable.style.color = json[0]["quantDisp"] > 0 ? 'green' : 'red';
-        pAvailable.textContent = json[0]["quantDisp"] > 0 ? availableText : notAvailableText;
+
+        if (json[0]["categoria"] === "Souvenir") {
+            pAvailable.style.color = json[0]["quantTot"] > 0 ? 'green' : 'red';
+            pAvailable.textContent = json[0]["quantTot"] > 0 ? availableText : notAvailableText;
+            document.querySelector("main > section > section:nth-of-type(3) > div > div > form > select:nth-of-type(2)").style.display = 'none';
+            document.querySelector("main > section > section:nth-of-type(3) > div > div > form > select:last-of-type").style.display = 'none';    
+        } else {
+            pAvailable.style.color = json[0]["quantDispTaglia"] > 0 ? 'green' : 'red';
+            pAvailable.textContent = json[0]["quantDispTaglia"] > 0 ? availableText : notAvailableText;    
+        }
         
-        // if (json[0]["quantDisp"] === null) {
-        //     //è un souvenir => no taglia !
-        // }
+        let noColorsClothes = ['Maglia', 'Pantaloncini', 'Calzettoni'];
+        if (noColorsClothes.includes(italianName.split(" ")[0])) {
+            document.querySelector("main > section > section:nth-of-type(3) > div > div > form > select:last-of-type").style.display = 'none';
+        }
+
+        if (pAvailable.style.color === 'red') {
+            document.querySelector("#btnBuyNow").style.display = 'none';
+            document.querySelector("#btnAddToCart").style.display = 'none';
+        } else {
+            document.querySelector("#btnBuyNow").style.display = 'inline-block';
+            document.querySelector("#btnAddToCart").style.display = 'inline-block';
+        }
     } catch (error) {
         console.log(error.message);
     }
 }
+
+async function handleSubmit(lang, event) {
+    const clickedButton = event.submitter.value;
+    event.preventDefault();
+    let url = "";
+  
+    if (clickedButton === "Compra Ora" || clickedButton === "Buy Now") {
+        //reindirizzamento alla pagina di pagamento passando tutti i dati e creazione dell'ordine con singolo prodotto
+    } else {
+        //aggiunta al carello del prodotto
+        url = "utils/addToCart.php";
+        let formData = new FormData();
+        formData.append('articleName', nameita);
+        formData.append('size', initialSize);
+        formData.append('quantity', document.querySelector("main > section > section:nth-of-type(3) > div > div > form > select:first-of-type").value);
+        try {
+            const response = await fetch(url, {
+                method: "POST",                   
+                body: formData
+            });
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+            const json = await response.json();
+            console.log(json);
+            if (json["successful"] === true) {
+                let originalText = document.querySelector("#btnAddToCart").value;
+                document.querySelector("#btnAddToCart").setAttribute("value", lang === "en" ? "Added" : "Aggiunto");
+                setTimeout(() => {
+                    document.querySelector("#btnAddToCart").setAttribute("value", originalText);
+                }, 2000);
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+}
+  

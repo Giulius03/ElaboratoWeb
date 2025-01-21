@@ -103,7 +103,7 @@ async function addCart(lang, event) {
         console.log(json);
         if (json["successful"] === true) {
             console.log(lang === "en" ? "Product added to cart." : "Prodotto aggiunto al carrello.");
-            window.location.href = "favourites.php";
+            // window.location.href = "favourites.php";
         } else {
             console.log(json["error"]);
         }
@@ -133,7 +133,7 @@ async function deleteFavs(lang, event) {
         console.log(json);
         if (json["successful"] === true) {
             console.log(lang === "en" ? "Product deleted from favourites." : "Prodotto eliminato dai preferiti.");
-            window.location.href = "favourites.php";
+            getArticlesData(lang);
         } else {
             console.log(json["error"]);
         }
