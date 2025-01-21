@@ -95,11 +95,13 @@ function generateCards(lang, articles) {
         let name = lang === "en" ? articles[i]["nomeeng"] : articles[i]["nomeita"];
         cards += `
         <section class="swiper-slide">
-            <article class="card">
-                <img src="upload/${articles[i]["nomeimmagine"]}" alt="${name}">
-                <strong>${name}</strong>
-                <p>€${articles[i]["prezzo"]}</p>
-            </article>
+            <a href="singleProduct.php?product=${articles[i]["nomeita"]}">
+                <article class="card">
+                    <img src="upload/${articles[i]["nomeimmagine"]}" alt="${name}">
+                    <strong>${name}</strong>
+                    <p>€${articles[i]["prezzo"]}</p>
+                </article>
+            </a>
         </section>`
     }
 

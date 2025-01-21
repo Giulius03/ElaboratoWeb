@@ -250,13 +250,17 @@ main > section > section > section > section {
     border: none;
 }
 
-main > section > section > section > section > article {
+main > section > section > section > section > a {
+    text-decoration: none;
+}
+
+main > section > section > section > section > a > article {
     align-items: center;
     text-align: center;
     height: 400px;
 }
 
-main > section > section > section > section > article img {
+main > section > section > section > section > a > article img {
     width: 100%;
     height: 300px;
 }
@@ -357,14 +361,14 @@ main > section > form > ul > li:last-of-type {
     margin-top: 70px;
 }
 
-main > section .form-select {
+main > section > form > ul > li > .form-select {
     border-top: none;
     border-left: none;
     border-right: none;
     border-radius: 0;
 }
 
-main > section .form-select:focus {
+main > section > form > ul > li > .form-select:focus {
     box-shadow: none;
     border-bottom: 1px solid #dee2e6;
 }
@@ -627,6 +631,123 @@ main > article > button:hover, main > section > div > section:last-of-type > but
     font-weight: 700;
 }
 /* #endregion */
+
+/* #endregion */
+
+/* #region Single product */
+main > section > section {
+    text-align: center;
+}
+
+main > section > section:first-of-type > header > h1 {
+    font-style: normal;
+    font-weight: 600;
+    text-shadow: none;
+    font-size: 28px;
+    margin: 20px 20% 20px 0;
+    color: black;
+}
+
+main > section > section:first-of-type > header > span {
+    color: #800020;
+    font-size: 20px;
+}
+
+main > section > section:first-of-type > img {
+    width: 80%;
+    margin: 0 10%;
+}
+
+main > section > section:first-of-type > section > p {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+main > section > section:first-of-type > section > button {
+    border: none;
+    border-radius: 5px;
+    background-color: #800020;
+    color: white;
+    width: 55px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+main > section > section:first-of-type > section > button > span {
+    margin-right: 5px;
+}
+
+main > section > section:nth-of-type(2) > button, main > section > section:nth-of-type(3) > button {
+    width: 95%;
+    border-top: solid 0.5px black;
+    border-bottom: solid 0.5px black;
+    margin-top: 15px;
+    text-align: left;
+    padding-left: 10px;
+    height: 45px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+main > section > section:nth-of-type(2) > button > span, main > section > section:nth-of-type(3) > button > span {
+    float: right;
+    padding-right: 10px;
+}
+
+main > section > section:nth-of-type(2) > div > div, main > section > section:nth-of-type(3) > div > div {
+    text-align: left;
+    padding: 0;
+}
+
+main > section > section:nth-of-type(2) > div > div > p {
+    padding-left: 2.5%;
+    margin-top: 10px;
+}
+
+main > section > section:nth-of-type(3) > div > div {
+    text-align: center;
+    padding: 0 2.5%;
+}
+
+main > section > section:nth-of-type(3) > div > div {
+    margin-top: 10px;   
+}
+
+main > section > section:nth-of-type(3) > div > div > form {
+    padding: 0;
+}
+
+main > section > section:nth-of-type(3) > div > div > form > select {
+    background-color: white;
+    border: solid 2px #800020;
+    color: #800020;
+    font-weight: 500;
+}
+
+main > section > section:nth-of-type(3) > div > div > form > select:focus {
+    box-shadow: none;
+    border-color: #800020;
+}
+
+main > section > section:nth-of-type(3) > div > div > form > select:not(:first-of-type),
+main > section > section:nth-of-type(3) > div > div > form > section {
+    margin-top: 10px;
+}
+
+main > section > section:nth-of-type(3) > div > div > form > section > input {
+    width: 180px;
+    background-color: #800020;
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+}
+
+main > section > section:nth-of-type(3) > div > div > form > section > input:hover {
+    font-weight: 700;
+}
 
 /* #endregion */
 

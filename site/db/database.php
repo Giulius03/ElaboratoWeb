@@ -185,7 +185,7 @@ class DatabaseHelper{
     }
 
     public function getArticlesInOrder($numeroOrdine){
-        $stmt = $this->db->prepare("SELECT aio.nome, aio.quantità, aio.taglia, c.numeroordine
+        $stmt = $this->db->prepare("SELECT aio.Id, aio.nome, aio.quantità, aio.taglia, c.numeroordine
         FROM articoli_in_ordine aio
         JOIN composizioni c ON aio.Id = c.idarticolo
         WHERE c.numeroordine = ?");
@@ -201,6 +201,20 @@ class DatabaseHelper{
         JOIN articoli_in_ordine aio ON a.nomeita = aio.nome
         WHERE aio.Id = ?");
         $stmt->bind_param('i', $IDArticolo);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getArticleByName($italianName, $size){
+        $stmt = $this->db->prepare("SELECT a.nomeita AS nomeita, a.nomeeng AS nomeeng, a.nomeimmagine AS img, a.prezzo AS 
+        prezzo, a.descrizioneita AS descita, a.descrizioneeng AS desceng, a.gruppo AS gruppo, 
+        (SELECT COUNT(articolo) FROM preferiti WHERE articolo = nomeita) AS likes, 
+        (SELECT AVG(c.valutazione) FROM articoli_in_ordine aio INNER JOIN composizioni c ON aio.Id = c.IdArticolo WHERE 
+        aio.Nome = nomeita) AS valutazione,
+        (SELECT quantità FROM disponibilita WHERE taglia = ? AND articolo = nomeita) AS quantDisp
+        FROM articoli a WHERE a.nomeita = ?");
+        $stmt->bind_param('ss', $size, $italianName);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
