@@ -2,6 +2,8 @@ function setUserLogFormLang(lang) {
     const urlParams = new URLSearchParams(window.location.search);
     const orderNumber = urlParams.get('orderNumber');
     document.getElementById('title').textContent = lang === "en" ? `ORDER NUMBER:${orderNumber}` : `NUMERO ORDINE:${orderNumber}`;
+    document.getElementById('txtShip').textContent = lang === "en" ? "Shipping Tracking" : "Tracciamento Spedizione";
+    document.getElementById('txtRel').textContent = lang === "en" ? "Releated Products" : "Articoli Correlati";
     getArticlesInOrder(lang, orderNumber);
 }
 
@@ -52,6 +54,20 @@ function generateCards(lang, ordini, number) {
     return article;
 }
 
+// Funzione per aggiungere giorni
+function addDays(date, days) {
+    const result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+}
+
+// Funzione per aggiungere un orario specifico
+function setTime(date, hours, minutes) {
+    const result = new Date(date);
+    result.setHours(hours, minutes, 0, 0); // Imposta ore, minuti, secondi, millisecondi
+    return result;
+}
+
 function generateShippingInfo(lang, shipping) {
     let dateDel = lang === "en" ? "Estimated Date of Delivery" : "Data Prevista di Consegna";
     let ritiro = lang === "en" ? "Schedule for pick-up" : "Pronto per il ritiro";
@@ -62,20 +78,6 @@ function generateShippingInfo(lang, shipping) {
 
     // Prendi la data iniziale
     const initialDate = new Date(shipping[0]?.datainserimento);
-
-    // Funzione per aggiungere giorni
-    function addDays(date, days) {
-        const result = new Date(date);
-        result.setDate(result.getDate() + days);
-        return result;
-    }
-
-    // Funzione per aggiungere un orario specifico
-    function setTime(date, hours, minutes) {
-        const result = new Date(date);
-        result.setHours(hours, minutes, 0, 0); // Imposta ore, minuti, secondi, millisecondi
-        return result;
-    }
 
     // Calcola le date e gli orari
     const dates = [
@@ -88,8 +90,8 @@ function generateShippingInfo(lang, shipping) {
 
     // Genera la timeline HTML
     let timelineHTML = `
-        <p><strong>${dateDel}:</strong> ${dates[dates.length - 1].date.toLocaleDateString(lang === "en" ? "en-US" : "it-IT")}</p>
-        <div class="timeline">
+            <h3><strong>${dateDel}:</strong> ${dates[dates.length - 1].date.toLocaleDateString(lang === "en" ? "en-US" : "it-IT")}</h3>
+            <ol class="timeline">
     `;
 
     for (let i = 0; i < dates.length; i++) {
@@ -97,17 +99,24 @@ function generateShippingInfo(lang, shipping) {
         const isCompleted = date <= new Date(); // Passo completato se la data è nel passato o oggi
 
         timelineHTML += `
-            <div class="timeline-step" data-status="${isCompleted ? 'completed' : 'upcoming'}">
-                <div class="circle"></div>
+            <li class="timeline-step" data-status="${isCompleted ? 'completed' : 'upcoming'}">
+                <span class="circle" aria-hidden="true"></span>
                 <div class="info">
-                    <p class="date">${date.toLocaleDateString(lang === "en" ? "en-US" : "it-IT")} - ${date.toLocaleTimeString(lang === "en" ? "en-US" : "it-IT", { hour: '2-digit', minute: '2-digit' })}</p>
+                    <time class="date" datetime="${date.toISOString()}">
+                        ${date.toLocaleDateString(lang === "en" ? "en-US" : "it-IT")} - ${date.toLocaleTimeString(lang === "en" ? "en-US" : "it-IT", { hour: '2-digit', minute: '2-digit' })}
+                    </time>
                     <p class="text">${text}</p>
                 </div>
-            </div>
+            </li>
         `;
     }
 
-    timelineHTML += `</div>`;
+    timelineHTML += `
+                </ol>
+            </section>
+        </main>
+    `;
+
     return timelineHTML;
 }
 

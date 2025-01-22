@@ -738,6 +738,68 @@ main > section > form > div {
 
 /* #endregion */
 
+/* #region Common things for Single Order*/
+main > section > section > ol {
+    font-family: Arial, sans-serif;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 10px;
+    border-left: 2px solid #ccc;
+    position: relative;
+}
+
+main > section > section > ol > li{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+main > section > section > ol > li > span{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ccc;
+    flex-shrink: 0;
+    margin-right: 10px;
+    border: 2px solid #ccc;
+}
+
+main > section > section > ol > li > div{
+    flex: 1;
+}
+
+main > section > section > ol > li > div > time{
+    font-size: 12px;
+    color: #888;
+    margin: 0;
+}
+
+main > section > section > ol > li > div > p{
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+}
+
+main > section > section > ol > li[data-status="completed"] > span{
+    background-color: gold;
+    border-color: gold;
+}
+
+main > section > section > ol > li[data-status="upcoming"] > span{
+    background-color: #ccc;
+    border-color: #ccc;
+}
+
+main > section > section > h3 {
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+}
+/* #endregion */
+
 /* #region footer */
 footer {
     margin-top: 80px;
