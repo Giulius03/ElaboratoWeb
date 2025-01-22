@@ -58,13 +58,11 @@ header > nav > ul {
     list-style: none;
 }
 
-header > nav > ul > li{
-    display: inline;
-}
-
-header > nav > ul > li:nth-child(2), header > nav > ul > li:nth-child(3), header > nav > ul > li:nth-child(6),
-header > nav > ul > li:nth-child(7) {
-    margin-right: 4%;
+header > nav > ul {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    justify-content: center;
 }
 
 header > nav > ul > li:first-child, header > nav > ul > li:nth-child(4), header > nav > ul > li:nth-child(5), 
@@ -244,13 +242,6 @@ main > section > section {
     margin: 0 auto;
 }
 
-main > section > section > section > section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 15%;
-}
-
 .card {
     border: none;
 }
@@ -262,12 +253,12 @@ main > section > section > section > section > a {
 main > section > section > section > section > a > article {
     align-items: center;
     text-align: center;
-    height: 400px;
+    height: 450px;
 }
 
 main > section > section > section > section > a > article img {
-    width: 100%;
-    height: 300px;
+    width: 80%;
+    height: 350px;
 }
 
 main > section > section > button {
@@ -686,7 +677,6 @@ main > section > section > article > p:nth-of-type(2) {
 
 main > section > section > article > form {
     margin-bottom: 50px;
-    /*border-bottom: 1px solid;*/
 }
 
 /* #endregion */
@@ -764,7 +754,7 @@ footer ul li {
 footer > ul:first-of-type {
     padding-top: 1%;
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 colonne */
+    grid-template-columns: repeat(2, 1fr);
 }
 
 footer > ul:last-of-type {

@@ -5,6 +5,7 @@ const btnEngPC = document.getElementById("btnEng2");
 let nameita = "";
 let initialSize = "";
 let favourites = "";
+let swiperRelated = "";
 
 btnItaPhone.addEventListener('click', (event) => {
     setProductLang("it");
@@ -36,6 +37,7 @@ function setProductLang(lang) {
     `;
     document.querySelector("main > section > section:nth-of-type(3) > div > div > form input:first-of-type").setAttribute("value", lang === "en" ? "Buy Now" : "Compra Ora");
     document.querySelector("main > section > section:nth-of-type(3) > div > div > form input:last-of-type").setAttribute("value", lang === "en" ? "Add to Cart" : "Aggiungi al Carrello");
+    document.querySelector("main > section > section:nth-child(4) > h2").textContent = lang === "en" ? "Related Products" : "Articoli Correlati";
 }
 
 function generateGeneralView(lang, article) {
@@ -216,12 +218,12 @@ async function getProduct(lang, italianName, size) {
         let pAvailable = document.querySelector("main > section > section:nth-of-type(3) > div > div > p");
 
         if (json[0]["categoria"] === "Souvenir") {
-            pAvailable.style.color = json[0]["quantTot"] > 0 ? 'green' : 'red';
+            pAvailable.style.color = json[0]["quantTot"] > 0 ? '#006100' : '#800020';
             pAvailable.textContent = json[0]["quantTot"] > 0 ? availableText : notAvailableText;
             document.querySelector("main > section > section:nth-of-type(3) > div > div > form > select:nth-of-type(2)").style.display = 'none';
             document.querySelector("main > section > section:nth-of-type(3) > div > div > form > select:last-of-type").style.display = 'none';    
         } else {
-            pAvailable.style.color = json[0]["quantDispTaglia"] > 0 ? 'green' : 'red';
+            pAvailable.style.color = json[0]["quantDispTaglia"] > 0 ? '#006100' : '#800020';
             pAvailable.textContent = json[0]["quantDispTaglia"] > 0 ? availableText : notAvailableText;    
         }
         
@@ -230,7 +232,7 @@ async function getProduct(lang, italianName, size) {
             document.querySelector("main > section > section:nth-of-type(3) > div > div > form > select:last-of-type").style.display = 'none';
         }
 
-        if (pAvailable.style.color === 'red') {
+        if (pAvailable.textContent === notAvailableText) {
             document.querySelector("#btnBuyNow").style.display = 'none';
             document.querySelector("#btnAddToCart").style.display = 'none';
         } else {
@@ -255,6 +257,69 @@ async function getProduct(lang, italianName, size) {
         } catch (error) {
             console.log(error.message);
         }
+        generateRelatedCarousel(lang, json[0]["gruppo"], json[0]["categoria"]);
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+function generateRelated(lang, articles) {
+    let cards = "";
+
+    for (let i = 0; i < articles.length; i++) {
+        let name = lang === "en" ? articles[i]["nomeeng"] : articles[i]["nomeita"];
+        cards += `
+        <section class="swiper-slide">
+            <a href="singleProduct.php?product=${articles[i]["nomeita"]}">
+                <article class="card">
+                    <img src="upload/${articles[i]["nomeimmagine"]}" alt="${name}">
+                    <strong>${name}</strong>
+                    <p>€${articles[i]["prezzo"]}</p>
+                </article>
+            </a>
+        </section>`;
+    }
+
+    return cards;
+}
+
+async function generateRelatedCarousel(lang, group, category) {
+    const url = "utils/getRelated.php?group=" + group + "&category=" + category;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        console.log(json);
+        document.querySelector("main > section > section:nth-of-type(4) > section > section").innerHTML = generateRelated(lang, json);
+        swiperRelated = new Swiper('#swiperRel', {
+            loop: true, // Enables infinite scrolling
+            slidesPerView: 1, // Default: 1 product visible
+            navigation: {
+                nextEl: '#nextRel',
+                prevEl: '#prevRel',
+            },
+            pagination: false, // No dots at the bottom
+            breakpoints: {
+                576: {
+                    slidesPerView: 2,
+                    spaceBetween: 0,
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 40,
+                },
+                992: {
+                    slidesPerView: 3,
+                    spaceBetween: 90,
+                },
+                1200: {
+                    slidesPerView: 3,
+                    spaceBetween: 130,
+                }
+            },
+        });
     } catch (error) {
         console.log(error.message);
     }

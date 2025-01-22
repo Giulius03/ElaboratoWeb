@@ -46,5 +46,14 @@
     </section>
     <section>
         <!-- correlati -->
+        <h2><?php echo $currentLanguage == "en" ? "Related Products" : "Articoli Correlati" ?></h2>
+        <section id="swiperRel" class="swiper">
+            <section class="swiper-wrapper">
+                <!-- Cards -->
+            </section> 
+            <!-- Navigation Buttons -->
+            <button id="prevRel" class="swiper-button-prev"></button>
+            <button id="nextRel" class="swiper-button-next"></button>
+        </section>
     </section>
 </section>

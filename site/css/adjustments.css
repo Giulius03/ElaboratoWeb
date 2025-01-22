@@ -72,7 +72,7 @@ main > section > section > article {
 }
 
 /* #region Single product */
-main > section > section {
+main > section > section:not(:last-of-type) {
     text-align: center;
 }
 
@@ -80,8 +80,8 @@ main > section > section:first-of-type > header > h1 {
     font-style: normal;
     font-weight: 600;
     text-shadow: none;
-    font-size: 28px;
-    margin: 20px 20% 20px 0;
+    font-size: 24px;
+    margin: 20px 10% 20px 0;
     color: black;
 }
 
@@ -194,5 +194,37 @@ main > section > section:first-of-type > a, main > section > section:nth-of-type
 
 main > section > section:first-of-type > a:hover, main > section > section:nth-of-type(3) > div section > a:hover {
     text-decoration: underline;
+}
+
+main > section > section:nth-child(4) > h2 {
+    display: block;
+    margin-top: 40px;
+}
+
+/* carousel */
+main > section > section:nth-of-type(4) > section {
+    width: 100%;
+    margin: 0 auto;
+}
+
+main > section > section:nth-of-type(4) > section > section > section > a {
+    text-decoration: none;
+}
+
+main > section > section:nth-of-type(4) > section > section > section > a > article {
+    align-items: center;
+    text-align: center;
+    height: 450px;
+}
+
+main > section > section:nth-of-type(4) > section > section > section > a > article img {
+    width: 80%;
+    height: 350px;
+}
+
+main > section > section:nth-of-type(4) > section > button {
+    color: black !important;
+    border: none;
+    background-color: transparent;
 }
 /* #endregion */

@@ -48,7 +48,7 @@ function generateCards(lang, articles) {
                     <p>€${articles[i]["prezzo"]}</p>
                 </article>
             </a>
-        </section>`
+        </section>`;
     }
 
     return cards;

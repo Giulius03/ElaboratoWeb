@@ -283,5 +283,14 @@ class DatabaseHelper{
         $stmt->execute();
         return $stmt->insert_id;
     }
+
+    public function getRelatedArticles($group, $category) {
+        $stmt = $this->db->prepare("SELECT nomeita, nomeeng, nomeimmagine, prezzo FROM articoli WHERE gruppo <> ? AND 
+            categoria = ? ORDER BY RAND() LIMIT 5");
+        $stmt->bind_param('ss', $group, $category);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>
