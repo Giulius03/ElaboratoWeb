@@ -284,10 +284,20 @@ class DatabaseHelper{
         return $stmt->insert_id;
     }
 
-    public function getRelatedArticles($group, $category) {
-        $stmt = $this->db->prepare("SELECT nomeita, nomeeng, nomeimmagine, prezzo FROM articoli WHERE gruppo <> ? AND 
-            categoria = ? ORDER BY RAND() LIMIT 5");
-        $stmt->bind_param('ss', $group, $category);
+    public function getRelatedArticles($group, $category, $currentArticle) {
+        $query = "SELECT nomeita, nomeeng, nomeimmagine, prezzo FROM articoli WHERE ";
+        $types = "";
+        $optParam = "";
+        if ($group != "Divise") {
+            $query .= "gruppo <> ? AND ";
+            $optParam = $group;
+        } else {
+            $query .= "nomeita <> ? AND ";
+            $optParam = $currentArticle;
+        }
+        $query .= "categoria = ? ORDER BY RAND() LIMIT 5";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ss', $optParam, $category);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);

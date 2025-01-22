@@ -284,7 +284,7 @@ function generateRelated(lang, articles) {
 }
 
 async function generateRelatedCarousel(lang, group, category) {
-    const url = "utils/getRelated.php?group=" + group + "&category=" + category;
+    const url = "utils/getRelated.php?group=" + group + "&category=" + category + "&currentArticle=" + nameita;
     try {
         const response = await fetch(url);
         if (!response.ok) {
