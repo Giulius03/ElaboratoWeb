@@ -4,6 +4,7 @@ const btnEngPhone = document.getElementById("btnEng1");
 const btnEngPC = document.getElementById("btnEng2");
 let nameita = "";
 let initialSize = "";
+let favourites = "";
 
 btnItaPhone.addEventListener('click', (event) => {
     setProductLang("it");
@@ -61,10 +62,44 @@ function generateGeneralView(lang, article) {
     <img src="upload/${article["img"]}" alt="${title}" />
     <section>
         <p>€${article["prezzo"]}</p>
-        <button><span class="bi bi-heart"></span>${article["likes"]}</button>
+        <button onclick="addOrDeleteFavourite('${lang}')"><span class="bi bi-heart"></span>${article["likes"]}</button>
     </section>
     `;
     return productView;
+}
+
+async function addOrDeleteFavourite(lang) {
+    let alreadyFav = false;
+    for (let i = 0; i < favourites.length; i++) {
+        if (favourites[i]["nomeita"] === nameita) {
+            alreadyFav = true;
+            i = favourites.length;
+        }
+    }
+    const url = alreadyFav ? "utils/deleteFavs.php" : "utils/addFavourite.php";
+    let formData = new FormData();
+    if (alreadyFav === true) {
+        formData.append('articleFavsName', nameita);
+    } else {
+        formData.append('article', nameita);
+        formData.append('size', initialSize);
+    }
+    try {
+        const response = await fetch(url, {
+            method: "POST",                   
+            body: formData
+        });
+        const json = await response.json();
+        console.log(json);
+        if (json["successful"] === true) {
+            getProduct(lang, nameita, initialSize);
+        } else {
+            console.log(json["error"]);
+        }
+        
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 
 function generateDescription(lang, article) {
@@ -200,6 +235,25 @@ async function getProduct(lang, italianName, size) {
             document.querySelector("#btnBuyNow").style.display = 'inline-block';
             document.querySelector("#btnAddToCart").style.display = 'inline-block';
         }
+
+        const getFavUrl = "utils/getFavourites.php";
+        try {
+            const responseFav = await fetch(getFavUrl);
+            if (!responseFav.ok) {
+                throw new Error(`Response status: ${responseFav.status}`);
+            }
+            const jsonFavs = await responseFav.json();
+            console.log(jsonFavs);
+            favourites = jsonFavs;
+            for (let i = 0; i < jsonFavs.length; i++) {
+                if (jsonFavs[i]["nomeita"] === nameita) {
+                    document.querySelector("main > section > section:first-of-type > section > button > span").className = "bi bi-heart-fill";
+                    i = jsonFavs.length;
+                }
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
     } catch (error) {
         console.log(error.message);
     }
@@ -240,5 +294,4 @@ async function handleSubmit(lang, event) {
             console.log(error.message);
         }
     }
-}
-  
+} 

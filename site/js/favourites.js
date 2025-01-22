@@ -90,6 +90,8 @@ async function addCart(lang, event) {
     const url = "utils/addToCart.php";
     let formData = new FormData();
     formData.append('articleName', articleName);
+    formData.append('quantity', 1);  
+    formData.append('size', 'M');  
 
     try {
         const response = await fetch(url, {
