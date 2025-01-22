@@ -31,6 +31,7 @@ function generateCards(lang, articoli) {
     let elimina = lang === "en" ? 'Delete' : 'Elimina'
     let quantità = lang === "en" ? 'Quantity' : 'Quantità'
     let prezzo = lang === "en" ? 'Cost Single Product' : 'Prezzo Singolo Prodotto'
+    let size = lang === "en" ? 'Size' : 'Taglia'
     let totale = 0;
     let article = "";
 
@@ -48,6 +49,7 @@ function generateCards(lang, articoli) {
                             ${elimina}
                         </button>
                     </form>
+                    <p>${size}: ${articoli[i]["taglia"]}</p>
                     <p>${descrizione}</p>
                     <p>${quantità}: ${articoli[i]["quantità"]}</p>
                     <p>${prezzo}: €${articoli[i]["prezzo"]}</p>

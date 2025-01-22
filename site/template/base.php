@@ -41,7 +41,6 @@
                     <li>
                         <a id="productsLink" href="products.php"><span class="fa fa-shirt"></span><span id="prodTextPC"><?php echo $currentLanguage == "en" ? "Products" : "Prodotti" ?></span></a>
                         <ul id="productsMenu" class="dropdown-menu">
-                            <li><a id="clotTextPC" class="dropdown-item" href="products.php"><?php echo $currentLanguage == "en" ? "Clothing" : "Abbigliamento" ?></a></li>
                             <li><a id="kitsTextPC" class="dropdown-item" href="products.php?category=Divise"><?php echo $currentLanguage == "en" ? "Kits" : "Divise" ?></a></li>
                             <li><a id="hoodTextPC" class="dropdown-item" href="products.php?category=Felpe"><?php echo $currentLanguage == "en" ? "Hoodies" : "Felpe" ?></a></li>
                             <li><a id="tsTextPC" class="dropdown-item" href="products.php?category=Magliette"><?php echo $currentLanguage == "en" ? "T-Shirts" : "Magliette" ?></a></li>

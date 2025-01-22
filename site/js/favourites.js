@@ -30,6 +30,7 @@ function generateCards(lang, articoli) {
     let noPreferiti = lang === "en" ? 'There are not favourite products!' : 'Non ci sono prodotti preferiti!'
     let elimina = lang === "en" ? 'Delete' : 'Elimina'
     let prezzo = lang === "en" ? 'Cost' : 'Prezzo'
+    let size = lang === "en" ? 'Size' : 'Taglia'
     let article = "";
 
     if(articoli.length > 0){
@@ -46,9 +47,10 @@ function generateCards(lang, articoli) {
                             ${elimina}
                         </button>
                     </form>
+                    <p>${size}: ${articoli[i]["taglia"]}</p>
                     <p>${descrizione}</p>
                     <p>${prezzo}: €${articoli[i]["prezzo"]}</p>
-                    <form action="utils/addToCart.php" method="POST" onsubmit="addCart('<?php echo $currentLanguage ?>', event)">
+                    <form action="utils/addToCart.php" method="POST" onsubmit="addCart('<?php echo $currentLanguage ?>', event, \'${articoli[i]["taglia"]}\')">
                         <input type="hidden" id="articleName${i}" name="articleName" value="${articoli[i]["nomeita"]}">
                         <input type="submit" id="btnAdd" value="${aggiungi}">
                     </form>
@@ -82,7 +84,7 @@ async function getArticlesData(lang) {
 }
 
 
-async function addCart(lang, event) {
+async function addCart(lang, event, size) {
     event.preventDefault();
 
     const form = event.target.closest("form");
@@ -91,7 +93,7 @@ async function addCart(lang, event) {
     let formData = new FormData();
     formData.append('articleName', articleName);
     formData.append('quantity', 1);  
-    formData.append('size', 'M');  
+    formData.append('size', size);  
 
     try {
         const response = await fetch(url, {
@@ -105,7 +107,6 @@ async function addCart(lang, event) {
         console.log(json);
         if (json["successful"] === true) {
             console.log(lang === "en" ? "Product added to cart." : "Prodotto aggiunto al carrello.");
-            // window.location.href = "favourites.php";
         } else {
             console.log(json["error"]);
         }

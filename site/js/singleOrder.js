@@ -53,18 +53,62 @@ function generateCards(lang, ordini, number) {
 }
 
 function generateShippingInfo(lang, shipping) {
-    let dateDel = lang === "en" ? "Estimate Date of Delivery" : "Data Prevista di Consegna"
-    let ritiro = lang === "en" ? 'Schedule for pick-up' : 'Pronto per il ritiro'
-    let partitoSede = lang === "en" ? 'Departed to Shipping Facility' : 'Partito per la sede più vicina'
-    let arrivoSede = lang === "en" ? 'Arrived to Shipping Facility' : 'Arrivato nella sede più vicina'
-    let preso = lang === "en" ? 'Picked up by courier' : 'Preso in consegna dal corriere'
-    let consegnato = lang === "en" ? 'Delivered' : 'Consegnato'
-    let article = `
-        <p>${dateDel}: ${shipping[0]["datainserimento"]}</p>
+    let dateDel = lang === "en" ? "Estimated Date of Delivery" : "Data Prevista di Consegna";
+    let ritiro = lang === "en" ? "Schedule for pick-up" : "Pronto per il ritiro";
+    let partitoSede = lang === "en" ? "Departed to Shipping Facility" : "Partito per la sede più vicina";
+    let arrivoSede = lang === "en" ? "Arrived to Shipping Facility" : "Arrivato nella sede più vicina";
+    let preso = lang === "en" ? "Picked up by courier" : "Preso in consegna dal corriere";
+    let consegnato = lang === "en" ? "Out for Delivery" : "In consegna";
+
+    // Prendi la data iniziale
+    const initialDate = new Date(shipping[0]?.datainserimento);
+
+    // Funzione per aggiungere giorni
+    function addDays(date, days) {
+        const result = new Date(date);
+        result.setDate(result.getDate() + days);
+        return result;
+    }
+
+    // Funzione per aggiungere un orario specifico
+    function setTime(date, hours, minutes) {
+        const result = new Date(date);
+        result.setHours(hours, minutes, 0, 0); // Imposta ore, minuti, secondi, millisecondi
+        return result;
+    }
+
+    // Calcola le date e gli orari
+    const dates = [
+        { date: setTime(initialDate, 9, 0), text: ritiro }, // Ritiro alle 9:00
+        { date: setTime(addDays(initialDate, 2), 11, 0), text: preso }, // Preso alle 11:00
+        { date: setTime(addDays(initialDate, 3), 15, 0), text: partitoSede }, // Partito alle 15:00
+        { date: setTime(addDays(initialDate, 5), 17, 0), text: arrivoSede }, // Arrivato alle 17:00
+        { date: setTime(addDays(initialDate, 6), 8, 0), text: consegnato }, // Consegna alle 8:00
+    ];
+
+    // Genera la timeline HTML
+    let timelineHTML = `
+        <p><strong>${dateDel}:</strong> ${dates[dates.length - 1].date.toLocaleDateString(lang === "en" ? "en-US" : "it-IT")}</p>
+        <div class="timeline">
     `;
 
-    
-    return article;
+    for (let i = 0; i < dates.length; i++) {
+        const { date, text } = dates[i];
+        const isCompleted = date <= new Date(); // Passo completato se la data è nel passato o oggi
+
+        timelineHTML += `
+            <div class="timeline-step" data-status="${isCompleted ? 'completed' : 'upcoming'}">
+                <div class="circle"></div>
+                <div class="info">
+                    <p class="date">${date.toLocaleDateString(lang === "en" ? "en-US" : "it-IT")} - ${date.toLocaleTimeString(lang === "en" ? "en-US" : "it-IT", { hour: '2-digit', minute: '2-digit' })}</p>
+                    <p class="text">${text}</p>
+                </div>
+            </div>
+        `;
+    }
+
+    timelineHTML += `</div>`;
+    return timelineHTML;
 }
 
 async function getArticlesInOrder(lang, orderNumber) {
@@ -107,7 +151,7 @@ async function getArticlesInOrder(lang, orderNumber) {
             }
             document.querySelector("main > section > section").innerHTML = allArticles;
 
-            const urlShip = `utils/getShippingInfo.php?orderID=${orderID}`;
+            const urlShip = `utils/getShippingInfo.php?orderID=${orderNumber}`;
             try {
                 const responseShip = await fetch(urlShip);
                 if (!responseShip.ok) {

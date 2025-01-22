@@ -130,7 +130,7 @@ class DatabaseHelper{
     }
 
     public function getFavourites($uCF){
-        $stmt = $this->db->prepare("SELECT a.nomeita, a.nomeeng, a.nomeimmagine, a.prezzo, a.descrizioneita, a.descrizioneeng
+        $stmt = $this->db->prepare("SELECT a.nomeita, a.nomeeng, a.nomeimmagine, a.prezzo, a.descrizioneita, a.descrizioneeng, p.taglia
         FROM preferiti p
         JOIN articoli a ON a.nomeita = p.articolo
         JOIN utenti u ON p.utente = u.CF
