@@ -276,5 +276,12 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function addFavourite($userCF, $articleNameIta, $size) {
+        $stmt = $this->db->prepare("INSERT INTO preferiti (utente, articolo, taglia) VALUES (?, ?, ?)");
+        $stmt->bind_param('sss', $userCF, $articleNameIta, $size);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
 }
 ?>

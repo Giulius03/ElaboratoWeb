@@ -101,14 +101,14 @@ header nav ul li button{
     border: none;
 }
 
-header nav ul li button span, header nav ul li a {
-    font-size: 300%;
+header nav ul li button span, header nav > ul li a {
+    font-size: 260%;
     vertical-align: middle;
     color: white;
     font-weight: 600;
 }
 
-header > nav > ul > li:nth-child(7) {
+header > nav > ul > li:nth-child(7), header > nav > ul > li:nth-child(4) {
     color: white;
 }
 
@@ -117,7 +117,7 @@ header > nav > ul > li:nth-child(4) > ul {
 }
 
 header > nav > ul > li:nth-child(7) > ul, header > nav > ul > li:last-child > ul, header > nav > ul > li:nth-child(4) > ul {
-    font-size: 33%;
+    font-size: 40%;
     background-color: #800020;
     padding: 2px;
     text-align: center;
@@ -193,7 +193,12 @@ header nav > div > div:last-child > ul > li:first-child > a {
 
 header nav > div > div:last-child > ul > li:not(:first-child) a:hover {
     font-weight: 700;
-} 
+}
+
+header nav > div > div:last-child > ul > li:nth-of-type(2) > a:first-of-type:hover,
+header nav > div > div:last-child > ul > li:nth-of-type(2) > ul > li:first-of-type > a:hover {
+    font-weight: normal;
+}
 
 header > nav > div > div:last-child > ul > li:first-child > ul {
     padding: 0;

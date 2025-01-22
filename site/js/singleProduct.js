@@ -76,6 +76,7 @@ async function addOrDeleteFavourite(lang) {
             i = favourites.length;
         }
     }
+    
     const url = alreadyFav ? "utils/deleteFavs.php" : "utils/addFavourite.php";
     let formData = new FormData();
     if (alreadyFav === true) {
@@ -94,7 +95,8 @@ async function addOrDeleteFavourite(lang) {
         if (json["successful"] === true) {
             getProduct(lang, nameita, initialSize);
         } else {
-            console.log(json["error"]);
+            let communication = lang === "en" ? "You have to be logged in to add a favourite." : "Devi essere loggato per aggiungere un preferito.";
+            document.querySelector("main > section > section:first-of-type").innerHTML += `<a href="login.php">${communication}</a><br>`;
         }
         
     } catch (error) {
@@ -243,7 +245,6 @@ async function getProduct(lang, italianName, size) {
                 throw new Error(`Response status: ${responseFav.status}`);
             }
             const jsonFavs = await responseFav.json();
-            console.log(jsonFavs);
             favourites = jsonFavs;
             for (let i = 0; i < jsonFavs.length; i++) {
                 if (jsonFavs[i]["nomeita"] === nameita) {
@@ -289,6 +290,9 @@ async function handleSubmit(lang, event) {
                 setTimeout(() => {
                     document.querySelector("#btnAddToCart").setAttribute("value", originalText);
                 }, 2000);
+            } else {
+                let communication = lang === "en" ? "You have to be logged in to add to cart." : "Devi essere loggato per aggiungere al carrello.";
+                document.querySelector("main > section > section:nth-of-type(3) > div section").innerHTML += `<br><a href="login.php">${communication}</a>`;    
             }
         } catch (error) {
             console.log(error.message);

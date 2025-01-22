@@ -39,8 +39,8 @@
                         <button id="btnSearchAppear" type="button"><span class="bi bi-search"></span></button>
                     </li>
                     <li>
-                        <a id="productsLink" href="products.php"><span class="fa fa-shirt"></span><span id="prodTextPC"><?php echo $currentLanguage == "en" ? "Products" : "Prodotti" ?></span></a>
-                        <ul id="productsMenu" class="dropdown-menu">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" role="button" id="productsLink"><span class="fa fa-shirt"></span><span id="prodTextPC"><?php echo $currentLanguage == "en" ? "Products" : "Prodotti" ?></span></a>
+                        <ul id="productsMenu" class="dropdown-menu" aria-labelledby="productsLink">
                             <li><a id="kitsTextPC" class="dropdown-item" href="products.php?category=Divise"><?php echo $currentLanguage == "en" ? "Kits" : "Divise" ?></a></li>
                             <li><a id="hoodTextPC" class="dropdown-item" href="products.php?category=Felpe"><?php echo $currentLanguage == "en" ? "Hoodies" : "Felpe" ?></a></li>
                             <li><a id="tsTextPC" class="dropdown-item" href="products.php?category=Magliette"><?php echo $currentLanguage == "en" ? "T-Shirts" : "Magliette" ?></a></li>
@@ -56,7 +56,7 @@
                         <a href="index.php"><img src="upload/Stemma.png" alt="Logo squadra. Torna alla Home."></a>
                     </li>
                     <li>
-                        <a role="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"><span class="bi bi-person"></span><span id="userText"><?php echo isUserLoggedIn() ? $_SESSION["username"] : ($currentLanguage == "en" ? "User" : "Utente") ?></span></a>
+                        <a class="dropdown-toggle" role="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"><span class="bi bi-person"></span><span id="userText"><?php echo isUserLoggedIn() ? $_SESSION["username"] : ($currentLanguage == "en" ? "User" : "Utente") ?></span></a>
                         <ul class="dropdown-menu" aria-labelledby="userMenuButton">
                             <?php if (!isUserLoggedIn()): ?>
                                 <li><a id="logText" class="dropdown-item" href="login.php"><?php echo $currentLanguage == "en" ? "Log In" : "Accedi" ?></a></li>
@@ -102,9 +102,9 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a id="prodText" class="nav-link" href="products.php"><?php echo $currentLanguage == "en" ? "Products" : "Prodotti" ?></a>
+                                <a id="prodText" class="nav-link"><?php echo $currentLanguage == "en" ? "Products" : "Prodotti" ?></a>
                                 <ul>
-                                    <li><a id="clotText" href="products.php" class="nav-link"><?php echo $currentLanguage == "en" ? "Clothing" : "Abbigliamento" ?></a></li>
+                                    <li><a id="clotText" class="nav-link"><?php echo $currentLanguage == "en" ? "Clothing" : "Abbigliamento" ?></a></li>
                                     <li>
                                         <ul>
                                         <li><a id="kitsText" href="products.php?category=Divise" class="nav-link"><?php echo $currentLanguage == "en" ? "Kits" : "Divise" ?></a></li>

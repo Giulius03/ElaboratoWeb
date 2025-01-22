@@ -2,8 +2,6 @@ const dropdownLink = document.getElementById('dropdownLink');
 const list = document.getElementById('dropdownList');
 const btnSearchAppearPhone = document.getElementById('btnSearchAppear');
 const searchBarPhone = document.getElementById('searchPhone');
-const productsLink = document.getElementById('productsLink');
-const productsMenu = document.getElementById('productsMenu');
 
 dropdownLink.addEventListener('click', (event) => {
     event.preventDefault();
@@ -12,18 +10,6 @@ dropdownLink.addEventListener('click', (event) => {
 
 btnSearchAppearPhone.addEventListener('click', (event) => {
     searchBarPhone.style.display = searchBarPhone.style.display === 'flex' ? 'none' : 'flex';
-});
-
-productsLink.addEventListener('mouseover', (event) => {
-    productsMenu.style.display = 'block';
-});
-
-productsMenu.addEventListener('mouseover', (event) => {
-    productsMenu.style.display = 'block';
-});
-
-productsMenu.addEventListener('mouseout', (event) => {
-    productsMenu.style.display = 'none';
 });
 
 async function logOut(lang) {
@@ -57,7 +43,6 @@ async function setLang(lang) {
 
         document.getElementById('searchBarPC').placeholder = lang === "en" ? "Search ..." : "Cerca ...";
         document.getElementById('prodTextPC').textContent = lang === "en" ? "Products" : "Prodotti";
-        document.getElementById('clotTextPC').textContent = lang === "en" ? "Clothing" : "Abbigliamento";
         document.getElementById('kitsTextPC').textContent = lang === "en" ? "Kits" : "Divise";
         document.getElementById('hoodTextPC').textContent = lang === "en" ? "Hoodies" : "Felpe";
         document.getElementById('tsTextPC').textContent = lang === "en" ? "T-Shirts" : "Magliette";

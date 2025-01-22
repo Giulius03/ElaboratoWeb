@@ -4,8 +4,6 @@ require_once '../bootstrap.php';
 $status["successful"] = false;
 $status["error"] = "";
 
-// echo $_POST["quantity"]
-
 if (isset($_SESSION["userCF"]) && isset($_POST["articleName"]) && isset($_POST["size"])) {
     try {
         $quantityArticle = 0;
@@ -25,5 +23,4 @@ if (isset($_SESSION["userCF"]) && isset($_POST["articleName"]) && isset($_POST["
 
 header('Content-Type: application/json');
 echo json_encode($status);
-
 ?>
