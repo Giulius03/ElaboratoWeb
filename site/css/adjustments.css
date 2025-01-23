@@ -197,6 +197,10 @@ main > section > section:first-of-type > a:hover, main > section > section:nth-o
 }
 
 /* carousel */
+main > div > section:last-of-type {
+    margin-top: 40px;
+}
+
 main > section > section:nth-child(4) > h2 {
     display: block;
     margin-top: 40px;
@@ -207,22 +211,30 @@ main > section > section:nth-of-type(4) > section {
     margin: 0 auto;
 }
 
-main > section > section:nth-of-type(4) > section > section > section > a {
+main > section > section:nth-of-type(4) > section > section > section > a,
+main > div > section:last-of-type > section > section > section > a {
     text-decoration: none;
 }
 
-main > section > section:nth-of-type(4) > section > section > section > a > article {
+main > section > section:nth-of-type(4) > section > section > section > a > article,
+main > div > section:last-of-type > section > section > section > a > article {
     align-items: center;
     text-align: center;
     height: 450px;
 }
 
-main > section > section:nth-of-type(4) > section > section > section > a > article img {
+main > section > section:nth-of-type(4) > section > section > section > a > article img,
+main > div > section:last-of-type > section > section > section > a > article img {
     width: 80%;
     height: 350px;
 }
 
-main > section > section:nth-of-type(4) > section > button {
+main > div > section:last-of-type > section > section > section > a > article img {
+    width: 100%;
+}
+
+main > section > section:nth-of-type(4) > section > button,
+main > div > section:last-of-type > section > button {
     color: black !important;
     border: none;
     background-color: transparent;

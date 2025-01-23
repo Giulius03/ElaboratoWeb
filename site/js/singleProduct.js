@@ -5,7 +5,8 @@ const btnEngPC = document.getElementById("btnEng2");
 let nameita = "";
 let initialSize = "";
 let favourites = "";
-let swiperRelated = "";
+let swiperRelatedMobile = "";
+let swiperRelatedPC = "";
 
 btnItaPhone.addEventListener('click', (event) => {
     setProductLang("it");
@@ -34,12 +35,14 @@ function setProductLang(lang) {
     document.querySelector("main > section > section:nth-of-type(3) > button").innerHTML = `
     ${textOptions}<span class="bi bi-chevron-down"></span>
     `;
+    document.querySelector("main > div > section:first-of-type > section:nth-of-type(3) > form > h2").innerHTML = textOptions;
     document.querySelector("main > section > section:nth-of-type(3) > div > div > form input:first-of-type").setAttribute("value", lang === "en" ? "Buy Now" : "Compra Ora");
     document.querySelector("main > section > section:nth-of-type(3) > div > div > form input:last-of-type").setAttribute("value", lang === "en" ? "Add to Cart" : "Aggiungi al Carrello");    
     document.querySelector("main > div > section:first-of-type > section:nth-of-type(3) > form > section > input:first-of-type").setAttribute("value", lang === "en" ? "Buy Now" : "Compra Ora");
     document.querySelector("main > div > section:first-of-type > section:nth-of-type(3) > form > section > input:last-of-type").setAttribute("value", lang === "en" ? "Add to Cart" : "Aggiungi al Carrello");    
     getProduct(lang, nameita, initialSize);
     document.querySelector("main > section > section:nth-of-type(4) > h2").textContent = lang === "en" ? "Related Products" : "Articoli Correlati";
+    document.querySelector("main > div > section:last-of-type > h2").textContent = lang === "en" ? "Related Products" : "Articoli Correlati";
 }
 
 async function addOrDeleteFavourite(lang) {
@@ -415,13 +418,42 @@ async function generateRelatedCarousel(lang, group, category) {
         }
         const json = await response.json();
         console.log(json);
-        document.querySelector("main > section > section:nth-of-type(4) > section > section").innerHTML = generateRelated(lang, json);
-        swiperRelated = new Swiper('#swiperRel', {
+        let related = generateRelated(lang, json);
+        document.querySelector("main > section > section:nth-of-type(4) > section > section").innerHTML = related;
+        document.querySelector("main > div > section:last-of-type > section > section").innerHTML = related;
+        swiperRelatedMobile = new Swiper('#swiperRel', {
             loop: true, // Enables infinite scrolling
             slidesPerView: 1, // Default: 1 product visible
             navigation: {
                 nextEl: '#nextRel',
                 prevEl: '#prevRel',
+            },
+            pagination: false, // No dots at the bottom
+            breakpoints: {
+                576: {
+                    slidesPerView: 2,
+                    spaceBetween: 0,
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 0,
+                },
+                992: {
+                    slidesPerView: 3,
+                    spaceBetween: 90,
+                },
+                1200: {
+                    slidesPerView: 3,
+                    spaceBetween: 130,
+                }
+            },
+        });
+        swiperRelatedPC = new Swiper('#swiperRelPC', {
+            loop: true, // Enables infinite scrolling
+            slidesPerView: 1, // Default: 1 product visible
+            navigation: {
+                nextEl: '#nextRelPC',
+                prevEl: '#prevRelPC',
             },
             pagination: false, // No dots at the bottom
             breakpoints: {
