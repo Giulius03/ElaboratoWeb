@@ -85,7 +85,7 @@ function generateGeneralViewMobile(lang, article) {
     let title = lang === "en" ? article["nomeeng"] : article["nomeita"];
     let productView = `
     <header class="d-flex justify-content-center align-items-center">
-        <h1>${title}</h1>`;
+        <h2>${title}</h2>`;
     for (let i = 0; i < 5; i++) {
         let className = "";
         if (article["valutazione"] >= i + 1) {
@@ -103,6 +103,7 @@ function generateGeneralViewMobile(lang, article) {
     </header>
     <img src="upload/${article["img"]}" alt="${title}" />
     <section>
+        <h2 style="display: none">tit</h2>
         <p>€${article["prezzo"]}</p>
         <button onclick="addOrDeleteFavourite('${lang}')"><span class="bi bi-heart"></span>${article["likes"]}</button>
     </section>
@@ -174,6 +175,7 @@ function generateImageLikesPC(lang, article) {
     let favText = lang === "en" ? " people like this article" : " persone piace questo articolo";
     let btnAddFavText = lang === "en" ? " Add to Favourites" : " Aggiungi ai Preferiti";
     let productView = `
+    <h2 style="display: none">tit</h2>
     <img src="upload/${article["img"]}" alt="${title}" />
     <p>${a}${article["likes"]}${favText}</p>
     <button onclick="addOrDeleteFavourite('${lang}')"><span class="bi bi-heart"></span>${btnAddFavText}</button>
@@ -186,7 +188,7 @@ function generateGeneralViewPC(lang, article) {
     let title = lang === "en" ? article["nomeeng"] : article["nomeita"];
     let description = lang === "en" ? article["desceng"] : article["descita"];
     let detailsText = lang === "en" ? "Product Details" : "Dettagli Prodotto";
-    let view = `<h1>${title}</h1>`;
+    let view = `<h2>${title}</h2>`;
     for (let i = 0; i < 5; i++) {
         let className = "";
         if (article["valutazione"] >= i + 1) {
@@ -394,10 +396,13 @@ function generateRelated(lang, articles) {
 
     for (let i = 0; i < articles.length; i++) {
         let name = lang === "en" ? articles[i]["nomeeng"] : articles[i]["nomeita"];
+        let textUrl = articles[i]["nomeita"].replaceAll(" ", "%20")
         cards += `
+        <h2 style="display: none">tit</h2>
         <section class="swiper-slide">
-            <a href="singleProduct.php?product=${articles[i]["nomeita"]}">
+            <a href="singleProduct.php?product=${textUrl}">
                 <article class="card">
+                    <h2 style="display: none">tit</h2>
                     <img src="upload/${articles[i]["nomeimmagine"]}" alt="${name}">
                     <strong>${name}</strong>
                     <p>€${articles[i]["prezzo"]}</p>

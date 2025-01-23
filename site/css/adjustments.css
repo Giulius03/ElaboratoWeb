@@ -45,7 +45,7 @@ main > section > form > ul > li:nth-of-type(4) > input:hover {
 }
 
 main > section > section > h2, main > section > section > form h2, main > section > div section > h2, main > article > h2,
-main > section > div > section > article > h2, main > section > div > section > article > section  > h2 {
+main > section > div > section > article > h2, main > section > div > section > article > section > h2 {
     display: none;
 }
 
@@ -76,7 +76,7 @@ main > section > section:not(:last-of-type) {
     text-align: center;
 }
 
-main > section > section:first-of-type > header > h1 {
+main > section > section:first-of-type > header > h2 {
     font-style: normal;
     font-weight: 600;
     text-shadow: none;
@@ -286,7 +286,7 @@ main > div > section:first-of-type > section:nth-of-type(2) {
     width: 35%;
 }
 
-main > div > section:first-of-type > section:nth-of-type(2) > h1 {
+main > div > section:first-of-type > section:nth-of-type(2) > h2 {
     font-style: normal;
     font-weight: 600;
     text-shadow: none;
