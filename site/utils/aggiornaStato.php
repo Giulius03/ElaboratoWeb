@@ -3,14 +3,9 @@ require_once '../bootstrap.php';
 
 $status = ["successful" => false, "error" => ""];
 
-if (isset($_POST["dataIns"]) && isset($_POST["dataCons"]) && isUserLoggedIn()) {
+if (isset($_POST["orderNumber"]) && isUserLoggedIn()) {
     try {
-        $dbh->addOrder($_SESSION["userCF"], $_POST["dataIns"], $_POST["dataCons"]);
-        $cart = $dbh->getCart($_SESSION["userCF"]);
-
-        foreach ($cart as $article) {
-            $dbh->addArticleOrder($article['nomeita'], $article['quantità'], $article['taglia']);
-        }
+        $dbh->aggiornaStato($_POST["orderNumber"]);
 
         $status["successful"] = true;
     } catch (Exception $e) {
