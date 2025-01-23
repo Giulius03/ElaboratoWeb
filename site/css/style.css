@@ -773,8 +773,8 @@ main > section > section > ol > li > div > p{
 }
 
 main > section > section > ol > li[data-status="completed"] > span{
-    background-color: gold;
-    border-color: gold;
+    background-color: #DCAE15;
+    border-color: #DCAE15;
 }
 
 main > section > section > ol > li[data-status="upcoming"] > span{
@@ -788,6 +788,60 @@ main > section > section > h3 {
     color: #555;
     margin-bottom: 20px;
 }
+/* #endregion */
+
+/* #region Common things for Tickets*/
+main > section > section > ol.ordered {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+    border-left: 2px solid #ccc;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main > section > section > ol.ordered > li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+main > section > section > ol.ordered > li > img {
+    width: 300px;
+    height: 300px;
+    margin-top: 10px;
+}
+
+main > section > section > ol.ordered > li > img.stadium {
+    width: 1000px;
+    height: 800px;
+}
+
+main > section > section > ol.ordered > li > select, main > section > section > ol.ordered > li > input {
+    font-size: 16px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+main > section > section > ol.ordered > li > form > input {
+    border: none;
+    background-color: #800020;
+    color: white;
+    margin-top: 15px;
+    width: 100%;
+    height: 35px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
 /* #endregion */
 
 /* #region footer */

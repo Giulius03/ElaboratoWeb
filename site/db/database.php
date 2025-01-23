@@ -302,5 +302,51 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getMatch(){
+        $stmt = $this->db->prepare("SELECT p.competizione, p.avversario, p.data, p.ora, p.logo, p.curvandisp, p.curvasdisp, p.triborodisp, p.tribconigliodisp
+        FROM partite p");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function addToTickets($uCF, $matchDate, $matchTime, $avversario, $area, $name, $surname, $ridotto, $prezzo, $ticketNumber){
+        $stmt = $this->db->prepare("INSERT INTO biglietti (avversario, `data`, ora, settore, numeroposto, nome, cognome, ridotto, prezzo, cliente) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param('ssssissdis', $avversario, $matchDate, $matchTime, $area, $ticketNumber, $name, $surname, $ridotto, $prezzo, $uCF);
+        $stmt->execute();
+        
+        if ($stmt->error) {
+            return ["successful" => false, "error" => $stmt->error];
+        }
+    
+        $updateQuery = "";
+        switch ($area) {
+            case 'Golden Grandstand':
+                $updateQuery = "UPDATE partite SET triborodisp = triborodisp - 1 WHERE avversario = ? AND `data` = ? AND ora = ?";
+                break;
+            case 'North Curve':
+                $updateQuery = "UPDATE partite SET curvandisp = curvandisp - 1 WHERE avversario = ? AND `data` = ? AND ora = ?";
+                break;
+            case 'South Curve':
+                $updateQuery = "UPDATE partite SET curvasdisp = curvasdisp - 1 WHERE avversario = ? AND `data` = ? AND ora = ?";
+                break;
+            case 'Rabbit Grandstand':
+                $updateQuery = "UPDATE partite SET tribconigliodisp = tribconigliodisp - 1 WHERE avversario = ? AND `data` = ? AND ora = ?";
+                break;
+            default:
+                return ["successful" => false, "error" => "Area non valida: " . $area];
+        }
+    
+        $stmtUpdate = $this->db->prepare($updateQuery);
+        $stmtUpdate->bind_param('sss', $avversario, $matchDate, $matchTime);
+        $stmtUpdate->execute();
+        
+        if ($stmtUpdate->error) {
+            return ["successful" => false, "error" => $stmtUpdate->error];
+        }
+    
+        return ["successful" => true, "error" => ""];
+    }
 }
 ?>
