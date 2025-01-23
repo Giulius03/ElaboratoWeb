@@ -29,11 +29,20 @@
     main > section > section:nth-of-type(4) > section > section > section > a > article img {
         width: 100%;
     }
+
+    main > section > section:first-of-type > img {
+        width: 60%;
+    }
 }
 
 @media (min-width: 576px) and (max-width: 767px){
     header nav div div button{
         padding-left: 15%;
+    }
+
+    main > section > section:first-of-type > header > h1 {
+        margin-right: 20%;
+        font-size: 28px;
     }
 }
 
@@ -58,6 +67,14 @@
 @media (min-width: 651px) and (max-width: 767px) {
     .offcanvas {
         --bs-offcanvas-width: 45%;
+    }
+
+    main > section > section:first-of-type > img {
+        width: 55%;
+    }
+
+    main > section > section:first-of-type > header > h1 {
+        margin-right: 25%;
     }
 }
 
@@ -163,6 +180,10 @@
         content: none;
     }
 
+    main > div {
+        display: block;
+    }
+
     footer > ul:first-of-type {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -215,6 +236,10 @@
         width: 60%;
     }
 
+    main > div > section:first-of-type > section:first-of-type button {
+        width: 57%;
+    }
+
     footer {
         font-size: 105%;
     }
@@ -247,5 +272,17 @@
 
     main > section > div > section:last-of-type {
         width: 70%;
+    }
+
+    main > div > section:first-of-type > section:first-of-type img {
+        width: 70%;
+    }
+
+    main > div > section:first-of-type > section:first-of-type button {
+        width: 45%;
+    }
+
+    main > div > section:first-of-type > section:nth-of-type(2) > h1 {
+        font-size: 33px;
     }
 } 

@@ -71,7 +71,7 @@ main > section > section > article {
     border: none;
 }
 
-/* #region Single product */
+/* #region Single product mobile*/
 main > section > section:not(:last-of-type) {
     text-align: center;
 }
@@ -196,12 +196,12 @@ main > section > section:first-of-type > a:hover, main > section > section:nth-o
     text-decoration: underline;
 }
 
+/* carousel */
 main > section > section:nth-child(4) > h2 {
     display: block;
     margin-top: 40px;
 }
 
-/* carousel */
 main > section > section:nth-of-type(4) > section {
     width: 100%;
     margin: 0 auto;
@@ -226,5 +226,138 @@ main > section > section:nth-of-type(4) > section > button {
     color: black !important;
     border: none;
     background-color: transparent;
+}
+/* #endregion */
+
+/* #region single product pc */
+main > div {
+    display: none;
+    margin-top: 30px;
+}
+
+main > div > section:first-of-type {
+    display: flex;
+    width: 100%;
+}
+
+main > div > section:first-of-type > section:first-of-type {
+    width: 40%;
+    text-align: center;
+}
+
+main > div > section:first-of-type > section:first-of-type img {
+    width: 85%;
+}
+
+main > div > section:first-of-type > section:first-of-type p {
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+main > div > section:first-of-type > section:first-of-type button {
+    border: none;
+    border-radius: 5px;
+    background-color: #800020;
+    color: white;
+    width: 68%;
+    font-size: 18px;
+    font-weight: 500;
+    height: 33px;
+}
+
+main > div > section:first-of-type > section:first-of-type button:hover {
+    font-weight: 700;
+}
+
+main > div > section:first-of-type > section:nth-of-type(2) {
+    width: 35%;
+}
+
+main > div > section:first-of-type > section:nth-of-type(2) > h1 {
+    font-style: normal;
+    font-weight: 600;
+    text-shadow: none;
+    font-size: 26px;
+    margin: 0 0 5px 0;
+    color: black;
+    text-align: left;
+}
+
+main > div > section:first-of-type > section:nth-of-type(2) > span {
+    color: #800020;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+main > div > section:first-of-type > section:nth-of-type(2) > p:first-of-type {
+    font-weight: 500;
+    font-size: 22px;
+}
+
+main > div > section:first-of-type > section:nth-of-type(2) > strong {
+    font-size: 20px;
+}
+
+main > div > section:first-of-type > section:nth-of-type(2) > p:last-of-type {
+    font-size: 17px;
+}
+
+main > div > section:first-of-type > section:nth-of-type(3) {
+    width: 25%;
+}
+
+main > div > section:first-of-type > section:nth-of-type(3) > form {
+    padding: 0;
+    text-align: center;
+    margin-right: 8px;
+    border: 1px solid rgb(167, 167, 167);
+    border-radius: 10px;
+}
+
+main > div > section:first-of-type > section:nth-of-type(3) > form > h2 {
+    font-style: normal;
+    font-size: 25px;
+}
+
+main > div > section:first-of-type > section:nth-of-type(3) > form > select {
+    background-color: white;
+    border: solid 2px #800020;
+    color: #800020;
+    font-weight: 500;
+    width: 90%;
+    margin: 0 5% 10px 5%;
+    font-size: 15px;
+}
+
+main > div > section:first-of-type > section:nth-of-type(3) > form > select:focus {
+    box-shadow: none;
+    border-color: #800020;
+}
+
+main > div > section:first-of-type > section:nth-of-type(3) > form > section > input {
+    background-color: #800020;
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    height: 35px;
+    width: 90%;
+    margin: 0 5% 10px 5%;
+}
+
+main > div > section:first-of-type > section:nth-of-type(3) > form > section > input:hover {
+    font-weight: 700;
+}
+
+main > div > section:first-of-type > section:first-of-type > a, main > div > section:first-of-type > section:nth-of-type(3) > a {
+    text-decoration: none;
+    color: #800020;
+    font-weight: 500;
+}
+
+main > div > section:first-of-type > section:first-of-type > a:hover, main > div > section:first-of-type > section:nth-of-type(3) > a:hover {
+    text-decoration: underline;
 }
 /* #endregion */

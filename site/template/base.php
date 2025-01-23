@@ -20,6 +20,11 @@
         endif;
         ?>
         <link rel="stylesheet" type="text/css" href="./css/mediaqueries.css" />
+        <?php
+        if (isset($templateParams["mediaqueries"])) {
+            echo "<link rel='stylesheet' type='text/css' href='./" . $templateParams["mediaqueries"] . "' />";
+        }
+        ?>
     </head>
     <body onload="<?php echo isset($templateParams["onloadFunctions"]) ? $templateParams["onloadFunctions"] : "" ?>">
         <header>

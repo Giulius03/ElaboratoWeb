@@ -81,7 +81,7 @@ async function getArticlesData(lastReleases, lang) {
                     },
                     768: {
                         slidesPerView: 3,
-                        spaceBetween: 40,
+                        spaceBetween: 0,
                     },
                     992: {
                         slidesPerView: 3,
@@ -109,7 +109,7 @@ async function getArticlesData(lastReleases, lang) {
                     },
                     768: {
                         slidesPerView: 3,
-                        spaceBetween: 40,
+                        spaceBetween: 0,
                     },
                     992: {
                         slidesPerView: 3,

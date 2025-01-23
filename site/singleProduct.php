@@ -8,6 +8,7 @@ $templateParams["js"] = array("js/singleProduct.js");
 $templateParams["css"] = array("css/adjustments.css");
 $articleName = $_GET["product"];
 $templateParams["onloadFunctions"] = "getProduct('$currentLanguage', '$articleName', 'M')";
+$templateParams["mediaqueries"] = "css/productPC.css";
 
 require 'template/base.php';
 ?>
