@@ -123,7 +123,7 @@ function generateCards(lang, articoli) {
                     <strong>${nome}</strong>
                     <p>${prezzo}: €${articoli[i]["prezzo"]}</p>
                     <form action="singleProduct.php?product=${articoli[i]["nomeita"]}" method="GET">
-                        <input type="hidden" id="articleName${i}" name="articleName" value="${articoli[i]["nomeita"]}">
+                        <input type="hidden" id="product${i}" name="product" value="${articoli[i]["nomeita"]}">
                         <input type="submit" id="btnView" value="${view}">
                     </form>
                 </article>
