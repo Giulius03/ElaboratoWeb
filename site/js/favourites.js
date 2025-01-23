@@ -107,6 +107,12 @@ async function addCart(lang, event, size) {
         console.log(json);
         if (json["successful"] === true) {
             console.log(lang === "en" ? "Product added to cart." : "Prodotto aggiunto al carrello.");
+            let originalText = document.querySelector("#btnAdd").value;
+            console.log(originalText);
+            document.querySelector("#btnAdd").setAttribute("value", lang === "en" ? "Added" : "Aggiunto");
+            setTimeout(() => {
+                document.querySelector("#btnAdd").setAttribute("value", originalText);
+            }, 1500);
         } else {
             console.log(json["error"]);
         }

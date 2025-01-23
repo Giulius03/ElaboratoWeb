@@ -39,7 +39,7 @@ function generateCards(lang, match) {
 
     if (match.length > 0) {
         article += `
-            <ol>
+            <ol class="ordered">
                 <li><h2 id="competiton">${match[0]["competizione"]}</h2></li>
                 <li><h3 id="data">${match[0]["data"]}</h3></li>
                 <li><h3 id="ora">${match[0]["ora"]}</h3></li>
@@ -86,10 +86,10 @@ function generateCards(lang, match) {
                     </select>
                 </li>
                 <li><p>${prezzo}:€74.99</p></li>
+                <li><form id="ticketForm" onsubmit="handleFormSubmit(event, '<?php echo $currentLanguage; ?>', '${ticketNum}')">
+                    <input type="submit" id="btnBuy" value="${buy}">
+                </form></li>
             </ol>
-            <form id="ticketForm" onsubmit="handleFormSubmit(event, '<?php echo $currentLanguage; ?>', '${ticketNum}')">
-                <input type="submit" id="btnBuy" value="${buy}">
-            </form>
         `;
     } else {
         article += `
@@ -180,7 +180,6 @@ async function addTicket(lang, event, ticketNum) {
             console.log(lang === "en" ? "Product added to cart." : "Prodotto aggiunto al carrello.");
         } else {
             console.error("Errore aggiunta biglietto:", json.error || "Errore sconosciuto.");
-            alert(json.error || "Si è verificato un errore. Riprova più tardi.");
         }
     } catch (error) {
         console.log(error.message);

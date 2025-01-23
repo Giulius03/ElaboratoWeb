@@ -348,5 +348,34 @@ class DatabaseHelper{
     
         return ["successful" => true, "error" => ""];
     }
+
+    public function addOrder($uCF, $dataIns, $dataCons){
+        $result = $this->db->query("SELECT MAX(numero) AS max_numero FROM ordini");
+        $row = $result->fetch_assoc();
+        $numero = $row['max_numero'] ? $row['max_numero'] + 1 : 1;
+        $stato = 0;
+        $stmt = $this->db->prepare("INSERT INTO ordini (numero, stato, CF, datainserimento, dataconsegna) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param('iisss', $numero, $stato, $uCF, $dataIns, $dataCons);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
+
+    public function addArticleOrder($nome, $quantity, $size){
+        $result = $this->db->query("SELECT MAX(Id) AS max_id FROM articoli_in_ordine");
+        $row = $result->fetch_assoc();
+        $id = $row['max_id'] ? $row['max_id'] + 1 : 1;
+        $stmt = $this->db->prepare("INSERT INTO articoli_in_ordine (Id, nome, quantità, taglia) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param('isis', $id, $nome, $quantity, $size);
+        $stmt->execute();
+
+        $resultNum = $this->db->query("SELECT MAX(numero) AS max_numero FROM ordini");
+        $rowNum = $resultNum->fetch_assoc();
+        $numero = $rowNum['max_numero'];
+        $valutazione = 1;
+        $stmt = $this->db->prepare("INSERT INTO composizioni (IdArticolo, numeroordine, valutazione) VALUES (?, ?, ?)");
+        $stmt->bind_param('iii', $id, $numero, $valutazione);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
 }
 ?>

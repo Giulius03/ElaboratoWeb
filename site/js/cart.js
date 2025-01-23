@@ -26,6 +26,16 @@ btnEngPC.addEventListener('click', (event) => {
     setUserLogFormLang("en");
 });
 
+function handleFormSubmit(event, lang) {
+    event.preventDefault();
+
+    addOrder(lang, event);
+
+    setTimeout(() => {
+         window.location.href = "payment.php";
+    }, 500);
+}
+
 function generateCards(lang, articoli) {
     let carrelloVuoto = lang === "en" ? 'Empty Cart!' : 'Carrello Vuoto!'
     let elimina = lang === "en" ? 'Delete' : 'Elimina'
@@ -108,12 +118,52 @@ async function deleteCart(lang, event) {
         const json = await response.json();
         console.log(json);
         if (json["successful"] === true) {
-            // alert(lang === "en" ? "Product deleted from cart." : "Prodotto eliminato dal carrello.");
+            console.log(lang === "en" ? "Product deleted from cart." : "Prodotto eliminato dal carrello.");
             getArticlesData(lang);
         } else {
-            alert(json["error"]);
+            console.log(json["error"]);
         }
     } catch (error) {
         console.log(error.message);
+    }
+}
+
+async function addOrder(lang, event) {
+    const dataIns = new Date();
+    const dataCons = new Date(dataIns);
+    dataCons.setHours(21, 0, 0, 0);
+
+    const url = "utils/addOrder.php";
+    let formData = new FormData();
+    formData.append('dataIns', dataIns.toISOString().slice(0, 19).replace('T', ' '));
+    formData.append('dataCons', dataCons.toISOString().slice(0, 19).replace('T', ' '));
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            body: formData,
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP Error: ${response.status}`);
+        }
+
+        const textResponse = await response.text();
+        console.log("Risposta raw dal server:", textResponse);
+
+        const json = JSON.parse(textResponse);
+
+        console.log("Risposta dal server:", json);
+
+        if (json.successful) {
+            console.log(lang === "en" ? "Cart ordered." : "Carrello ordinato.");
+            alert(lang === "en" ? "Your order has been placed successfully!" : "Il tuo ordine è stato effettuato con successo!");
+        } else {
+            console.error("Errore aggiunta ordine:", json.error || "Errore sconosciuto.");
+            alert(lang === "en" ? `Error: ${json.error}` : `Errore: ${json.error}`);
+        }
+    } catch (error) {
+        console.error("Errore nella richiesta:", error.message);
+        alert(lang === "en" ? "An error occurred during the request." : "Si è verificato un errore durante la richiesta.");
     }
 }

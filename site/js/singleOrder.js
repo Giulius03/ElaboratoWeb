@@ -55,11 +55,11 @@ function generateCards(lang, ordini, number) {
 }
 
 // Funzione per aggiungere giorni
-function addDays(date, days) {
-    const result = new Date(date);
-    result.setDate(result.getDate() + days);
-    return result;
-}
+// function addDays(date, days) {
+//     const result = new Date(date);
+//     result.setDate(result.getDate() + days);
+//     return result;
+// }
 
 // Funzione per aggiungere un orario specifico
 function setTime(date, hours, minutes) {
@@ -82,10 +82,10 @@ function generateShippingInfo(lang, shipping) {
     // Calcola le date e gli orari
     const dates = [
         { date: setTime(initialDate, 9, 0), text: ritiro }, // Ritiro alle 9:00
-        { date: setTime(addDays(initialDate, 2), 11, 0), text: preso }, // Preso alle 11:00
-        { date: setTime(addDays(initialDate, 3), 15, 0), text: partitoSede }, // Partito alle 15:00
-        { date: setTime(addDays(initialDate, 5), 17, 0), text: arrivoSede }, // Arrivato alle 17:00
-        { date: setTime(addDays(initialDate, 6), 8, 0), text: consegnato }, // Consegna alle 8:00
+        { date: setTime(initialDate, 11, 0), text: preso }, // Preso alle 11:00
+        { date: setTime(initialDate, 15, 0), text: partitoSede }, // Partito alle 15:00
+        { date: setTime(initialDate, 17, 0), text: arrivoSede }, // Arrivato alle 17:00
+        { date: setTime(initialDate, 21, 0), text: consegnato }, // Consegna alle 21:00
     ];
 
     // Genera la timeline HTML
@@ -96,7 +96,9 @@ function generateShippingInfo(lang, shipping) {
 
     for (let i = 0; i < dates.length; i++) {
         const { date, text } = dates[i];
-        const isCompleted = date <= new Date(); // Passo completato se la data è nel passato o oggi
+        if (i <= shipping[0]["stato"]){
+            isCompleted = true;
+        }
 
         timelineHTML += `
             <li class="timeline-step" data-status="${isCompleted ? 'completed' : 'upcoming'}">
