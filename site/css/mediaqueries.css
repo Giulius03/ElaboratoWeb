@@ -240,6 +240,25 @@
         width: 57%;
     }
 
+    main > form {
+        display: flex;
+    }
+
+    main > form > fieldset:first-of-type, main > form > fieldset:last-of-type {
+        width: 30%;
+        margin-top: 20px;
+    }
+
+    main > form > fieldset:nth-of-type(2) {
+        width: 40%;
+    }
+
+    main > form > fieldset:last-of-type {
+        margin-left: 0;
+        margin-right: 10px;
+        height: 240px;
+    }
+
     footer {
         font-size: 105%;
     }

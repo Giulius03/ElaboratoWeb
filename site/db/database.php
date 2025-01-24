@@ -383,5 +383,13 @@ class DatabaseHelper{
         $stmt->execute();
         return $stmt->insert_id;
     }
+
+    public function getNumberOfOrders($userCF){
+        $stmt = $this->db->prepare("SELECT COUNT(*) as numOrdini FROM ordini WHERE cf = ?");
+        $stmt->bind_param('s', $userCF);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>

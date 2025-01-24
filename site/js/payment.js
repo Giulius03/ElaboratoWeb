@@ -2,6 +2,11 @@ const btnItaPhone = document.getElementById("btnIta1");
 const btnItaPC = document.getElementById("btnIta2");
 const btnEngPhone = document.getElementById("btnEng1");
 const btnEngPC = document.getElementById("btnEng2");
+let buyFromCart = false;
+let articleToBuy = "";
+let articleSize = "";
+let quantityToBuy = 0;
+let price = 0;
 
 btnItaPhone.addEventListener('click', (event) => {
     setPaymentLang("it");
@@ -36,4 +41,84 @@ function setPaymentLang(lang) {
 
 function cardInputsVisible(visible) {
     document.querySelector("main > form > fieldset:first-of-type > ul").style.display = visible ? 'block' : 'none';
+}
+
+function getCookies(cart, article, size, pricee, quantity) {
+    buyFromCart = cart;
+    articleToBuy = article;
+    articleSize = size;
+    quantityToBuy = quantity;
+    price = pricee;
+    showPrices();
+}
+
+async function addOrder(lang, event) {
+    event.preventDefault();
+
+    const dataIns = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    const dataCons = new Date(dataIns);
+    dataCons.setHours(21, 0, 0, 0);
+
+    let url = "utils/addOrder.php?fromCart=" + buyFromCart + "&dataIns=" + dataIns + "&dataCons=" + dataCons.toISOString().slice(0, 19).replace('T', ' ');
+    if (buyFromCart === false) {
+        url += "&article=" + articleToBuy + "&quantity=" + quantityToBuy + "&size=" + articleSize;
+    }
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        console.log(json);
+
+        if (json["successful"] === true) {
+            window.location.href = "orders.php";
+        } else {
+            console.log("Male");
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+async function showPrices() {
+    let discountToApply = false;
+
+    const url = "utils/getNumberOfOrders.php";
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        console.log(json);
+        
+
+        if (json["firstOrder"] === true) {
+            discountToApply = true;
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+
+    let selectedDeliveryMethod = document.querySelector('input[name="deliveryMethod"]:checked');
+    let txtShippingCosts = !selectedDeliveryMethod ? "€-.--" : (selectedDeliveryMethod.value == "standard" ? "€0.00" : "€4.99");
+    let txtDiscount = discountToApply === true ? "30%" : "0%";
+    let total = 0;
+    let pricesSection = document.querySelector("main > form > fieldset:last-of-type > section > section:last-of-type");
+    let txtPrices = `<h2>tit</h2>`;
+    if (buyFromCart === false) {
+        txtPrices += `
+        <p>€${price}<br>
+        ${txtShippingCosts}<br>
+        ${txtDiscount}</p>
+        `;
+        total = price + (!selectedDeliveryMethod ? 0 : (selectedDeliveryMethod.value == "standard" ? 0 : 4.99));
+        if (discountToApply === true) {
+            total *= 0.7;
+        }
+        total = parseFloat(total.toFixed(2));
+        txtPrices += `<strong>€${total}</strong>`;
+    }
+    pricesSection.innerHTML = txtPrices;
 }

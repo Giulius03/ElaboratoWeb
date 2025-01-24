@@ -776,6 +776,7 @@ main > form > fieldset:nth-of-type(3) > section > section:first-of-type {
 
 main > form > fieldset:nth-of-type(3) > section > section:last-of-type {
     width: 20%;
+    text-align: right;
 }
 
 main > form > fieldset:nth-of-type(3) > section > section:first-of-type > p, main > form > fieldset:nth-of-type(3) > section > section:first-of-type > strong {
@@ -788,6 +789,10 @@ main > form > fieldset:nth-of-type(3) > section > section:last-of-type > p {
     margin-right: 15px;
     font-size: 18px;
 }
+main > form > fieldset:nth-of-type(3) > section > section:last-of-type > strong {
+    float: right;
+    margin-right: 11px;
+    font-size: 18px;}
 
 main > form > fieldset:nth-of-type(3) > section > h2, main > form > fieldset:nth-of-type(3) > section > section > h2 {
     display: none;

@@ -1,23 +1,35 @@
 <?php
 require_once '../bootstrap.php';
 
-$status = ["successful" => false, "error" => ""];
-
-if (isset($_POST["dataIns"]) && isset($_POST["dataCons"]) && isUserLoggedIn()) {
-    try {
-        $dbh->addOrder($_SESSION["userCF"], $_POST["dataIns"], $_POST["dataCons"]);
-        $cart = $dbh->getCart($_SESSION["userCF"]);
-
-        foreach ($cart as $article) {
-            $dbh->addArticleOrder($article['nomeita'], $article['quantità'], $article['taglia']);
+$status["successful"] = false;
+$status["error"] = "";
+if (isset($_GET["fromCart"]) && $_GET["fromCart"] == "true") {
+    if (isset($_GET["dataIns"]) && isset($_GET["dataCons"]) && isUserLoggedIn()) {
+        try {
+            $dbh->addOrder($_SESSION["userCF"], $_GET["dataIns"], $_GET["dataCons"]);
+            $cart = $dbh->getCart($_SESSION["userCF"]);
+    
+            foreach ($cart as $article) {
+                $dbh->addArticleOrder($article['nomeita'], $article['quantità'], $article['taglia']);
+            }
+    
+            $status["successful"] = true;
+        } catch (Exception $e) {
+            $status["error"] = $e->getMessage();
         }
-
-        $status["successful"] = true;
-    } catch (Exception $e) {
-        $status["error"] = $e->getMessage();
+    } else {
+        $status["error"] = "Missing required parameters or user not logged in.";
     }
 } else {
-    $status["error"] = "Missing required parameters or user not logged in.";
+    if (isset($_GET["dataIns"]) && isset($_GET["dataCons"]) && isUserLoggedIn() && isset($_GET["article"]) && isset($_GET["quantity"]) && isset($_GET["size"])) {
+        try {
+            $dbh->addOrder($_SESSION["userCF"], $_GET["dataIns"], $_GET["dataCons"]);
+            $dbh->addArticleOrder($_GET["article"], $_GET["quantity"], $_GET["size"]);
+            $status["successful"] = true;
+        } catch (Exception $e) {
+            $status["error"] = $e->getMessage();
+        }
+    }
 }
 
 header('Content-Type: application/json');

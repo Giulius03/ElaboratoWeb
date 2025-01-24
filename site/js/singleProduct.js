@@ -7,6 +7,7 @@ let initialSize = "";
 let favourites = "";
 let swiperRelatedMobile = "";
 let swiperRelatedPC = "";
+let price = 0;
 
 btnItaPhone.addEventListener('click', (event) => {
     setProductLang("it");
@@ -311,6 +312,7 @@ async function getProduct(lang, italianName, size) {
 
         getMobileProd(lang, json);
         getPCProd(lang, json);
+        price = json[0]["prezzo"];
 
         let availableText = lang === "en" ? "Product available" : "Prodotto disponibile";
         let notAvailableText = lang === "en" ? "Product not available" : "Prodotto non disponibile";
@@ -488,14 +490,13 @@ async function generateRelatedCarousel(lang, group, category) {
 async function handleSubmit(lang, event) {
     const clickedButton = event.submitter.value;
     event.preventDefault();
-    let url = "";
     let quant = document.querySelector(window.innerWidth < 768 
         ? "main > section > section:nth-of-type(3) > div > div > form > select:first-of-type"
         : "main > div > section:first-of-type > section:nth-of-type(3) > form > select:first-of-type").value;
   
     if (clickedButton === "Compra Ora" || clickedButton === "Buy Now") {
         //reindirizzamento alla pagina di pagamento passando tutti i dati e creazione dell'ordine con singolo prodotto
-        window.location.href = "payment.php?article=" + nameita + "&quantity=" + quant + "&size=" + initialSize;
+        window.location.href = "payment.php?article=" + nameita + "&quantity=" + quant + "&size=" + initialSize + "&price=" + price;
     } else {
         //aggiunta al carello del prodotto
         const url = "utils/addToCart.php";
