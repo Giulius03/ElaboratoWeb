@@ -28,14 +28,15 @@ function generateCards(lang, ordini, number) {
     let prezzo = 0;
     let order = lang === "en" ? "Order Number" : "Numero Ordine"
     let view = lang === "en" ? "View Order" : "Vedi Ordine"
-    let article = `<strong>${order}: ${number}</strong>
-                        <ul>
-                        `;
+    let article = `<h2 style="display: none;">validation</h2>
+            <strong>${order}: ${number}</strong>
+                <ul>
+                `;
 
     for (let i = 0; i < ordini.length; i++) {
         let nome = lang === "en" ? ordini[i]["nomeeng"] : ordini[i]["nomeita"];
         article += `
-                <li><img src="upload/${ordini[i]["nomeimmagine"]}" alt="${nome}"> ${nome} ${ordini[i]["taglia"]}     X ${ordini[i]["quantità"]}</li>
+                <li><img src="upload/${ordini[i]["nomeimmagine"]}" alt="${nome}" /> ${nome} ${ordini[i]["taglia"]}     X ${ordini[i]["quantità"]}</li>
         `
         prezzo += ordini[i]["quantità"] * ordini[i]["prezzo"];
     }
@@ -43,8 +44,8 @@ function generateCards(lang, ordini, number) {
     article += `
         </ul>
         <form class="orderForm" action="singleOrder.php?orderNumber=${number}" method="POST">
-            <input type="hidden" id="orderNumber${number}" name="orderNumber" value="${number}">
-            <input type="submit" id="btnAdd" value="${view}">
+            <input type="hidden" id="orderNumber${number}" name="orderNumber" value="${number}" />
+            <input type="submit" id="btnAdd${number}" value="${view}" />
         </form>
         <p>
         `

@@ -679,6 +679,10 @@ main > section > section > article > form {
     margin-bottom: 50px;
 }
 
+main > section > section > article > h6 {
+    display: none;
+}
+
 /* #endregion */
 
 /* #region Payment */

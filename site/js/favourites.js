@@ -38,21 +38,23 @@ function generateCards(lang, articoli) {
             let nome = lang === "en" ? articoli[i]["nomeeng"] : articoli[i]["nomeita"];
             let descrizione = lang === "en" ? articoli[i]["descrizioneeng"] : articoli[i]["descrizioneita"];
             article += `
+                <h2 style="display: none;">validation</h2>
                 <article>
-                    <img src="upload/${articoli[i]["nomeimmagine"]}" alt="${nome}">
+                    <h2>validation</h2>
+                    <img src="upload/${articoli[i]["nomeimmagine"]}" alt="${nome}" />
                     <strong>${nome}</strong><form action="utils/deleteFavs.php" method="POST" onsubmit="deleteFavs('<?php echo $currentLanguage ?>', event)">
-                        <input type="hidden" id="articleFavsName${i}" name="articleFavsName" value="${articoli[i]["nomeita"]}">
+                        <input type="hidden" id="articleFavsName${i}" name="articleFavsName" value="${articoli[i]["nomeita"]}" />
                         <button class="btn-with-icon" type="submit">
-                            <i class="fa fa-trash"></i>
+                            <strong class="fa fa-trash"></strong>
                             ${elimina}
                         </button>
                     </form>
                     <p>${size}: ${articoli[i]["taglia"]}</p>
                     <p>${descrizione}</p>
                     <p>${prezzo}: €${articoli[i]["prezzo"]}</p>
-                    <form action="utils/addToCart.php" method="POST" onsubmit="addCart('<?php echo $currentLanguage ?>', event, \'${articoli[i]["taglia"]}\')">
-                        <input type="hidden" id="articleName${i}" name="articleName" value="${articoli[i]["nomeita"]}">
-                        <input type="submit" id="btnAdd" value="${aggiungi}">
+                    <form action="utils/addToCart.php" method="POST" onsubmit="addCart('<?php echo $currentLanguage ?>', event, \'${articoli[i]["taglia"]}\', ${i})">
+                        <input type="hidden" id="articleName${i}" name="articleName" value="${articoli[i]["nomeita"]}" />
+                        <input type="submit" id="btnAdd${i}" value="${aggiungi}" />
                     </form>
                 </article>
             `
@@ -60,6 +62,7 @@ function generateCards(lang, articoli) {
     } else {
         article += `
                 <article>
+                    <h2>validation</h2>
                     <strong>${noPreferiti}</strong>
                 </article>
             `
@@ -84,9 +87,10 @@ async function getArticlesData(lang) {
 }
 
 
-async function addCart(lang, event, size) {
+async function addCart(lang, event, size, numberButton) {
     event.preventDefault();
 
+    let buttonId = `#btnAdd${numberButton}`;
     const form = event.target.closest("form");
     const articleName = form.querySelector('input[name="articleName"]').value;
     const url = "utils/addToCart.php";
@@ -107,11 +111,11 @@ async function addCart(lang, event, size) {
         console.log(json);
         if (json["successful"] === true) {
             console.log(lang === "en" ? "Product added to cart." : "Prodotto aggiunto al carrello.");
-            let originalText = document.querySelector("#btnAdd").value;
+            let originalText = document.querySelector(buttonId).value;
             console.log(originalText);
-            document.querySelector("#btnAdd").setAttribute("value", lang === "en" ? "Added" : "Aggiunto");
+            document.querySelector(buttonId).setAttribute("value", lang === "en" ? "Added" : "Aggiunto");
             setTimeout(() => {
-                document.querySelector("#btnAdd").setAttribute("value", originalText);
+                document.querySelector(buttonId).setAttribute("value", originalText);
             }, 1500);
         } else {
             console.log(json["error"]);

@@ -1,8 +1,9 @@
 function setUserLogFormLang(lang) {
     console.log(lang);
     document.getElementById('title').textContent = lang === "en" ? "PRODUCTS" : "PRODOTTI";
+    document.getElementById('legend').textContent = lang === "en" ? "Category selection" : "Selezione categoria";
     const filterButton = document.getElementById('filter');
-    filterButton.innerHTML = `<i class="fa fa-filter"></i> ${lang === "en" ? "FILTERS" : "FILTRI"}`;
+    filterButton.innerHTML = `<strong class="fa fa-filter"></strong> ${lang === "en" ? "FILTERS" : "FILTRI"}`;
 
     const filterForm = document.getElementById('filterForm');
     filterForm.onsubmit = function (event) {
@@ -118,13 +119,15 @@ function generateCards(lang, articoli) {
         for (let i = 0; i < articoli.length; i++) {
             let nome = lang === "en" ? articoli[i]["nomeeng"] : articoli[i]["nomeita"];
             article += `
+                <h2 style="display: none;">validation</h2>
                 <article>
-                    <img src="upload/${articoli[i]["nomeimmagine"]}" alt="${nome}">
+                    <h2>validation</h2>
+                    <img src="upload/${articoli[i]["nomeimmagine"]}" alt="${nome}" />
                     <strong>${nome}</strong>
                     <p>${prezzo}: €${articoli[i]["prezzo"]}</p>
                     <form action="singleProduct.php?product=${articoli[i]["nomeita"]}" method="GET">
-                        <input type="hidden" id="product${i}" name="product" value="${articoli[i]["nomeita"]}">
-                        <input type="submit" id="btnView" value="${view}">
+                        <input type="hidden" id="product${i}" name="product" value="${articoli[i]["nomeita"]}" />
+                        <input type="submit" id="btnView${i}" value="${view}" />
                     </form>
                 </article>
             `
@@ -132,6 +135,7 @@ function generateCards(lang, articoli) {
     } else {
         article += `
                 <article>
+                    <h2>validation</h2>
                     <strong>${noProdotti}</strong>
                 </article>
             `
