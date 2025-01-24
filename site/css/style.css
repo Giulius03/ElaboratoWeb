@@ -949,14 +949,14 @@ main > section > section > ol.ordered > li {
 }
 
 main > section > section > ol.ordered > li > img {
-    width: 300px;
-    height: 300px;
+    width: 100px;
+    height: 100px;
     margin-top: 10px;
 }
 
 main > section > section > ol.ordered > li > img.stadium {
-    width: 1000px;
-    height: 800px;
+    width: 500px;
+    height: 300px;
 }
 
 main > section > section > ol.ordered > li > select, main > section > section > ol.ordered > li > input {

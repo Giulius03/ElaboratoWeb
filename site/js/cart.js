@@ -41,9 +41,9 @@ function generateCards(lang, articoli) {
             let descrizione = lang === "en" ? articoli[i]["descrizioneeng"] : articoli[i]["descrizioneita"];
             article += `
                 <article>
-                    <img src="upload/${articoli[i]["nomeimmagine"]}" alt="${nome}">
+                    <img src="upload/${articoli[i]["nomeimmagine"]}" alt="${nome}"/>
                     <strong>${nome}</strong><form action="utils/deleteCart.php" method="POST" onsubmit="deleteCart('<?php echo $currentLanguage ?>', event)">
-                        <input type="hidden" id="articleCartName${i}" name="articleCartName" value="${articoli[i]["nomeita"]}">
+                        <input type="hidden" id="articleCartName${i}" name="articleCartName" value="${articoli[i]["nomeita"]}"/>
                         <button class="btn-with-icon" type="submit">
                             <i class="fa fa-trash"></i>
                             ${elimina}
@@ -147,13 +147,13 @@ async function addOrder(lang, event) {
 
         if (json.successful) {
             console.log(lang === "en" ? "Cart ordered." : "Carrello ordinato.");
-            alert(lang === "en" ? "Your order has been placed successfully!" : "Il tuo ordine è stato effettuato con successo!");
+            console.log(lang === "en" ? "Your order has been placed successfully!" : "Il tuo ordine è stato effettuato con successo!");
         } else {
-            console.error("Errore aggiunta ordine:", json.error || "Errore sconosciuto.");
-            alert(lang === "en" ? `Error: ${json.error}` : `Errore: ${json.error}`);
+            console.log("Errore aggiunta ordine:", json.error || "Errore sconosciuto.");
+            console.log(lang === "en" ? `Error: ${json.error}` : `Errore: ${json.error}`);
         }
     } catch (error) {
-        console.error("Errore nella richiesta:", error.message);
-        alert(lang === "en" ? "An error occurred during the request." : "Si è verificato un errore durante la richiesta.");
+        console.log("Errore nella richiesta:", error.message);
+        console.log(lang === "en" ? "An error occurred during the request." : "Si è verificato un errore durante la richiesta.");
     }
 }

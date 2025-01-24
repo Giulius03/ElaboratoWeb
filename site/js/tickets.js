@@ -1,5 +1,6 @@
 function setUserLogFormLang(lang) {
-    document.getElementById('title').textContent = lang === "en" ? "TICKETS" : "BIGLETTI";
+    document.getElementById("title").textContent = lang === "en" ? "TICKETS" : "BIGLIETTI";
+    updateDynamicInputs(1, lang);
     getMatchData(lang);
 }
 
@@ -8,34 +9,19 @@ const btnItaPC = document.getElementById("btnIta2");
 const btnEngPhone = document.getElementById("btnEng1");
 const btnEngPC = document.getElementById("btnEng2");
 
-btnItaPhone.addEventListener('click', (event) => {
-    setUserLogFormLang("it");
-});
-
-btnItaPC.addEventListener('click', (event) => {
-    setUserLogFormLang("it");
-});
-
-btnEngPhone.addEventListener('click', (event) => {
-    setUserLogFormLang("en");
-});
-
-btnEngPC.addEventListener('click', (event) => {
-    setUserLogFormLang("en");
-});
+btnItaPhone.onclick = () => setUserLogFormLang("it");
+btnItaPC.onclick = () => setUserLogFormLang("it");
+btnEngPhone.onclick = () => setUserLogFormLang("en");
+btnEngPC.onclick = () => setUserLogFormLang("en");
 
 function generateCards(lang, match) {
-    let noMatch = lang === "en" ? 'There are no matches coming soon' : 'Non ci sono partite prossimamente';
-    let ticketQuantity = lang === "en" ? 'Quantity' : 'Quantità';
-    let area = lang === "en" ? 'Area' : 'Settore';
+    let noMatch = lang === "en" ? "There are no matches coming soon" : "Non ci sono partite prossimamente";
+    let ticketQuantity = lang === "en" ? "Quantity" : "Quantità";
+    let area = lang === "en" ? "Area" : "Settore";
     let article = "";
     let ticketNum = match[0]["curvandisp"] + match[0]["curvasdisp"] + match[0]["triborodisp"] + match[0]["tribconigliodisp"];
-    let ticket = lang === "en" ? 'Ticket Number: ' : 'Numbero Biglietto: ';
-    let nome = lang === "en" ? 'Name: ' : 'Nome: ';
-    let cognome = lang === "en" ? 'Surname: ' : 'Cognome: ';
-    let age = lang === "en" ? 'Age: ' : 'Anni: ';
-    let prezzo = lang === "en" ? 'Cost' : 'Prezzo';
     let buy = lang === "en" ? "Buy Now" : "Acquista Ora";
+    let price = lang === "en" ? "Price for Under 18 is €29.99 and for Over 18 is €79.99" : "Il prezzo per gli Under 18 è €29.99 e per gli Over 18 è €79.99";
 
     if (match.length > 0) {
         article += `
@@ -57,7 +43,7 @@ function generateCards(lang, match) {
                 </li>
                 <li>
                     <label for="quantity">${ticketQuantity}: </label>
-                    <select id="quantity" class="quantity-dropdown">
+                    <select id="quantity" class="quantity-dropdown" onchange="updateDynamicInputs(this.value, '${lang}')">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -70,61 +56,48 @@ function generateCards(lang, match) {
                         <option value="10">10</option>
                     </select>
                 </li>
-                <li><p>${ticket}${ticketNum}</p></li>
-                <li><p>${nome}</p>
-                <input type="text" id="textBoxName">
+                <li id="dynamic-inputs-container">
+                    <!-- Dynamic inputs per 1 biglietto all'inizio -->
                 </li>
-                <li><p>${cognome}</p>
-                <input type="text" id="textBoxSurname">
-                </li>
+                <li><p>${lang === "en" ? "Total Tickets: " : "Numero Totale Biglietti: "}${ticketNum}</p></li>
+                <li><p>${price}</p></li>
                 <li>
-                    <label for="age">${age} </label>
-                    <select id="age" class="area-dropdown">
-                        <option value="\<18">\<18</option>
-                        <option value="18-25">18-25</option>
-                        <option value="25+">25+</option>
-                    </select>
+                    <form id="ticketForm" onsubmit="handleFormSubmit(event, '${lang}', '${ticketNum}')">
+                        <input type="submit" id="btnBuy" value="${buy}">
+                    </form>
                 </li>
-                <li><p>${prezzo}:€74.99</p></li>
-                <li><form id="ticketForm" onsubmit="handleFormSubmit(event, '<?php echo $currentLanguage; ?>', '${ticketNum}')">
-                    <input type="submit" id="btnBuy" value="${buy}">
-                </form></li>
             </ol>
         `;
     } else {
-        article += `
-            <article>
-                <strong>${noMatch}</strong>
-            </article>
-        `;
+        article += `<article><strong>${noMatch}</strong></article>`;
     }
 
     return article;
 }
 
-function handleFormSubmit(event, lang, ticketNum) {
-    event.preventDefault();
+function updateDynamicInputs(quantity, lang) {
+    const container = document.getElementById("dynamic-inputs-container");
+    const name = lang === "en" ? "Name" : "Nome";
+    const surname = lang === "en" ? "Surname" : "Cognome";
+    const age = lang === "en" ? "Age" : "Anni";
 
-    addTicket(lang, event, ticketNum);
+    container.innerHTML = "";
 
-    setTimeout(() => {
-         window.location.href = "payment.php";
-    }, 500);
-}
-
-async function getMatchData(lang) {
-    const url = "utils/getMatch.php";
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
-        const json = await response.json();
-        console.log(json);
-        const match = generateCards(lang, json);
-        document.querySelector("main > section > section").innerHTML = match;
-    } catch (error) {
-        console.log(error.message);
+    for (let i = 1; i <= quantity; i++) {
+        container.innerHTML += `
+            <div class="ticket-info">
+                <p>${i}. ${name}:</p>
+                <input type="text" id="textBoxName${i}" class="name-input">
+                <p>${surname}:</p>
+                <input type="text" id="textBoxSurname${i}" class="surname-input">
+                <p>${age}:</p>
+                <select id="age${i}" class="age-dropdown">
+                    <option value="\<18">\<18</option>
+                    <option value="18-25">18-25</option>
+                    <option value="25+">25+</option>
+                </select>
+            </div>
+        `;
     }
 }
 
@@ -143,45 +116,86 @@ async function addTicket(lang, event, ticketNum) {
     const avversario = getElementValueById("avversario");
     const area = getElementValueById("area");
     const quantity = getElementValueById("quantity");
-    const name = getElementValueById("textBoxName");
-    const surname = getElementValueById("textBoxSurname");
-    const age = getElementValueById("age");
+    let currentTicketNum = ticketNum - 1;
 
-    const url = "utils/addToTickets.php";
-    let formData = new FormData();
-    formData.append('matchDate', matchDate);
-    formData.append('matchTime', matchTime);
-    formData.append('avversario', avversario);
-    formData.append('area', area);
-    formData.append('quantity', quantity);
-    formData.append('name', name);
-    formData.append('surname', surname);
-    if (age == "\<18") {
-        formData.append('ridotto', "1");
+    for (let i = 1; i <= quantity; i++) {
+        const name = getElementValueById(`textBoxName${i}`);
+        const surname = getElementValueById(`textBoxSurname${i}`);
+        const age = getElementValueById(`age${i}`);
+
+        console.log(`Ticket ${i} data:`, { name, surname, age });
+
+        const url = "utils/addToTickets.php";
+        let formData = new FormData();
+        formData.append('matchDate', matchDate);
+        formData.append('matchTime', matchTime);
+        formData.append('avversario', avversario);
+        formData.append('quantity', "1");
+        formData.append('area', area);
+        formData.append('name', name);
+        formData.append('surname', surname);
+        if (age == "<18") {
+            formData.append('ridotto', "1");
+            formData.append('prezzo', "29.99");
+        } else {
+            formData.append('ridotto', "0");
+            formData.append('prezzo', "79.99");
+        }
+
+        formData.append('ticketNum', currentTicketNum);
+
+        console.log("Sending form data to server:", Array.from(formData.entries()));
+
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                body: formData
+            });
+        
+            if (!response.ok) {
+                console.log("Response not OK:", response.status);
+                throw new Error(`Response status: ${response.status}`);
+            }
+        
+            const json = await response.json();
+            console.log(`Response JSON:`, json);
+        
+            if (!json.successful) {
+                console.error(`Error adding ticket:`, json.error || "Unknown error.");
+            }
+
+            currentTicketNum++;
+        } catch (error) {
+            console.log("Error sending data:", error.message);
+        }
     }
-    formData.append('prezzo', "79.99");
-    formData.append('ticketNum', ticketNum);
 
+    console.log(lang === "en" ? "All tickets have been processed." : "Tutti i biglietti sono stati elaborati.");
+}
+
+
+async function getMatchData(lang) {
+    const url = "utils/getMatch.php";
     try {
-        const response = await fetch(url, {
-            method: "POST",
-            body: formData
-        });
-
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
-
         const json = await response.json();
-
-        console.log("Risposta dal server:", json);
-
-        if (json.successful) {
-            console.log(lang === "en" ? "Product added to cart." : "Prodotto aggiunto al carrello.");
-        } else {
-            console.error("Errore aggiunta biglietto:", json.error || "Errore sconosciuto.");
-        }
+        console.log(json);
+        const match = generateCards(lang, json);
+        document.querySelector("main > section > section").innerHTML = match;
+        updateDynamicInputs(1, lang);
     } catch (error) {
         console.log(error.message);
     }
+}
+
+function handleFormSubmit(event, lang, ticketNum) {
+    event.preventDefault();
+    addTicket(lang, event, ticketNum);
+
+    setTimeout(() => {
+        window.location.href = "payment.php";
+    }, 500);
 }
