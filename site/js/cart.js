@@ -26,16 +26,6 @@ btnEngPC.addEventListener('click', (event) => {
     setUserLogFormLang("en");
 });
 
-function handleFormSubmit(event, lang) {
-    event.preventDefault();
-
-    addOrder(lang, event);
-
-    setTimeout(() => {
-         window.location.href = "payment.php";
-    }, 500);
-}
-
 function generateCards(lang, articoli) {
     let carrelloVuoto = lang === "en" ? 'Empty Cart!' : 'Carrello Vuoto!'
     let elimina = lang === "en" ? 'Delete' : 'Elimina'

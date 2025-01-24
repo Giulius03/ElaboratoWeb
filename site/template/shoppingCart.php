@@ -4,8 +4,9 @@
         <!-- Products in Cart -->
     </section>
     <section>
-        <form id="cartForm" onsubmit="handleFormSubmit(event, '<?php echo $currentLanguage; ?>')">
-            <input type="submit" id="btnBuy" value="<?php echo $currentLanguage == "en" ? "Buy Now" : "Acquista Ora" ?>">
+        <form action="payment.php?" id="cartForm" method="GET">
+            <input type="submit" id="btnBuy" value="<?php echo $currentLanguage == "en" ? "Buy Now" : "Acquista Ora" ?>" />
+            <input type="hidden" name="cart" value="yes" />
         </form>
     </section>
     <section id="releatedProducts">

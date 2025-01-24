@@ -681,6 +681,143 @@ main > section > section > article > form {
 
 /* #endregion */
 
+/* #region Payment */
+main > form {
+    text-align: center;
+}
+
+main legend {
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: #800020;
+    font-weight: 600;
+}
+
+main > form > fieldset:first-of-type {
+    margin-top: 40px;
+}
+
+main > form input[type="radio"] {
+    width: 18px;
+    height: 18px;
+}
+
+main > form label {
+    font-size: 18px;
+}
+
+main > form > fieldset:first-of-type > input:last-of-type {
+    margin-left: 10%;
+}
+
+main > form > fieldset:first-of-type > ul {
+    list-style: none;
+    padding: 0 10%;
+    margin: 20px 0 0 0;
+    display: none;
+}
+
+main > form > fieldset:first-of-type > ul > li > input {
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+main > form > fieldset:first-of-type > ul > li > label {
+    font-size: 15px;
+}
+
+main > form > fieldset:first-of-type > ul > li > input:focus {
+    border-bottom: 1px solid #dee2e6;
+}
+
+main > form > fieldset:nth-of-type(2) {
+    margin-top: 20px;
+}
+
+main > form > fieldset:nth-of-type(2) > div {
+    padding: 0 25%;
+}
+
+main > form > fieldset:nth-of-type(2) > div > div {
+    justify-content: center;
+    align-items: center;
+}
+
+main > form > fieldset:nth-of-type(2) > div > div:last-of-type {
+    margin-top: 10px;
+}
+
+main > form > fieldset:nth-of-type(2) > div > div > input{
+    margin-right: 8px;
+}
+
+main > form > fieldset:nth-of-type(3) {
+    margin: 20px 10% 0 10%;
+    border: 1px solid rgb(167, 167, 167);
+    border-radius: 8px;
+}
+
+main > form > fieldset:nth-of-type(3) > section, main > form > fieldset:nth-of-type(3) > strong {
+    text-align: left;
+}
+
+main > form > fieldset:nth-of-type(3) > section > section > p {
+    margin: 0;
+}
+
+main > form > fieldset:nth-of-type(3) > section {
+    display: flex;
+}
+
+main > form > fieldset:nth-of-type(3) > section > section:first-of-type {
+    width: 80%;
+}
+
+main > form > fieldset:nth-of-type(3) > section > section:last-of-type {
+    width: 20%;
+}
+
+main > form > fieldset:nth-of-type(3) > section > section:first-of-type > p, main > form > fieldset:nth-of-type(3) > section > section:first-of-type > strong {
+    margin-left: 15px;
+    font-size: 18px;
+}
+
+main > form > fieldset:nth-of-type(3) > section > section:last-of-type > p {
+    float: right;
+    margin-right: 15px;
+    font-size: 18px;
+}
+
+main > form > fieldset:nth-of-type(3) > section > h2, main > form > fieldset:nth-of-type(3) > section > section > h2 {
+    display: none;
+}
+
+main > form > fieldset:nth-of-type(3) > strong {
+    float: left;
+    margin-left: 15px;
+    font-size: 18px;
+}
+
+main > form > fieldset:nth-of-type(3) > input {
+    float: right;
+    margin: 10px 10px 10px 0;
+    background-color: #800020;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    font-weight: 500;
+    font-size: 17px;
+    height: 30px;
+    width: 70px;
+}
+
+main > form > fieldset:nth-of-type(3) > input:hover {
+    font-weight: 700;
+}
+
+/* #endregion */
+
 /* #region Common things for Orders*/
 main > section > section > p {
     padding: 50px 0 50px 300px;

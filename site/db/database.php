@@ -371,9 +371,8 @@ class DatabaseHelper{
         $resultNum = $this->db->query("SELECT MAX(numero) AS max_numero FROM ordini");
         $rowNum = $resultNum->fetch_assoc();
         $numero = $rowNum['max_numero'];
-        $valutazione = 1;
-        $stmt = $this->db->prepare("INSERT INTO composizioni (IdArticolo, numeroordine, valutazione) VALUES (?, ?, ?)");
-        $stmt->bind_param('iii', $id, $numero, $valutazione);
+        $stmt = $this->db->prepare("INSERT INTO composizioni (IdArticolo, numeroordine) VALUES (?, ?)");
+        $stmt->bind_param('ii', $id, $numero);
         $stmt->execute();
         return $stmt->insert_id;
     }
