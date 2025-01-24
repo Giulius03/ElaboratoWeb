@@ -376,5 +376,12 @@ class DatabaseHelper{
         $stmt->execute();
         return $stmt->insert_id;
     }
+
+    public function aggiornaStato($orderNumber){
+        $stmt = $this->db->prepare("UPDATE ordini SET stato = stato + 1 WHERE numero = ?");
+        $stmt->bind_param('i', $orderNumber);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
 }
 ?>

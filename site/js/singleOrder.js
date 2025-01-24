@@ -88,6 +88,18 @@ function generateShippingInfo(lang, shipping) {
         { date: setTime(initialDate, 21, 0), text: consegnato }, // Consegna alle 21:00
     ];
 
+    const currentDate = new Date();
+
+    if(shipping[0]["stato"] != 5 && shipping[0]["stato"] != 0){
+        const stato = shipping[0].stato + 1;
+        const statoDate = dates[stato];
+
+        if (currentDate > statoDate.date) {
+            aggiornaStato(lang, shipping[0]["numero"]);
+            location.reload();
+        }
+    }
+
     // Genera la timeline HTML
     let timelineHTML = `
             <h3><strong>${dateDel}:</strong> ${dates[dates.length - 1].date.toLocaleDateString(lang === "en" ? "en-US" : "it-IT")}</h3>
@@ -95,6 +107,7 @@ function generateShippingInfo(lang, shipping) {
     `;
 
     for (let i = 0; i < dates.length; i++) {
+        let isCompleted = false;
         const { date, text } = dates[i];
         if (i <= shipping[0]["stato"]){
             isCompleted = true;
@@ -176,6 +189,32 @@ async function getArticlesInOrder(lang, orderNumber) {
                 console.log(error.message);
             }
 
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+async function aggiornaStato(lang, orderNumber) {
+    const url = "utils/aggiornaStato.php";
+    let formData = new FormData();
+    formData.append('orderNumber', orderNumber);
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",                   
+            body: formData
+        });
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        console.log(json);
+        if (json["successful"] === true) {
+            console.log(lang === "en" ? "Updated State." : "Stato Aggiornato.");
+            getArticlesData(lang);
+        } else {
+            console.log(json["error"]);
+        }
     } catch (error) {
         console.log(error.message);
     }
