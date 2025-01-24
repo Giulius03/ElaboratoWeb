@@ -40,12 +40,14 @@ function generateCards(lang, articoli) {
             let nome = lang === "en" ? articoli[i]["nomeeng"] : articoli[i]["nomeita"];
             let descrizione = lang === "en" ? articoli[i]["descrizioneeng"] : articoli[i]["descrizioneita"];
             article += `
+                <h2 style="display: none;">validation</h2>
                 <article>
+                    <h2>validation</h2>
                     <img src="upload/${articoli[i]["nomeimmagine"]}" alt="${nome}"/>
                     <strong>${nome}</strong><form action="utils/deleteCart.php" method="POST" onsubmit="deleteCart('<?php echo $currentLanguage ?>', event)">
                         <input type="hidden" id="articleCartName${i}" name="articleCartName" value="${articoli[i]["nomeita"]}"/>
                         <button class="btn-with-icon" type="submit">
-                            <i class="fa fa-trash"></i>
+                            <strong class="fa fa-trash"></strong>
                             ${elimina}
                         </button>
                     </form>
@@ -60,6 +62,7 @@ function generateCards(lang, articoli) {
     } else {
         article += `
                 <article>
+                    <h2>validation</h2>
                     <strong>${carrelloVuoto}</strong>
                 </article>
             `

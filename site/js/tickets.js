@@ -25,6 +25,7 @@ function generateCards(lang, match) {
 
     if (match.length > 0) {
         article += `
+            <h2 style="display: none;">validation</h2>
             <ol class="ordered">
                 <li><h2 id="competiton">${match[0]["competizione"]}</h2></li>
                 <li><h3 id="data">${match[0]["data"]}</h3></li>
@@ -68,8 +69,9 @@ function generateCards(lang, match) {
                 </li>
             </ol>
         `;
-    } else {
-        article += `<article><strong>${noMatch}</strong></article>`;
+    } else {        
+        article += `<article><h2>validation</h2>
+        <strong>${noMatch}</strong></article>`;
     }
 
     return article;
@@ -86,11 +88,11 @@ function updateDynamicInputs(quantity, lang) {
     for (let i = 1; i <= quantity; i++) {
         container.innerHTML += `
             <div class="ticket-info">
-                <p>${i}. ${name}:</p>
+                <label for="textBoxName${i}">${i}. ${name}:</label>
                 <input type="text" id="textBoxName${i}" class="name-input">
-                <p>${surname}:</p>
+                <label for="textBoxSurname${i}">${surname}:</label>
                 <input type="text" id="textBoxSurname${i}" class="surname-input">
-                <p>${age}:</p>
+                <label for="age${i}">${age}:</label>
                 <select id="age${i}" class="age-dropdown">
                     <option value="\<18">\<18</option>
                     <option value="18-25">18-25</option>
