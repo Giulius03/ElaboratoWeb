@@ -47,7 +47,7 @@ function cardInputsVisible(visible) {
     document.getElementById("cvv").required = visible ? true : false;
 }
 
-function start(cart, article, size, pricee, quantity, user) {
+function start(cart, article, size, pricee, quantity) {
     buyFromCart = cart;
     articleToBuy = article;
     articleSize = size;
@@ -57,8 +57,8 @@ function start(cart, article, size, pricee, quantity, user) {
     getUserCard(user);
 }
 
-async function getUserCard(user) {
-    const url = "utils/getUserCard.php?userCF=" + user;
+async function getUserCard() {
+    const url = "utils/getUserCard.php";
     try {
         const response = await fetch(url);
         if (!response.ok) {

@@ -70,6 +70,7 @@ function generateCards(lang, articoli) {
 
     article += '<p>'
     article += lang === "en" ? 'Total:€' : 'Totale:€'
+    totale = parseFloat(totale.toFixed(2));
     article += `${totale}</p>`
 
     return article;

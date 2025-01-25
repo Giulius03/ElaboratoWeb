@@ -28,7 +28,7 @@ class DatabaseHelper{
     public function signUp($name, $lastName, $birthDate, $taxIDCode, $nation, $city, $address, $houseNumber, $username, $password){
         $hashPassword = password_hash($password, PASSWORD_DEFAULT);
         $stmt = $this->db->prepare("INSERT INTO utenti (nome, cognome, datanascita, cf, nazione, città, via, numerocivico,
-            username, password, admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)");
+            username, password, admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)");
         $stmt->bind_param('sssssssiss', $name, $lastName, $birthDate, $taxIDCode, $nation, $city, $address, $houseNumber, $username, $hashPassword);
         $stmt->execute();
         return $stmt->insert_id;
@@ -407,6 +407,29 @@ class DatabaseHelper{
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function addProduct($category, $italianName, $englishName, $imageName, $price, $italianDescription, $englishDescription, $group, $quantity){
+        $stmt = $this->db->prepare("INSERT INTO articoli (categoria, nomeita, nomeeng, nomeimmagine, prezzo, descrizioneita,
+            descrizioneeng, gruppo, quantità, datainserimento) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $today = date("Y-m-d H:i:s");
+        $tot = $category != "Souvenir" ? ($quantity * 6) : $quantity;
+        $stmt->bind_param('ssssdsssis', $category, $italianName, $englishName, $imageName, $price, $italianDescription, 
+            $englishDescription, $group, $tot, $today);
+        $stmt->execute();
+        // if ($category == "Abbigliamento") {
+        //     $this->addDisponibility($italianName, $quantity);
+        // }
+        return $stmt->insert_id;
+    }
+
+    public function addDisponibility($italianName, $quantity) {
+        $sizes = ["XS", "S", "M", "L", "XL", "XXL"];
+        for ($i = 0; $i < $sizes.count(); $i++) {
+            $stmt = $this->db->prepare("INSERT INTO disponibilita (articolo, taglia, quantità) VALUES (?, ?, ?)");
+            $stmt->bind_param('ssi', $italianName, $sizes[$i], $quantity);
+            $stmt->execute();
+        }
     }
 }
 ?>

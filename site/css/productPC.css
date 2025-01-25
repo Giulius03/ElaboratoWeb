@@ -2,4 +2,19 @@
     main > section {
         display: none;
     }
+
+    main > form > h1 {
+        margin: 5% 0;
+    }
+}
+
+@media (min-width: 992px) {
+    main > form {
+        display: block;
+        padding: 0 30%;
+    }
+
+    main > form > h1 {
+        margin: 8% 0;
+    }
 }

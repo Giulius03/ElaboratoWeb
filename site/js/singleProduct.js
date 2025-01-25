@@ -506,7 +506,7 @@ async function handleSubmit(lang, event) {
             if (json["logged"] === true) {
                 window.location.href = "payment.php?article=" + nameita + "&quantity=" + quant + "&size=" + initialSize + "&price=" + price;
             } else {
-                let communication = lang === "en" ? "You have to be logged in to add to cart." : "Devi essere loggato per aggiungere al carrello.";
+                let communication = lang === "en" ? "You have to be logged in to buy a product." : "Devi essere loggato per comprare un prodotto.";
                 document.querySelector(window.innerWidth < 768 ? "main > section > section:nth-of-type(3) > div section" : "main > div > section:first-of-type > section:nth-of-type(3)").innerHTML += `<br><a href="login.php">${communication}</a>`;    
             }
         } catch (error) {
