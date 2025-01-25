@@ -88,11 +88,14 @@ function updateDynamicInputs(quantity, lang) {
     for (let i = 1; i <= quantity; i++) {
         container.innerHTML += `
             <div class="ticket-info">
-                <label for="textBoxName${i}">${i}. ${name}:</label>
+                <label for="textBoxName${i}" style="display: none;">${i}. ${name}:</label>
+                <p>${i}. ${name}:</p>
                 <input type="text" id="textBoxName${i}" class="name-input">
-                <label for="textBoxSurname${i}">${surname}:</label>
+                <label for="textBoxSurname${i}" style="display: none;">${surname}:</label>
+                <p>${surname}:</p>
                 <input type="text" id="textBoxSurname${i}" class="surname-input">
-                <label for="age${i}">${age}:</label>
+                <label for="age${i}" style="display: none;">${age}:</label>
+                <p>${age}:</p>
                 <select id="age${i}" class="age-dropdown">
                     <option value="\<18">\<18</option>
                     <option value="18-25">18-25</option>
