@@ -12,7 +12,7 @@ if (isset($_GET["fromCart"]) && $_GET["fromCart"] == "true") {
             foreach ($cart as $article) {
                 $dbh->addArticleOrder($article['nomeita'], $article['quantità'], $article['taglia']);
             }
-    
+            $dbh->sendNotification("0000000000000000", "Ordine richiesto");
             $status["successful"] = true;
         } catch (Exception $e) {
             $status["error"] = $e->getMessage();

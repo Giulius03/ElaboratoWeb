@@ -88,7 +88,7 @@ create table NOTIFICHE (
      Titolo varchar(25) not null,
      NumeroSequenza int not null,
      Letta bool not null,
-     DataInvio date not null,
+     DataInvio datetime not null,
      constraint IDNOTIFICA primary key (Utente, Titolo, NumeroSequenza));
 
 create table ORDINI (
@@ -138,7 +138,7 @@ create table UTENTI (
 );
 
 create table CARTE (
-     NumeroCarta int not null,
+     NumeroCarta varchar(19) not null,
      Intestatario varchar(55) not null,
      DataScadenza date not null,
      Utilizzatore varchar(16) not null,

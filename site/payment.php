@@ -12,7 +12,7 @@ if (isset($_GET["cart"]) && $_GET["cart"] == "yes") {
     $size = $_GET["size"];
     $quantity = $_GET["quantity"];
     $price = $_GET["price"];
-    $templateParams["onloadFunctions"] = "getCookies(false, '$article', '$size', $price, $quantity)";
+    $templateParams["onloadFunctions"] = "start(false, '$article', '$size', $price, $quantity)";
 }
 require 'template/base.php';
 ?>

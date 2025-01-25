@@ -28,7 +28,7 @@ class DatabaseHelper{
     public function signUp($name, $lastName, $birthDate, $taxIDCode, $nation, $city, $address, $houseNumber, $username, $password){
         $hashPassword = password_hash($password, PASSWORD_DEFAULT);
         $stmt = $this->db->prepare("INSERT INTO utenti (nome, cognome, datanascita, cf, nazione, città, via, numerocivico,
-            username, password, admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)");
+            username, password, admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)");
         $stmt->bind_param('sssssssiss', $name, $lastName, $birthDate, $taxIDCode, $nation, $city, $address, $houseNumber, $username, $hashPassword);
         $stmt->execute();
         return $stmt->insert_id;
@@ -111,7 +111,7 @@ class DatabaseHelper{
         $stmt = $this->db->prepare("INSERT INTO notifiche (utente, titolo, numerosequenza, letta, datainvio) VALUES 
             (?, ?, ?, 0, ?)");
         $sequenceNumber = is_null($result[0]["seqNumMax"]) ? 1 : ($result[0]["seqNumMax"] + 1);
-        $today = date("Y-m-d");
+        $today = date("Y-m-d H:i:s");
         $stmt->bind_param('ssis', $userCF, $title, $sequenceNumber, $today);
         $stmt->execute();
         return $stmt->insert_id;
@@ -177,7 +177,8 @@ class DatabaseHelper{
         $stmt = $this->db->prepare("SELECT o.numero
         FROM ordini o
         JOIN utenti u ON o.CF = u.CF
-        WHERE u.CF = ?");
+        WHERE u.CF = ?
+        ORDER BY o.numero DESC");
         $stmt->bind_param('s', $uCF);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -386,6 +387,22 @@ class DatabaseHelper{
 
     public function getNumberOfOrders($userCF){
         $stmt = $this->db->prepare("SELECT COUNT(*) as numOrdini FROM ordini WHERE cf = ?");
+        $stmt->bind_param('s', $userCF);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function addCard($cardNumber, $holder, $expiry, $userCF) {
+        $stmt = $this->db->prepare("INSERT INTO carte (numerocarta, intestatario, datascadenza, utilizzatore) VALUES 
+            (?, ?, ?, ?)");
+        $stmt->bind_param('ssss', $cardNumber, $holder, $expiry, $userCF);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
+
+    public function getCard($userCF) {
+        $stmt = $this->db->prepare("SELECT numerocarta, intestatario, datascadenza FROM carte WHERE utilizzatore = ?");
         $stmt->bind_param('s', $userCF);
         $stmt->execute();
         $result = $stmt->get_result();

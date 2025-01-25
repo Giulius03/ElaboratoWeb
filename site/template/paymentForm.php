@@ -22,17 +22,21 @@
                 <input name="cvv" type="text" class="form-control" id="cvv" placeholder="cvv" maxlength="3" minlength="3" />
                 <label id="lblcvv" for="cvv">CVV</label>
             </li>
+            <li>
+                <input type="checkbox" id="saveCard">
+                <label for="saveCard"><?php echo $currentLanguage == "en" ? "Save for future purchases" : "Salva per acquisti futuri" ?></label>
+            </li>
         </ul>
     </fieldset>
     <fieldset>
         <legend><?php echo $currentLanguage == "en" ? "Delivery Method" : "Metodo di Consegna" ?></legend>
         <div>
             <div class="d-flex">
-                <input type="radio" name="deliveryMethod" id="standard" value="standard" required />
+                <input onclick="showPrices()" type="radio" name="deliveryMethod" id="standard" value="standard" required />
                 <label for="standard"><?php echo $currentLanguage == "en" ? "Standard (free).<br>Delivery within 3 weeks" : "Standard (gratis).<br>Consegna entro 3<br>settimane" ?></label>
             </div>
             <div class="d-flex">
-                <input type="radio" name="deliveryMethod" id="premium" value="premium" />
+                <input onclick="showPrices()" type="radio" name="deliveryMethod" id="premium" value="premium" />
                 <label for="premium"><?php echo $currentLanguage == "en" ? "Premium (€4.99).<br>Delivery within a week" : "Premium (€4.99).<br>Consegna entro 1<br>settimana" ?></label>
             </div>
         </div>

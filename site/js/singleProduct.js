@@ -495,8 +495,24 @@ async function handleSubmit(lang, event) {
         : "main > div > section:first-of-type > section:nth-of-type(3) > form > select:first-of-type").value;
   
     if (clickedButton === "Compra Ora" || clickedButton === "Buy Now") {
+        const urlUser = "utils/isAUserLogged.php";
+        try {
+            const response = await fetch(urlUser);
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+            const json = await response.json();
+            console.log(json);
+            if (json["logged"] === true) {
+                window.location.href = "payment.php?article=" + nameita + "&quantity=" + quant + "&size=" + initialSize + "&price=" + price;
+            } else {
+                let communication = lang === "en" ? "You have to be logged in to add to cart." : "Devi essere loggato per aggiungere al carrello.";
+                document.querySelector(window.innerWidth < 768 ? "main > section > section:nth-of-type(3) > div section" : "main > div > section:first-of-type > section:nth-of-type(3)").innerHTML += `<br><a href="login.php">${communication}</a>`;    
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
         //reindirizzamento alla pagina di pagamento passando tutti i dati e creazione dell'ordine con singolo prodotto
-        window.location.href = "payment.php?article=" + nameita + "&quantity=" + quant + "&size=" + initialSize + "&price=" + price;
     } else {
         //aggiunta al carello del prodotto
         const url = "utils/addToCart.php";
