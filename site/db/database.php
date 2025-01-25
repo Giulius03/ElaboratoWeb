@@ -408,5 +408,20 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getArticles(){
+        $stmt = $this->db->prepare("SELECT a.nomeita, a.nomeeng
+        FROM articoli a");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function deleteArticles($articolo){
+        $stmt = $this->db->prepare("UPDATE articoli SET quantità = 0 WHERE nomeita = ?");
+        $stmt->bind_param('s', $articolo);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
 }
 ?>
