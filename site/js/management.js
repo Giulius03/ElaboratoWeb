@@ -77,6 +77,10 @@ async function generateChart(lang) {
 
     const yAxis = document.createElement('article');
     yAxis.className = 'y-axis';
+    const hiddenH2 = document.createElement('h2');
+    hiddenH2.style.display = 'none';
+    hiddenH2.textContent = 'tit';
+    yAxis.appendChild(hiddenH2);
 
     const yValues = [maxRevenue]; 
     yValues.forEach(value => {

@@ -10,8 +10,16 @@
             <input type="hidden" name="cart" value="yes" />
         </form>
     </section>
-    <section id="releatedProducts">
-        <h2 id="txtRel"><?php echo $currentLanguage == "en" ? "Releated Products" : "Articoli Correlati" ?></h2>
-        <!-- Releated Products -->
+    <section>
+        <h2 id="txtRel"><?php echo $currentLanguage == "en" ? "Related Products" : "Articoli Correlati" ?></h2>
+        <section id="swiperRelPC" class="swiper">
+            <h2 style="display: none">tit</h2>
+            <section class="swiper-wrapper">
+                <!-- Cards -->
+            </section> 
+            <!-- Navigation Buttons -->
+            <button id="prevRelPC" class="swiper-button-prev"></button>
+            <button id="nextRelPC" class="swiper-button-next"></button>
+        </section>
     </section>
 </section>

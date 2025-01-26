@@ -118,7 +118,7 @@ class DatabaseHelper{
     }
 
     public function getCart($uCF){
-        $stmt = $this->db->prepare("SELECT a.nomeita, a.nomeeng, a.nomeimmagine, a.prezzo, a.descrizioneita, a.descrizioneeng, c.quantità, c.taglia 
+        $stmt = $this->db->prepare("SELECT a.nomeita, a.nomeeng, a.nomeimmagine, a.prezzo, a.descrizioneita, a.descrizioneeng, a.gruppo, a.categoria, c.quantità, c.taglia 
         FROM carrelli c
         JOIN articoli a ON a.nomeita = c.articolo
         JOIN utenti u ON c.proprietario = u.CF
@@ -130,7 +130,7 @@ class DatabaseHelper{
     }
 
     public function getFavourites($uCF){
-        $stmt = $this->db->prepare("SELECT a.nomeita, a.nomeeng, a.nomeimmagine, a.prezzo, a.descrizioneita, a.descrizioneeng, p.taglia
+        $stmt = $this->db->prepare("SELECT a.nomeita, a.nomeeng, a.nomeimmagine, a.prezzo, a.descrizioneita, a.descrizioneeng, a.gruppo, a.categoria, p.taglia
         FROM preferiti p
         JOIN articoli a ON a.nomeita = p.articolo
         JOIN utenti u ON p.utente = u.CF
@@ -197,7 +197,7 @@ class DatabaseHelper{
     }
 
     public function getArticleInfo($IDArticolo){
-        $stmt = $this->db->prepare("SELECT a.nomeita, a.nomeeng, a.nomeimmagine, a.prezzo, aio.quantità, aio.taglia
+        $stmt = $this->db->prepare("SELECT a.nomeita, a.nomeeng, a.nomeimmagine, a.prezzo, a.gruppo, a.categoria, aio.quantità, aio.taglia
         FROM articoli a
         JOIN articoli_in_ordine aio ON a.nomeita = aio.nome
         WHERE aio.Id = ?");
@@ -316,7 +316,9 @@ class DatabaseHelper{
 
     public function getMatch(){
         $stmt = $this->db->prepare("SELECT p.competizione, p.avversario, p.data, p.ora, p.logo, p.curvandisp, p.curvasdisp, p.triborodisp, p.tribconigliodisp
-        FROM partite p");
+        FROM partite p
+        ORDER BY p.data DESC, p.ora DESC
+        LIMIT 1");
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
@@ -515,6 +517,18 @@ class DatabaseHelper{
             $newGroup, $newCat, $toUpdate);
         $stmt->execute();
         return $stmt->affected_rows;
+    }
+
+    public function addTicketsToDB($matchDate, $matchTime, $opponent, $competition, $quantityGolden, $quantityNorth, $quantitySouth, $quantityRabbit, $logo){
+        $stmt = $this->db->prepare("INSERT INTO partite (competizione, avversario, `data`, ora, logo, curvandisp, curvasdisp, triborodisp, tribconigliodisp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param('sssssiiii', $competition, $opponent, $matchDate, $matchTime, $logo, $quantityNorth, $quantitySouth, $quantityGolden, $quantityRabbit);
+        $stmt->execute();
+        
+        if ($stmt->error) {
+            return ["successful" => false, "error" => $stmt->error];
+        }
+    
+        return ["successful" => true, "error" => ""];
     }
 }
 ?>
