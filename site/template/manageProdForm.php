@@ -1,4 +1,4 @@
-<form action="#" method="POST" onsubmit="manageProduct(event)">
+<form action="#" onsubmit="manageProduct(event)">
     <h1><?php echo $currentLanguage == "en" ? "Products Management" : "Gestione Prodotti" ?></h1>
     <ul>
         <li class="form-floating mb-1">

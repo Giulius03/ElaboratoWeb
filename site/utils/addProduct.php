@@ -10,7 +10,6 @@ if (isset($_POST["nameita"]) && isset($_POST["nameeng"]) && isset($_POST["catego
     try {
         $dbh->addProduct($_POST["category"], $_POST["nameita"], $_POST["nameeng"], $_POST["image"], $_POST["price"],
             $_POST["descriptionita"], $_POST["descriptioneng"], $_POST["group"], $_POST["quantity"]);
-        $dbh->addDisponibility($_POST["nameita"], $_POST["quantity"]);
         $status["successful"] = true;
     } catch (Exception $e) {
         $status["error"] = $e->getMessage();

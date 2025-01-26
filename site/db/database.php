@@ -417,15 +417,15 @@ class DatabaseHelper{
         $stmt->bind_param('ssssdsssis', $category, $italianName, $englishName, $imageName, $price, $italianDescription, 
             $englishDescription, $group, $tot, $today);
         $stmt->execute();
-        // if ($category == "Abbigliamento") {
-        //     $this->addDisponibility($italianName, $quantity);
-        // }
+        if ($category == "Abbigliamento") {
+            $this->addDisponibility($italianName, $quantity);
+        }
         return $stmt->insert_id;
     }
 
-    public function addDisponibility($italianName, $quantity) {
+    private function addDisponibility($italianName, $quantity) {
         $sizes = ["XS", "S", "M", "L", "XL", "XXL"];
-        for ($i = 0; $i < $sizes.count(); $i++) {
+        for ($i = 0; $i < count($sizes); $i++) {
             $stmt = $this->db->prepare("INSERT INTO disponibilita (articolo, taglia, quantità) VALUES (?, ?, ?)");
             $stmt->bind_param('ssi', $italianName, $sizes[$i], $quantity);
             $stmt->execute();
@@ -443,7 +443,9 @@ class DatabaseHelper{
         $stmt = $this->db->prepare("UPDATE articoli SET quantità = 0 WHERE nomeita = ?");
         $stmt->bind_param('s', $articolo);
         $stmt->execute();
-        return $stmt->insert_id;
+        $stmt = $this->db->prepare("UPDATE disponibilita SET quantità = 0 WHERE articolo = ?");
+        $stmt->bind_param('s', $articolo);
+        $stmt->execute();
     }
 }
 ?>

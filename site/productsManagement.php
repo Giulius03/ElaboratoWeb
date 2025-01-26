@@ -7,11 +7,12 @@ $templateParams["js"] = array("js/prodManag.js");
 $templateParams["mediaqueries"] = "css/productPC.css";
 if (isset($_GET["action"])) {
     $actionID = $_GET["action"];
-    $templateParams["onloadFunctions"] = "getAction($actionID, '$currentLanguage')";
+    $article = $_GET["article"];
+    $templateParams["onloadFunctions"] = "getAction($actionID, '$currentLanguage', '$article')";
 }
-if (isset($_GET["article"])) {
-    $templateParams["article"] = $_GET["article"];
-}
+// if (isset($_GET["article"])) {
+//     $templateParams["article"] = $_GET["article"];
+// }
 
 require 'template/base.php';
 ?>

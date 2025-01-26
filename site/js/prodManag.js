@@ -5,6 +5,7 @@ const btnEngPC = document.getElementById("btnEng2");
 let action = 0;
 let currentQuantity = 0;
 let currentLanguage = "";
+let editArticle = "";
 
 btnItaPhone.addEventListener('click', (event) => {
     setProdFormLang("it");
@@ -60,9 +61,60 @@ function getCurrentQuantity() {
     document.querySelector("main > form > ul > li:nth-of-type(9) > label").textContent = currentLanguage === "en" ? "Quantity available (for each size for the clothes) (1-100): " + currentQuantity : "Quantità disponibile (per ogni taglia per i vestiti) (1-100): " + currentQuantity;
 }
 
-function getAction(actionID, lang) {
+async function getAction(actionID, lang, article) {
     currentLanguage = lang;
     action = actionID;
+    if (action === 2 || action === 3) {
+        const findArticleUrl = "utils/getProductByName.php?product=" + article + "&size=M";
+        try {
+            const responseArticle = await fetch(findArticleUrl);
+            if (!responseArticle.ok) {
+                throw new Error(`Response status: ${responseArticle.status}`);
+            }
+            editArticle = await responseArticle.json();
+            console.log(editArticle);
+            document.getElementById("category").value = editArticle[0]["categoria"] === "Abbigliamento" ? "Clothing" : "Souvenir";
+            document.getElementById("italianName").value = editArticle[0]["nomeita"];
+            document.getElementById("englishName").value = editArticle[0]["nomeeng"];
+            // document.getElementById("image").value = editArticle[0]["img"];
+            document.getElementById("price").value = editArticle[0]["prezzo"];
+            document.getElementById("descita").value = editArticle[0]["descita"];
+            document.getElementById("desceng").value = editArticle[0]["desceng"];
+            document.getElementById("eachsizequantity").value = editArticle[0]["categoria"] === "Souvenir" ? editArticle[0]["quantTot"] : editArticle[0]["quantDispTaglia"];
+            getCurrentQuantity();
+            manageGroup(document.getElementById("category"));
+            switch (editArticle[0]["gruppo"]) {
+                case "Felpe":
+                    document.getElementById("group").value = "Hoodies";
+                    break;
+                case "Pantaloni":
+                    document.getElementById("group").value = "Trousers";
+                    break;
+                case "Divise":
+                    document.getElementById("group").value = "Kit";
+                    break;
+                case "Cappelli":
+                    document.getElementById("group").value = "Caps";
+                    break;
+                case "Magliette":
+                    document.getElementById("group").value = "T-Shirts";
+                    break;
+            }
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+    if (action === 3) {
+        document.getElementById("category").disabled = true;
+        document.getElementById("italianName").disabled = true;
+        document.getElementById("englishName").disabled = true;
+        document.getElementById("image").disabled = true;
+        document.getElementById("price").disabled = true;
+        document.getElementById("descita").disabled = true;
+        document.getElementById("desceng").disabled = true;
+        document.getElementById("eachsizequantity").disabled = true;
+        document.getElementById("group").disabled = true;
+    }
 }
 
 function manageProduct(event) {
@@ -71,6 +123,9 @@ function manageProduct(event) {
         case 1:
             addProduct();
             break;
+        case 2:
+            editProduct();
+            break;
         default:
             break;
     }
@@ -78,6 +133,7 @@ function manageProduct(event) {
 
 function manageGroup(select) {
     document.querySelector("main > form > ul > li:nth-of-type(8)").style.display = select.value === "Clothing" ? 'block' : 'none';
+    document.getElementById("group").required = select.value === "Clothing" ? true : false;
 }
 
 async function addProduct() {
@@ -99,20 +155,21 @@ async function addProduct() {
     formData.append('descriptioneng', document.getElementById('desceng').value);
     let group = document.getElementById('group').value;
     if (category !== "Souvenir") {
+        console.log(category);
         switch (group) {
-            case "Kit", "Divise":
+            case "Kit":
                 group = "Divise";
                 break;
-            case "Trousers", "Pantaloni":
+            case "Trousers":
                 group = "Pantaloni";
                 break;
-            case "Felpe", "Hoodies":
+            case "Hoodies":
                 group = "Felpe";
                 break;
-            case "T-Shirts", "Magliette":
+            case "T-Shirts":
                 group = "Magliette";
                 break;
-            case "Caps", "Cappelli":
+            case "Caps":
                 group = "Cappelli";
                 break;
         }
@@ -121,7 +178,6 @@ async function addProduct() {
     }
     formData.append('group', group);    
     formData.append('quantity', document.getElementById('eachsizequantity').value);
-
     try {
         const response = await fetch(url, {
             method: "POST",                   
@@ -130,15 +186,18 @@ async function addProduct() {
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
-        window.location.href = url;
-        // const json = await response.json();
-        // console.log(json);
-        // if (json["successful"] === true) {
-        //     window.location.href = "adminHome.php";
-        // } else {
-        //     document.querySelector("main").innerHTML += `<p style="text-align: center;">${json["error"]}</p>`;
-        // }
+        const json = await response.json();
+        console.log(json);
+        if (json["successful"] === true) {
+            window.location.href = "adminHome.php";
+        } else {
+            document.querySelector("main").innerHTML += `<p style="text-align: center;">${json["error"]}</p>`;
+        }
     } catch (error) {
         console.log(error.message);
     }
+}
+
+async function editProduct() {
+    
 }
