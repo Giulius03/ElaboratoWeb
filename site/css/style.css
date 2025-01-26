@@ -704,6 +704,10 @@ main > section > section:last-of-type > section > button {
     background-color: transparent;
 }
 
+main > section > section > form > input.buyCart{
+    margin-top: 45px;
+}
+
 /* #endregion */
 
 /* #region Payment */

@@ -32,6 +32,7 @@ function generateCards(lang, articoli) {
     let quantità = lang === "en" ? 'Quantity' : 'Quantità'
     let prezzo = lang === "en" ? 'Cost Single Product' : 'Prezzo Singolo Prodotto'
     let size = lang === "en" ? 'Size' : 'Taglia'
+    let acquista= lang == "en" ? "Buy Now" : "Acquista Ora";
     let totale = 0;
     let article = "";
 
@@ -68,10 +69,15 @@ function generateCards(lang, articoli) {
             `
     }
 
-    article += '<p>'
+    article += `<form class="formCart" action="payment.php?" id="cartForm" method="GET">
+                    <input type="submit" id="btnBuy" class="buyCart" value="${acquista}" />
+                    <input type="hidden" name="cart" value="yes" />
+                </form>
+                <p>`
     article += lang === "en" ? 'Total:€' : 'Totale:€'
     totale = parseFloat(totale.toFixed(2));
-    article += `${totale}</p>`
+    article += `${totale}</p>
+        `
 
     return article;
 }

@@ -1,10 +1,20 @@
-// Cambio della lingua del form
+let language = 'en';
 function setUserLogFormLang(lang) {
-    document.getElementById('title').textContent =
-        lang === "en" ? "TICKETS MANAGEMENT" : "GESTIONE DEI BIGLIETTI";
+    document.getElementById('title').textContent = lang === "en" ? "TICKETS MANAGEMENT" : "GESTIONE DEI BIGLIETTI";
+    document.getElementById('lblcomp').textContent = lang === "en" ? "Competition*" : "Competizione*";
+    document.getElementById('lblopp').textContent = lang === "en" ? "Opponent*" : "Avversario*";
+    document.getElementById('lbldate').textContent = lang === "en" ? "Match Date" : "Data della Partita";
+    document.getElementById('lbltime').textContent = lang === "en" ? "Match Time" : "Orario della Partita";
+    document.getElementById('lblgold').textContent = lang === "en" ? "Quantity Golden Grandstand" : "Quantità Tribuna Oro";
+    document.getElementById('lblnorth').textContent = lang === "en" ? "Quantity North Curve" : "Quantità Curva Nord";
+    document.getElementById('lblsouth').textContent = lang === "en" ? "Quantity South Curve" : "Quantità Curva Sud";
+    document.getElementById('lblrabbit').textContent = lang === "en" ? "Quantity Rabbit Grandstand" : "Quantità Tribuna Coniglio";
+    document.getElementById('lbllogo').textContent = lang === "en" ? "Upload Opponent Logo (.png)" : "Carica Logo Avversario (.png)";
+    document.getElementById('customFileButton').textContent = lang === "en" ? "Select File" : "Scegli File";
+    document.getElementById('addTicketButton').textContent = lang === "en" ? "Add Tickets" : "Aggiungi Biglietti";
+    language = lang;
 }
 
-// Gestione dei bottoni per la selezione della lingua
 const btnItaPhone = document.getElementById("btnIta1");
 const btnItaPC = document.getElementById("btnIta2");
 const btnEngPhone = document.getElementById("btnEng1");
@@ -15,25 +25,21 @@ btnItaPC.addEventListener("click", () => setUserLogFormLang("it"));
 btnEngPhone.addEventListener("click", () => setUserLogFormLang("en"));
 btnEngPC.addEventListener("click", () => setUserLogFormLang("en"));
 
-// Azione per la selezione e il caricamento del file
 document.getElementById('customFileButton').addEventListener('click', () => {
-    document.getElementById('logo').click(); // Mostra il file picker
+    document.getElementById('logo').click();
 });
 
-// Mostra il nome del file selezionato
 document.getElementById('logo').addEventListener('change', () => {
     const fileName = document.getElementById('logo').files[0]?.name || 'Nessun file selezionato';
     document.getElementById('fileNameDisplay').textContent = fileName;
     document.getElementById('fileNameDisplay').style.display = 'inline';
 });
 
-// Invio del form per aggiungere i biglietti
 document.getElementById("addTicketButton").addEventListener("click", (event) => {
     event.preventDefault();
     addTicketsInDB();
 });
 
-// Funzione per inviare i dati al server
 async function addTicketsInDB() {
     const competition = document.getElementById("competitionBox").value;
     const opponent = document.getElementById("opponentBox").value;
@@ -44,7 +50,15 @@ async function addTicketsInDB() {
     const matchDate = document.getElementById("date").value;
     const matchTime = document.getElementById("time").value;
 
-    // Ottieni il file selezionato
+    const today = new Date();
+    const selectedDate = new Date(matchDate); 
+
+    if (selectedDate <= today) {
+        const errorDate = language === 'en' ? "The match date have to be subsequent to today." : "La data del match deve essere successiva a oggi."
+        console.log(errorDate);
+        return; 
+    }
+
     const logo = document.getElementById("logo").files[0];
 
     console.log("Dati del form:", {
@@ -59,7 +73,6 @@ async function addTicketsInDB() {
         logo: logo ? logo.name : "Nessun file"
     });
 
-    // Prepara l'URL e FormData
     const url = "utils/addTicketsInDB.php";
     const formData = new FormData();
     formData.append("competition", competition);
@@ -70,7 +83,7 @@ async function addTicketsInDB() {
     formData.append("quantityRabbit", quantityRabbit);
     formData.append("matchDate", matchDate);
     formData.append("matchTime", matchTime);
-    formData.append("logo", logo); // Aggiunge il file al FormData
+    formData.append("logo", logo); 
 
     try {
         const response = await fetch(url, {
@@ -87,12 +100,12 @@ async function addTicketsInDB() {
         console.log("Risposta JSON:", json);
 
         if (!json.successful) {
-            console.error("Errore nell'aggiungere il biglietto:", json.error || "Errore sconosciuto.");
+            console.error("Error:", json.error || "Unknown Error.");
         } else {
-            console.log("Biglietti aggiunti con successo!");
+            console.log("Added Tickets.");
         }
     } catch (error) {
-        console.error("Errore nell'invio dei dati:", error.message);
+        console.error(":", error.message);
         alert(`Errore: ${error.message}`);
     }
 }

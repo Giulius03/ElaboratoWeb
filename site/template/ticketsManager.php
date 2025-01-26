@@ -4,29 +4,27 @@
         <h2 style="display: none;">tit</h2>
         <ol class="ordered border-0">
             <li>
-                <label for="competitionBox" style="display: none;">tit</label>
-                <p><?php echo $currentLanguage == "en" ? "Competition*" : "Competizione*" ?></p>
+                <label id="lblcomp" for="competitionBox"><?php echo $currentLanguage == "en" ? "Competition*" : "Competizione*" ?></label>
                 <input type="text" id="competitionBox" class="competition-input" required />
             </li>
             <li>
-                <label for="opponentBox" style="display: none;">tit</label>
-                <p><?php echo $currentLanguage == "en" ? "Opponent Name*" : "Nome Avversario*" ?></p>
+                <label id="lblopp" for="opponentBox"><?php echo $currentLanguage == "en" ? "Opponent Name*" : "Nome Avversario*" ?></label>
                 <input type="text" id="opponentBox" class="opponent-input" required />
             </li>
             <li>
                 <label id="lbldate" for="date">
-                    <?php echo $currentLanguage == "en" ? "Match Date" : "Data della partita" ?>
+                    <?php echo $currentLanguage == "en" ? "Match Date" : "Data della Partita" ?>
                 </label>
                 <input name="matchDate" type="date" class="date-control" id="date" required />
             </li>
             <li>
                 <label id="lbltime" for="time">
-                    <?php echo $currentLanguage == "en" ? "Match Time" : "Ora della partita" ?>
+                    <?php echo $currentLanguage == "en" ? "Match Time" : "Ora della Partita" ?>
                 </label>
                 <input name="matchTime" type="time" class="time-control" id="time" required />
             </li>
             <li>
-                <label for="quantityGold"><?php echo $currentLanguage == "en" ? "Quantity Golden Grandstand" : "Quantità Tribuna Oro" ?></label>
+                <label id="lblgold" for="quantityGold"><?php echo $currentLanguage == "en" ? "Quantity Golden Grandstand" : "Quantità Tribuna Oro" ?></label>
                 <select id="quantityGold" name="quantityGold" class="quantity-dropdown">
                     <option value="200">200</option>
                     <option value="400">400</option>
@@ -34,7 +32,7 @@
                 </select>
             </li>
             <li>
-                <label for="quantityNorth"><?php echo $currentLanguage == "en" ? "Quantity North Curve" : "Quantità Curva Nord" ?></label>
+                <label id="lblnorth" for="quantityNorth"><?php echo $currentLanguage == "en" ? "Quantity North Curve" : "Quantità Curva Nord" ?></label>
                 <select id="quantityNorth" name="quantityNorth" class="quantity-dropdown">
                     <option value="100">100</option>
                     <option value="200">200</option>
@@ -42,7 +40,7 @@
                 </select>
             </li>
             <li>
-                <label for="quantitySouth"><?php echo $currentLanguage == "en" ? "Quantity South Curve" : "Quantità Curva Sud" ?></label>
+                <label id="lblsouth" for="quantitySouth"><?php echo $currentLanguage == "en" ? "Quantity South Curve" : "Quantità Curva Sud" ?></label>
                 <select id="quantitySouth" name="quantitySouth" class="quantity-dropdown">
                     <option value="100">100</option>
                     <option value="200">200</option>
@@ -50,7 +48,7 @@
                 </select>
             </li>
             <li>
-                <label for="quantityRabbit"><?php echo $currentLanguage == "en" ? "Quantity Rabbit Grandstand" : "Quantità Tribuna Coniglio" ?></label>
+                <label id="lblrabbit" for="quantityRabbit"><?php echo $currentLanguage == "en" ? "Quantity Rabbit Grandstand" : "Quantità Tribuna Coniglio" ?></label>
                 <select id="quantityRabbit" name="quantityRabbit" class="quantity-dropdown">
                     <option value="200">200</option>
                     <option value="400">400</option>
@@ -59,7 +57,7 @@
             </li>
             <li>
                 <form id="ticketForm" action="utils/addTicketsInDB.php" method="POST" enctype="multipart/form-data">
-                    <label for="logo"><?php echo $currentLanguage == "en" ? "Upload Opponent Logo (.png)" : "Carica Logo Avversario (.png)" ?></label>
+                    <label id="lbllogo" for="logo"><?php echo $currentLanguage == "en" ? "Upload Opponent Logo (.png)" : "Carica Logo Avversario (.png)" ?></label>
                     <input type="file" name="logo" id="logo" accept="image/png" style="display: none;"/>
                     <button type="button" id="customFileButton"><?php echo $currentLanguage == "en" ? "Select File" : "Scegli File" ?></button>
                     <span id="fileNameDisplay" style="display: none;">Nessun file selezionato</span>

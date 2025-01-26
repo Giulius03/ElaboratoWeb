@@ -97,6 +97,9 @@ function generateShippingInfo(lang, shipping, orderNum) {
         const statoDate = dates[stato];
 
         if (currentDate > statoDate.date) {
+            if(stato == 4){
+                sendDeliveredNotification(orderNum);
+            }
             aggiornaStato(lang, orderNum);
         }
     }
@@ -132,6 +135,39 @@ function generateShippingInfo(lang, shipping, orderNum) {
     `;
 
     return timelineHTML;
+}
+
+async function sendDeliveredNotification(numOrder) {
+    const url1 = "utils/findUserFromOrder.php?numOrder=" + numOrder;
+    let user = "";
+    try {
+        let response = await fetch(url1);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        let json1 = await response.json();
+        console.log(url1);
+        console.log(json1);
+        user = json1[0]["cf"];
+    } catch (error) {
+        console.log(error.message);
+    }
+    if (user !== "") {
+        const url2 = "utils/sendNotification.php?user=" + user + "&title=Ordine consegnato";
+        try {
+            let response = await fetch(url2);
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+            let json2 = await response.json();
+            console.log(json2);
+            if (json2["successful"] === false) {
+                console.log(json2["error"]);
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
 }
 
 async function getArticlesInOrder(lang, orderNumber) {

@@ -9,22 +9,18 @@ const btnEngPhone = document.getElementById("btnEng1");
 const btnEngPC = document.getElementById("btnEng2");
 
 btnItaPhone.addEventListener('click', (event) => {
-    // location.reload();
     setUserLogFormLang("it");
 });
 
 btnItaPC.addEventListener('click', (event) => {
-    // location.reload();
     setUserLogFormLang("it");
 });
 
 btnEngPhone.addEventListener('click', (event) => {
-    // location.reload();
     setUserLogFormLang("en");
 });
 
 btnEngPC.addEventListener('click', (event) => {
-    // location.reload();
     setUserLogFormLang("en");
 });
 
@@ -65,6 +61,7 @@ async function fetchChartData(lang) {
 
 async function generateChart(lang) {
     const chartContainer = document.getElementById('chart-container');
+    chartContainer.textContent = "";
 
     const data = await fetchChartData(lang);
 
@@ -148,6 +145,13 @@ async function generateBestBuyersTable(lang) {
 
     const section = document.querySelector("section:last-of-type"); // Seleziona la sezione in cui aggiungere la tabella
 
+    // Elimina tutte le tabelle e i titoli precedenti dalla sezione
+    const existingTables = section.querySelectorAll('table');
+    existingTables.forEach(table => table.remove());
+
+    const existingTitles = section.querySelectorAll('h3');
+    existingTitles.forEach(title => title.remove());
+
     // Crea un contenitore per la tabella e il caption
     const tableContainer = document.createElement("div");
 
@@ -195,7 +199,6 @@ async function generateBestBuyersTable(lang) {
         </tfoot>
     `;
     }
-    
 
     const tbody = table.querySelector("tbody");
 

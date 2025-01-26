@@ -530,5 +530,13 @@ class DatabaseHelper{
     
         return ["successful" => true, "error" => ""];
     }
+
+    public function getUserFromOrder($orderNumber) {
+        $stmt = $this->db->prepare("SELECT cf FROM ordini WHERE numero = ?");
+        $stmt->bind_param('i', $orderNumber);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>
