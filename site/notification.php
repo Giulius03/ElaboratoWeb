@@ -9,7 +9,7 @@ $templateParams["css"] = array("css/adjustments.css");
 
 $titleita = $_GET["title"];
 $sequenceNumber = $_GET["sequenceNumber"];
-$templateParams["onloadFunctions"] = "seeNotification('$currentLanguage', '$titleita', $sequenceNumber)";
+$templateParams["onloadFunctions"] = "checkNotifications('$currentLanguage'); seeNotification('$currentLanguage', '$titleita', $sequenceNumber)";
 
 require 'template/base.php';
 ?>

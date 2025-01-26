@@ -538,5 +538,13 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function checkNewNotifications($userCF) {
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS nonlette FROM notifiche WHERE utente = ? AND letta = 0");
+        $stmt->bind_param('s', $userCF);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>

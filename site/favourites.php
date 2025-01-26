@@ -5,7 +5,7 @@ require_once 'bootstrap.php';
 $templateParams["titolo"] = "Favourites | Bugs Burnley";
 $templateParams["nome"] = "favouritesTempl.php";
 $templateParams["js"] = array("js/favourites.js");
-$templateParams["onloadFunctions"] = "getArticlesData('$currentLanguage')";
+$templateParams["onloadFunctions"] = "checkNotifications('$currentLanguage'); getArticlesData('$currentLanguage')";
 
 require 'template/base.php';
 ?>

@@ -2,6 +2,7 @@ const dropdownLink = document.getElementById('dropdownLink');
 const list = document.getElementById('dropdownList');
 const btnSearchAppearPhone = document.getElementById('btnSearchAppear');
 const searchBarPhone = document.getElementById('searchPhone');
+let id = 0;
 
 dropdownLink.addEventListener('click', (event) => {
     event.preventDefault();
@@ -11,6 +12,32 @@ dropdownLink.addEventListener('click', (event) => {
 btnSearchAppearPhone.addEventListener('click', (event) => {
     searchBarPhone.style.display = searchBarPhone.style.display === 'flex' ? 'none' : 'flex';
 });
+
+function checkNotifications(lang) {
+    check(lang);
+    id = setInterval(() => {
+        check(lang)
+    }, 1500);
+}
+
+async function check(lang) {
+    const url = "utils/checkNewNotifications.php";
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        console.log(json[0]["nonlette"]);
+        if (json[0]["nonlette"] > 0) {
+            document.getElementById('notText').textContent = (lang === "en" ? "Notifications" : "Notifiche") + "(" + json[0]["nonlette"] + ")";
+        } else {
+            document.getElementById('notText').textContent = (lang === "en" ? "Notifications" : "Notifiche");
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 async function logOut(lang) {
     const url = "utils/logOut.php";
@@ -63,6 +90,8 @@ async function setLang(lang) {
             document.getElementById('signText').textContent = lang === "en" ? "Sign Up" : "Registrati";
         }
         document.getElementById('notText').textContent = lang === "en" ? "Notifications" : "Notifiche";
+        clearInterval(id);
+        checkNotifications(lang);
         document.getElementById('currentFlag').className = lang === "en" ? "fi fi-gb" : "fi fi-it";
         document.getElementById('langText').textContent = lang === "en" ? "ENG" : "ITA";
         document.getElementById('searchBar').placeholder = lang === "en" ? "Search ..." : "Cerca ...";

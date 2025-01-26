@@ -8,6 +8,9 @@ const btnItaPhone = document.getElementById("btnIta1");
 const btnItaPC = document.getElementById("btnIta2");
 const btnEngPhone = document.getElementById("btnEng1");
 const btnEngPC = document.getElementById("btnEng2");
+let numTicketsSmall = 0;
+let numTicketsBig = 0;
+let opponent = "";
 
 btnItaPhone.onclick = () => setUserLogFormLang("it");
 btnItaPC.onclick = () => setUserLogFormLang("it");
@@ -26,7 +29,7 @@ function generateCards(lang, match) {
     if (match.length > 0) {
         article += `
             <h2 style="display: none;">validation</h2>
-            <ol class="ordered">
+            <ol class="ordered border-0">
                 <li><h2 id="competiton">${match[0]["competizione"]}</h2></li>
                 <li><h3 id="data">${match[0]["data"]}</h3></li>
                 <li><h3 id="ora">${match[0]["ora"]}</h3></li>
@@ -121,6 +124,7 @@ async function addTicket(lang, event, ticketNum) {
     const avversario = getElementValueById("avversario");
     const area = getElementValueById("area");
     const quantity = getElementValueById("quantity");
+    console.log(quantity);
     let currentTicketNum = ticketNum - 1;
 
     for (let i = 1; i <= quantity; i++) {
@@ -142,9 +146,13 @@ async function addTicket(lang, event, ticketNum) {
         if (age == "<18") {
             formData.append('ridotto', "1");
             formData.append('prezzo', "29.99");
+            console.log("stampo ridotto");
+            numTicketsSmall++;
         } else {
             formData.append('ridotto', "0");
             formData.append('prezzo', "79.99");
+            console.log("stampo grande");
+            numTicketsBig++;
         }
 
         formData.append('ticketNum', currentTicketNum);
@@ -178,7 +186,6 @@ async function addTicket(lang, event, ticketNum) {
     console.log(lang === "en" ? "All tickets have been processed." : "Tutti i biglietti sono stati elaborati.");
 }
 
-
 async function getMatchData(lang) {
     const url = "utils/getMatch.php";
     try {
@@ -190,17 +197,15 @@ async function getMatchData(lang) {
         console.log(json);
         const match = generateCards(lang, json);
         document.querySelector("main > section > section").innerHTML = match;
+        opponent = match[0]["avversario"];
         updateDynamicInputs(1, lang);
     } catch (error) {
         console.log(error.message);
     }
 }
 
-function handleFormSubmit(event, lang, ticketNum) {
+async function handleFormSubmit(event, lang, ticketNum) {
     event.preventDefault();
-    addTicket(lang, event, ticketNum);
-
-    setTimeout(() => {
-        window.location.href = "payment.php";
-    }, 500);
+    await addTicket(lang, event, ticketNum);
+    window.location.href = "payment.php?ticket=y&smallTickets=" + numTicketsSmall + "&bigTickets=" + numTicketsBig;
 }

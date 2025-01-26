@@ -1,7 +1,7 @@
 function setAdminLang(lang) {
     document.querySelector("main > section > h1").textContent = lang === "en" ? "Control Panel" : "Pannello di Controllo";
-    document.querySelector("main > section > button:nth-of-type(2) > a").textContent = lang === "en" ? "Add a Product" : "Aggiungi un Prodotto";
-    document.querySelector("main > section > button:last-of-type > a").textContent = lang === "en" ? "Add Tickets" : "Aggiungi Biglietti";
+    document.querySelector("main > section > button:nth-of-type(2)").textContent = lang === "en" ? "Add a Product" : "Aggiungi un Prodotto";
+    document.querySelector("main > section > button:last-of-type").textContent = lang === "en" ? "Add Tickets" : "Aggiungi Biglietti";
     document.querySelector("main > section > form > div > input:first-of-type").setAttribute("value", lang === "en" ? "Edit" : "Modifica");
     document.querySelector("main > section > form > div > input:last-of-type").setAttribute("value", lang === "en" ? "Remove" : "Rimuovi");
     getArticles(lang);

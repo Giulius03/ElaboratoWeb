@@ -12,7 +12,7 @@ if (isset($_GET["action"])) {
 if (isset($_GET["article"])) {
     $article = $_GET["article"];
 }
-$templateParams["onloadFunctions"] = "getAction($actionID, '$currentLanguage', '$article')";
+$templateParams["onloadFunctions"] = "checkNotifications('$currentLanguage'); getAction($actionID, '$currentLanguage', '$article')";
 
 require 'template/base.php';
 ?>

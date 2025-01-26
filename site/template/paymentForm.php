@@ -59,7 +59,6 @@
                 <!-- prezzi -->
             </section>
         </section>
-        <strong><?php echo $currentLanguage == "en" ? "Payment: " : "Pagamento: " ?></strong><br>
         <input type="submit" id="btnPay" value="<?php echo $currentLanguage == "en" ? "Order" : "Ordina" ?>" />
     </fieldset>
 </form>

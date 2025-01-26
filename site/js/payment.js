@@ -7,6 +7,8 @@ let articleToBuy = "";
 let articleSize = "";
 let quantityToBuy = 0;
 let price = 0;
+let ticket = false;
+let currentUser = "";
 
 btnItaPhone.addEventListener('click', (event) => {
     setPaymentLang("it");
@@ -47,14 +49,21 @@ function cardInputsVisible(visible) {
     document.getElementById("cvv").required = visible ? true : false;
 }
 
-function start(cart, article, size, pricee, quantity) {
+function start(cart, article, size, pricee, quantity, ticketYN, user) {
+    ticket = ticketYN;
     buyFromCart = cart;
     articleToBuy = article;
     articleSize = size;
     quantityToBuy = quantity;
     price = pricee;
+    currentUser = user;
     showPrices();
     getUserCard();
+    if (ticket === true) {
+        document.getElementById("ondelivery").disabled = true;
+        document.getElementById("standard").disabled = true;
+        document.getElementById("premium").disabled = true;
+    }
 }
 
 async function getUserCard() {
@@ -82,35 +91,50 @@ async function getUserCard() {
 async function addOrder(lang, event) {
     event.preventDefault();
 
-    const dataIns = new Date().toISOString().slice(0, 19).replace('T', ' ');
-    const dataCons = new Date(dataIns);
-    dataCons.setHours(21, 0, 0, 0);
-
-    let url = "utils/addOrder.php?fromCart=" + buyFromCart + "&dataIns=" + dataIns + "&dataCons=" + dataCons.toISOString().slice(0, 19).replace('T', ' ');
-    if (buyFromCart === false) {
-        url += "&article=" + articleToBuy + "&quantity=" + quantityToBuy + "&size=" + articleSize;
-    }
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
+    if (ticket === false) {
+        const dataIns = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        const dataCons = new Date(dataIns);
+        dataCons.setHours(21, 0, 0, 0);
+    
+        let url = "utils/addOrder.php?fromCart=" + buyFromCart + "&dataIns=" + dataIns + "&dataCons=" + dataCons.toISOString().slice(0, 19).replace('T', ' ');
+        if (buyFromCart === false) {
+            url += "&article=" + articleToBuy + "&quantity=" + quantityToBuy + "&size=" + articleSize;
         }
-        const json = await response.json();
-        console.log(json);
-        
-        if (json["successful"] === true) {
-            if (document.getElementById("bycard").checked) {
-                saveCard();
-            } else {
-                console.log("niente carta");
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
             }
-            window.location.href = "orders.php";
-        } else {
-            console.log("Male");
+            const json = await response.json();
+            console.log(json);
+            
+            if (json["successful"] === true) {
+                if (document.getElementById("bycard").checked) {
+                    saveCard();
+                }
+                window.location.href = "orders.php";
+            }
+        } catch (error) {
+            console.log(error.message);
         }
-    } catch (error) {
-        console.log(error.message);
+    } else {
+        const url = "utils/sendNotification.php?user=" + currentUser + "&title=Biglietti acquistati";
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+            const json = await response.json();
+            console.log(json);
+            
+            if (json["successful"] === true) {
+                window.location.href = "index.php";
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
     }
+    
 }
 
 async function saveCard() {
@@ -164,16 +188,16 @@ async function showPrices() {
     }
 
     let selectedDeliveryMethod = document.querySelector('input[name="deliveryMethod"]:checked');
-    let txtShippingCosts = !selectedDeliveryMethod ? "€-.--" : (selectedDeliveryMethod.value == "standard" ? "€0.00" : "€4.99");
+    let txtShippingCosts = (!selectedDeliveryMethod || ticket === true) ? "€-.--" : (selectedDeliveryMethod.value == "standard" ? "€0.00" : "€4.99");
     let txtDiscount = discountToApply === true ? "30%" : "0%";
     let total = 0;
     let pricesSection = document.querySelector("main > form > fieldset:last-of-type > section > section:last-of-type");
     let txtPrices = `<h2>tit</h2>`;
-    if (buyFromCart === false) {
+    if (buyFromCart === false && ticket === false) {
         txtPrices += `
         <p>€${price * quantityToBuy}<br>`;
         total = price * quantityToBuy + (!selectedDeliveryMethod ? 0 : (selectedDeliveryMethod.value == "standard" ? 0 : 4.99));
-    } else {
+    } else if (buyFromCart === true && ticket === false) {
         const urlCart = "utils/getCart.php";
         let cart = "";
         let totCart = 0;
@@ -193,6 +217,10 @@ async function showPrices() {
         txtPrices += `
         <p>€${totCart}<br>`;
         total = totCart + (!selectedDeliveryMethod ? 0 : (selectedDeliveryMethod.value == "standard" ? 0 : 4.99));
+    } else {
+        txtPrices += `
+        <p>€${price}<br>`;
+        total = price;
     }
     txtPrices += `
     ${txtShippingCosts}<br>
