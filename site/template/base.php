@@ -58,7 +58,7 @@
                         <a href="tickets.php"><span class="fa fa-ticket"></span><span id="tickTextPC"><?php echo $currentLanguage == "en" ? "Tickets" : "Biglietti" ?></span></a>
                     </li>
                     <li>
-                        <a href="index.php"><img src="upload/Stemma.png" alt="Logo squadra. Torna alla Home."></a>
+                        <a href="<?php echo isUserAnAdmin() == false ? "index.php" : "adminHome.php" ?>"><img src="upload/Stemma.png" alt="Logo squadra. Torna alla Home."></a>
                     </li>
                     <li>
                         <a class="dropdown-toggle" role="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"><span class="bi bi-person"></span><span id="userText"><?php echo isUserLoggedIn() ? $_SESSION["username"] : ($currentLanguage == "en" ? "User" : "Utente") ?></span></a>

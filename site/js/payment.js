@@ -54,7 +54,7 @@ function start(cart, article, size, pricee, quantity) {
     quantityToBuy = quantity;
     price = pricee;
     showPrices();
-    getUserCard(user);
+    getUserCard();
 }
 
 async function getUserCard() {
@@ -95,11 +95,16 @@ async function addOrder(lang, event) {
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
+        window.location.href = url;
         const json = await response.json();
         console.log(json);
-
+        
         if (json["successful"] === true) {
-            saveCard();
+            if (document.getElementById("bycard").checked) {
+                saveCard();
+            } else {
+                console.log("niente carta");
+            }
             window.location.href = "orders.php";
         } else {
             console.log("Male");
@@ -167,8 +172,8 @@ async function showPrices() {
     let txtPrices = `<h2>tit</h2>`;
     if (buyFromCart === false) {
         txtPrices += `
-        <p>€${price}<br>`;
-        total = price + (!selectedDeliveryMethod ? 0 : (selectedDeliveryMethod.value == "standard" ? 0 : 4.99));
+        <p>€${price * quantityToBuy}<br>`;
+        total = price * quantityToBuy + (!selectedDeliveryMethod ? 0 : (selectedDeliveryMethod.value == "standard" ? 0 : 4.99));
     } else {
         const urlCart = "utils/getCart.php";
         let cart = "";

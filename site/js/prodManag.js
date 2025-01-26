@@ -198,6 +198,113 @@ async function addProduct() {
     }
 }
 
+function isSomethingDifferent() {
+    let cat = "";
+    if (document.getElementById("category").value === "Clothing") {
+        cat = "Abbigliamento";
+    } else {
+        cat = "Souvenir";
+    }
+
+    let group = "";
+    switch (document.getElementById("group").value) {
+        case "Hoodies":
+            group = "Felpe";
+            break;
+        case "Trousers":
+            group = "Pantaloni";
+            break;
+        case "Kit":
+            group = "Divise";
+            break;
+        case "Caps":
+            group = "Cappelli";
+            break;
+        case "T-Shirts":
+            group = "Magliette";
+            break;
+        default:
+            group = "Souvenir";
+            break;
+    }
+
+    let image = (document.getElementById("image").value).split("\\")[2];
+
+    return cat !== editArticle[0]["categoria"] || document.getElementById("italianName").value !== editArticle[0]["nomeita"] ||
+    document.getElementById("englishName").value !== editArticle[0]["nomeeng"] || document.getElementById("price").value != editArticle[0]["prezzo"]
+    || document.getElementById("descita").value !== editArticle[0]["descita"] || document.getElementById("desceng").value !== editArticle[0]["desceng"]
+    || document.getElementById("eachsizequantity").value != (editArticle[0]["categoria"] === "Souvenir" ? editArticle[0]["quantTot"] : editArticle[0]["quantDispTaglia"])
+    || group !== editArticle[0]["gruppo"] || (typeof image !== "undefined" && image !== editArticle[0]["img"]);
+}
+
 async function editProduct() {
-    
+    if (isSomethingDifferent() === true) {
+        const url = "utils/editProduct.php";
+        let formData = new FormData();
+        let image = (document.getElementById("image").value).split("\\")[2];
+        formData.append('articleToUpdate', editArticle[0]["nomeita"]);
+        formData.append('nameita', document.getElementById('italianName').value);
+        formData.append('nameeng', document.getElementById('englishName').value);
+        let category = "";
+        if (document.getElementById('category').value === "Clothing" || document.getElementById('category').value === "Abbigliamento") {
+            category = "Abbigliamento";
+        } else {
+            category = "Souvenir";
+        }
+
+        formData.append('category', category);
+
+        if (typeof image !== "undefined" && image !== editArticle[0]["img"]) {
+            formData.append('image', image);
+        } else {
+            formData.append('image', editArticle[0]["img"]);
+        }
+        
+        formData.append('price', document.getElementById('price').value);
+        formData.append('descriptionita', document.getElementById('descita').value);
+        formData.append('descriptioneng', document.getElementById('desceng').value);
+        let group = document.getElementById('group').value;
+        if (category !== "Souvenir") {
+            switch (group) {
+                case "Kit":
+                    group = "Divise";
+                    break;
+                case "Trousers":
+                    group = "Pantaloni";
+                    break;
+                case "Hoodies":
+                    group = "Felpe";
+                    break;
+                case "T-Shirts":
+                    group = "Magliette";
+                    break;
+                case "Caps":
+                    group = "Cappelli";
+                    break;
+            }
+        } else {
+            group = "Souvenir";
+        }
+        formData.append('group', group);    
+        formData.append('quantity', document.getElementById('eachsizequantity').value);
+        try {
+            const response = await fetch(url, {
+                method: "POST",                   
+                body: formData
+            });
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+            window.location.href = url;
+            const json = await response.json();
+            console.log(json);
+            if (json["successful"] === true) {
+                window.location.href = "adminHome.php";
+            } else {
+                document.querySelector("main").innerHTML += `<p style="text-align: center;">${json["error"]}</p>`;
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
 }

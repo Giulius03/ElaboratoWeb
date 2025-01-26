@@ -11,6 +11,14 @@ function registerLoggedUser($user){
     $_SESSION["userCF"] = $user["cf"];
     $_SESSION["username"] = $user["username"];
     $_SESSION["name"] = $user["nome"];
+    $_SESSION["isAdmin"] = $user["admin"] == 1 ? true : false;
+}
+
+function isUserAnAdmin() {
+    if (!isUserLoggedIn()) {
+        return false;
+    }
+    return $_SESSION["isAdmin"] == true;
 }
 
 function generateCode(){

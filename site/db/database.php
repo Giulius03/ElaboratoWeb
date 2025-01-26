@@ -35,7 +35,7 @@ class DatabaseHelper{
     }
 
     public function checkLogin($username){
-        $stmt = $this->db->prepare("SELECT cf, nome, username, password FROM utenti WHERE username = ?");
+        $stmt = $this->db->prepare("SELECT cf, nome, username, password, admin FROM utenti WHERE username = ?");
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -375,7 +375,19 @@ class DatabaseHelper{
         $stmt = $this->db->prepare("INSERT INTO composizioni (IdArticolo, numeroordine) VALUES (?, ?)");
         $stmt->bind_param('ii', $id, $numero);
         $stmt->execute();
-        return $stmt->insert_id;
+
+        $product = $this->getArticleByName($nome, $size);
+        if ($product[0]["categoria"] == "Abbigliamento") {
+            $stmt = $this->db->prepare("UPDATE disponibilita SET quantità = ? WHERE articolo = ? AND taglia = ?");
+            $newQuantity = $product[0]["quantDispTaglia"] - $quantity;
+            $stmt->bind_param('iss', $newQuantity, $nome, $size);
+            $stmt->execute();
+        }
+        $stmt = $this->db->prepare("UPDATE articoli SET quantità = ? WHERE nomeita = ?");
+        $newQuantity = $product[0]["quantTot"] - $quantity;
+        $stmt->bind_param('is', $newQuantity, $nome);
+        $stmt->execute();
+        // return $stmt->insert_id;
     }
 
     public function aggiornaStato($orderNumber){
@@ -473,6 +485,24 @@ class DatabaseHelper{
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function updateProduct($toUpdate, $newNameIta, $newNameEng, $newImage, $newPrice, $newDescIta, $newDescEng, $newQuantity, $newGroup, $newCat){
+        if ($newCat == "Abbigliamento") {
+            $sizes = ["XS", "S", "M", "L", "XL", "XXL"];
+            for ($i = 0; $i < count($sizes); $i++) {
+                $stmt = $this->db->prepare("UPDATE disponibilita SET articolo = ?, quantità = ? WHERE articolo = ? AND taglia = ?");
+                $stmt->bind_param('siss', $newNameIta, $newQuantity, $toUpdate, $sizes[$i]);
+                $stmt->execute();
+            }
+        }
+        $stmt = $this->db->prepare("UPDATE articoli SET nomeita = ?, nomeeng = ?, nomeimmagine = ?, prezzo = ?,
+            descrizioneita = ?, descrizioneeng = ?, quantità = ?, gruppo = ?, categoria = ? WHERE nomeita = ?");
+        $tot = $newCat != "Souvenir" ? ($newQuantity * 6) : $newQuantity;
+        $stmt->bind_param('sssdssisss', $newNameIta, $newNameEng, $newImage, $newPrice, $newDescIta, $newDescEng, $tot,
+            $newGroup, $newCat, $toUpdate);
+        $stmt->execute();
+        return $stmt->affected_rows;
     }
 }
 ?>

@@ -28,7 +28,7 @@ btnEngPC.addEventListener('click', (event) => {
 function generateCards(lang, articoli) {
     let labelName = lang === "en" ? 'Select Product' : 'Seleziona Articolo';
     let elimina = lang === "en" ? 'Delete' : 'Elimina';
-    let modifica = lang === "en" ? 'Modify' : 'Modifica';
+    let modifica = lang === "en" ? 'Edit' : 'Modifica';
 
     const urlParams = new URLSearchParams(window.location.search);
     const selectedValue = urlParams.get('selectedArticle') || '';
