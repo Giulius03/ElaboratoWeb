@@ -445,5 +445,32 @@ class DatabaseHelper{
         $stmt->execute();
         return $stmt->insert_id;
     }
+
+    public function getChartData($articolo){
+        $stmt = $this->db->prepare("SELECT aio.quantità, a.nomeita, a.nomeeng, a.prezzo
+        FROM articoli_in_ordine aio
+        JOIN articoli a ON aio.nome = a.nomeita
+        WHERE a.nomeita = ?
+        LIMIT 5");
+        $stmt->bind_param('s', $articolo);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getBestBuyers(){
+        $stmt = $this->db->prepare("SELECT u.nome, u.cognome, COUNT(o.numero) AS num_ordini, SUM(a.prezzo * aio.quantità) AS totale_speso
+        FROM utenti u
+        JOIN ordini o ON o.CF = u.CF
+        JOIN composizioni c ON c.numeroordine = o.numero
+        JOIN articoli_in_ordine aio ON aio.Id = c.Idarticolo
+        JOIN articoli a ON a.nomeita = aio.nome
+        GROUP BY u.CF
+        ORDER BY num_ordini DESC
+        LIMIT 5");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>
