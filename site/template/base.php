@@ -31,7 +31,7 @@
             <nav>
                 <ul>
                     <li>
-                        <form action="index.php" method="get">
+                    <form id="searchFormPC" action="fromSearch.php" method="get">
                             <label for="searchBarPC">Cerca</label>
                             <input name="search" id="searchBarPC" type="search" placeholder="<?php echo $currentLanguage == "en" ? "Search" : "Cerca" ?> ..." />
                             <span class="bi bi-search"></span>
@@ -87,7 +87,7 @@
                         </ul>
                     </li>
                 </ul>
-                <form action="index.php" method="get" id="searchPhone">
+                <form action="fromSearch.php" method="get" id="searchPhone">
                     <label for="searchBar">Cerca</label>
                     <input name="search" id="searchBar" type="search" class="form-control" placeholder="<?php echo $currentLanguage == "en" ? "Search" : "Cerca" ?> ..." />
                     <button type="submit"><span class="bi bi-search"></span></button>

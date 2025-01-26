@@ -546,5 +546,19 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+    
+    public function getArticlesBySearch($article) {
+        $sql = "SELECT nomeita, nomeeng, descrizioneita, descrizioneeng, nomeimmagine, prezzo
+                FROM articoli
+                WHERE nomeita LIKE ?
+                OR nomeeng LIKE ?";
+    
+        $stmt = $this->db->prepare($sql);
+        $searchTerm = "%" . $article . "%";
+        $stmt->bind_param('ss', $searchTerm, $searchTerm);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>
