@@ -81,3 +81,39 @@ async function setLang(lang) {
         console.log(error.message);
     }
 }
+
+document.getElementById("searchFormPC").addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const searchQuery = document.getElementById("searchBarPC").value.trim();
+
+    if (searchQuery) {
+        const formattedQuery = searchQuery
+            .toLowerCase()
+            .split(" ")
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ");
+
+        window.location.href = `fromSearch.php?article=${encodeURIComponent(formattedQuery)}`;
+    } else {
+        console.error("Error!");
+    }
+});
+
+document.getElementById("searchPhone").addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const searchQuery = document.getElementById("searchBar").value.trim();
+
+    if (searchQuery) {
+        const formattedQuery = searchQuery
+            .toLowerCase()
+            .split(" ")
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ");
+
+        window.location.href = `fromSearch.php?article=${encodeURIComponent(formattedQuery)}`;
+    } else {
+        console.error("Error!");
+    }
+});
