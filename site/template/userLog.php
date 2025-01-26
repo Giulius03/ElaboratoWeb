@@ -3,7 +3,7 @@
     <form action="utils/checkLogin.php" method="POST" onsubmit="showLoginResult('<?php echo $currentLanguage ?>', event)">
         <ul>
             <?php require 'userPw.php' ?>
-            <li>
+            <li class="text-start">
                 <a id="forgotLink" href="recovery.php"><?php echo $currentLanguage == "en" ? "Forgotten password?" : "Password dimenticata?" ?></a>
             </li>
             <li>

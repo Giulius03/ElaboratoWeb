@@ -1,15 +1,14 @@
 <section>
     <h1 id="title"><?php echo $currentLanguage == "en" ? "PRODUCTS" : "PRODOTTI" ?></h1>
            
-    <button id="filter" class="filter-btn" onclick="toggleFilter()">
+    <button id="filter" class="dropend" aria-expanded="false" data-bs-toggle="dropdown" style="width: 130px; margin-left: 30px">
         <i class="fa fa-filter"></i>
         <?php echo $currentLanguage == "en" ? "FILTERS" : "FILTRI" ?>
     </button>
     
     <form id="filterForm" onsubmit="handleFilterSubmit(event, '<?php echo $currentLanguage ?>')">
-        <div class="filter-content" id="filterMenu" style="display: none;">
-            <fieldset>
-                <legend id="legend"><?php echo $currentLanguage == "en" ? "Category selection" : "Selezione categoria" ?></legend>
+        <div id="filterMenu" class="dropdown-menu" aria-labelledby="filter">
+                <h1 id="legend"><?php echo $currentLanguage == "en" ? "Category selection" : "Selezione categoria" ?></h1>
                 
                 <label for="kits">
                     <input id="kits" type="radio" name="category" value="Divise">
@@ -35,7 +34,6 @@
                     <input id="souvs" type="radio" name="category" value="Souvenirs">
                     <?php echo $currentLanguage == "en" ? "Souvenirs" : "Souvenirs" ?>
                 </label>
-            </fieldset>
 
             <button id="send" type="submit" class="submit-btn"><?php echo $currentLanguage == "en" ? "Send" : "Invia" ?></button>
         </div>

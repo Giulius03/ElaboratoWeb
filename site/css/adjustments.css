@@ -375,6 +375,7 @@ main > div > section:first-of-type > section:first-of-type > a:hover, main > div
 /* #endregion */
 
 main > section > button {
+    margin: 0;
     width: 250px;
     height: 35px;
     background-color: #800020;

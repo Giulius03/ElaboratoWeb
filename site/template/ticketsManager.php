@@ -2,7 +2,7 @@
     <h1 id="title"><?php echo $currentLanguage == "en" ? "TICKETS MANAGEMENT" : "GESTIONE DEI BIGLIETTI" ?></h1>
     <section id="tickets">
         <h2 style="display: none;">tit</h2>
-        <ol class="ordered">
+        <ol class="ordered border-0">
             <li>
                 <label for="competitionBox" style="display: none;">tit</label>
                 <p><?php echo $currentLanguage == "en" ? "Competition*" : "Competizione*" ?></p>

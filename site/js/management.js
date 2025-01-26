@@ -9,22 +9,22 @@ const btnEngPhone = document.getElementById("btnEng1");
 const btnEngPC = document.getElementById("btnEng2");
 
 btnItaPhone.addEventListener('click', (event) => {
-    location.reload();
+    // location.reload();
     setUserLogFormLang("it");
 });
 
 btnItaPC.addEventListener('click', (event) => {
-    location.reload();
+    // location.reload();
     setUserLogFormLang("it");
 });
 
 btnEngPhone.addEventListener('click', (event) => {
-    location.reload();
+    // location.reload();
     setUserLogFormLang("en");
 });
 
 btnEngPC.addEventListener('click', (event) => {
-    location.reload();
+    // location.reload();
     setUserLogFormLang("en");
 });
 
@@ -205,7 +205,7 @@ async function generateBestBuyersTable(lang) {
             <td>${buyer.name}</td>
             <td>${buyer.surname}</td>
             <td>${buyer.numOrders}</td>
-            <td>${buyer.totalSpent}</td>
+            <td>${buyer.totalSpent.toFixed(2)}</td>
             <td>${buyer.frequencyValue.toFixed(2)}</td>
         `;
         tbody.appendChild(row);
