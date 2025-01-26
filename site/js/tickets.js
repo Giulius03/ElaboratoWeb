@@ -90,10 +90,10 @@ function updateDynamicInputs(quantity, lang) {
             <div class="ticket-info">
                 <label for="textBoxName${i}" style="display: none;">${i}. ${name}:</label>
                 <p>${i}. ${name}:</p>
-                <input type="text" id="textBoxName${i}" class="name-input">
+                <input type="text" id="textBoxName${i}" class="name-input" />
                 <label for="textBoxSurname${i}" style="display: none;">${surname}:</label>
                 <p>${surname}:</p>
-                <input type="text" id="textBoxSurname${i}" class="surname-input">
+                <input type="text" id="textBoxSurname${i}" class="surname-input" />
                 <label for="age${i}" style="display: none;">${age}:</label>
                 <p>${age}:</p>
                 <select id="age${i}" class="age-dropdown">

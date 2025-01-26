@@ -81,6 +81,7 @@ async function getArticlesData(lang) {
         console.log(json);
         const articles = generateCards(lang, json);
         document.querySelector("main > section > section").innerHTML = articles;
+        generateRelatedCarousel(lang, json[0]["gruppo"], json[0]["categoria"], json[0]["nomeita"]);
     } catch (error) {
         console.log(error.message);
     }
@@ -150,6 +151,99 @@ async function deleteFavs(lang, event) {
         } else {
             console.log(json["error"]);
         }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+function generateRelated(lang, articles) {
+    let cards = "";
+
+    for (let i = 0; i < articles.length; i++) {
+        let name = lang === "en" ? articles[i]["nomeeng"] : articles[i]["nomeita"];
+        let textUrl = articles[i]["nomeita"].replaceAll(" ", "%20")
+        cards += `
+        <h2 style="display: none">tit</h2>
+        <section class="swiper-slide">
+            <a href="singleProduct.php?product=${textUrl}">
+                <article class="card">
+                    <h2 style="display: none">tit</h2>
+                    <img src="upload/${articles[i]["nomeimmagine"]}" alt="${name}">
+                    <strong>${name}</strong>
+                    <p>€${articles[i]["prezzo"]}</p>
+                </article>
+            </a>
+        </section>`;
+    }
+
+    return cards;
+}
+
+async function generateRelatedCarousel(lang, group, category, nameita) {
+    const url = "utils/getRelated.php?group=" + group + "&category=" + category + "&currentArticle=" + nameita;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        console.log(json);
+        let related = generateRelated(lang, json);
+        document.querySelector("main > section > section:last-of-type > section > section").innerHTML = related;
+        swiperRelatedMobile = new Swiper('#swiperRel', {
+            loop: true, // Enables infinite scrolling
+            slidesPerView: 1, // Default: 1 product visible
+            navigation: {
+                nextEl: '#nextRel',
+                prevEl: '#prevRel',
+            },
+            pagination: false, // No dots at the bottom
+            breakpoints: {
+                576: {
+                    slidesPerView: 2,
+                    spaceBetween: 0,
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 0,
+                },
+                992: {
+                    slidesPerView: 3,
+                    spaceBetween: 90,
+                },
+                1200: {
+                    slidesPerView: 3,
+                    spaceBetween: 130,
+                }
+            },
+        });
+        swiperRelatedPC = new Swiper('#swiperRelPC', {
+            loop: true, // Enables infinite scrolling
+            slidesPerView: 1, // Default: 1 product visible
+            navigation: {
+                nextEl: '#nextRelPC',
+                prevEl: '#prevRelPC',
+            },
+            pagination: false, // No dots at the bottom
+            breakpoints: {
+                576: {
+                    slidesPerView: 2,
+                    spaceBetween: 0,
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 0,
+                },
+                992: {
+                    slidesPerView: 3,
+                    spaceBetween: 90,
+                },
+                1200: {
+                    slidesPerView: 3,
+                    spaceBetween: 130,
+                }
+            },
+        });
     } catch (error) {
         console.log(error.message);
     }

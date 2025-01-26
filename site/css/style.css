@@ -1145,32 +1145,32 @@ main > section > section > div.chart-container {
     max-width: 800px;
     margin: auto;
     display: flex;
-    align-items: flex-start; /* Inizia dalle barre più alte, quindi dall'alto */
+    align-items: flex-start;
 }
 
 main > section > section > div > article.y-axis > span {
-    margin-bottom: 20px; /* Distanza tra i numeri sull'asse Y */
-    position: relative; /* Necessario per posizionare la linea */
-    padding-right: 10px; /* Spazio tra il numero e la linea */
-    text-align: right; /* Allinea il numero a destra */
+    margin-bottom: 20px;
+    position: relative;
+    padding-right: 10px;
+    text-align: right;
 }
 
 main > section > section > div > article.y-axis > span::after {
     border-radius: 1px;
-    content: ''; /* Crea un elemento vuoto per la linea */
+    content: '';
     position: absolute;
-    left: 100%; /* Posiziona la linea accanto al numero */
+    left: 100%;
     bottom: 100%;
-    width: 700px; /* Lunghezza della linea */
-    height: 2px; /* Spessore della linea */
-    background-color: #777; /* Colore della linea */
+    width: 700px;
+    height: 2px;
+    background-color: #777;
 }
 
 main > section > section > div > span.chart {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 300px; /* Imposta un'altezza fissa per il grafico */
+    height: 300px;
     position: relative;
 }
 
@@ -1182,7 +1182,7 @@ main > section > section > div > span > span.bar {
     position: relative;
     flex-grow: 1;
     margin-right: 10px;
-    align-self: flex-end; /* Le barre sono ancorate alla base */
+    align-self: flex-end;
 }
 
 main > section > section > div > span > span.bar:hover {
@@ -1197,7 +1197,7 @@ main > section > section > div > span > span > span.label {
 }
 
 main > section > section > div > article.y-axis > div {
-    margin-bottom: 20px; /* Aumenta la distanza tra i numeri sull'asse Y */
+    margin-bottom: 20px;
 }
 
 main > section > section > div > h3 {
