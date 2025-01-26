@@ -373,3 +373,51 @@ main > div > section:first-of-type > section:first-of-type > a:hover, main > div
     text-decoration: underline;
 }
 /* #endregion */
+
+main > section > button {
+    width: 250px;
+    height: 35px;
+    background-color: #800020;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 17px;
+    margin-top: 20px;
+}
+
+main > section > button:hover, main > section > form > div > input:hover {
+    font-weight: 700;
+    background-color: #800020;
+}
+
+main > section > form {
+    text-align: center;
+    padding: 0 20%;
+    margin-top: 20px;
+}
+
+main > section > form .form-select:focus {
+    box-shadow: none;
+    border-color: #dee2e6;
+}
+
+main > section > form > div {
+    border: none;
+    margin-top: 10px;
+}
+
+main > section > form > div > input {
+    height: 35px;
+    background-color: #800020;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 17px;
+    width: 40%;
+}
+
+main > section > form > div > input:last-of-type {
+    margin-left: 20%;
+}

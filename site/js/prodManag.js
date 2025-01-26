@@ -54,6 +54,11 @@ function setProdFormLang(lang) {
             break;
     }
     document.querySelector("main > form > ul > li:last-of-type > input").setAttribute("value", value);
+    document.querySelector("main > div > div > div > div > h1").textContent = lang === "en" ? "Confirm removal" : "Conferma rimozione";
+    document.querySelector("main > div > div > div > div > p").textContent = lang === "en" ? "Are you sure you want to remove this product from the market?" : "Sei sicuro di voler rimuovere questo prodotto dal mercato?";
+    document.querySelector("main > div > div > div > div:last-of-type > button:first-of-type").textContent = lang === "en" ? "Close" : "Chiudi";
+    document.querySelector("main > div > div > div > div:last-of-type > button:last-of-type").textContent = lang === "en" ? "Confirm" : "Conferma";
+
 }
 
 function getCurrentQuantity() {
@@ -126,7 +131,9 @@ function manageProduct(event) {
         case 2:
             editProduct();
             break;
-        default:
+        case 3:
+            const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+            myModal.show();
             break;
     }
 }
@@ -306,5 +313,24 @@ async function editProduct() {
         } catch (error) {
             console.log(error.message);
         }
+    }
+}
+
+async function removeProduct() {
+    const url = "utils/removeProduct.php?article=" + editArticle[0]["nomeita"];
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        console.log(json);
+        if (json["successful"] === true) {
+            window.location.href = "adminHome.php";
+        } else {
+            document.querySelector("main").innerHTML += `<p style="text-align: center;">${json["error"]}</p>`;
+        }
+    } catch (error) {
+        console.log(error.message);
     }
 }

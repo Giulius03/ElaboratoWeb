@@ -95,7 +95,6 @@ async function addOrder(lang, event) {
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
-        window.location.href = url;
         const json = await response.json();
         console.log(json);
         

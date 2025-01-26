@@ -25,6 +25,7 @@ if (isset($_GET["fromCart"]) && $_GET["fromCart"] == "true") {
         try {
             $dbh->addOrder($_SESSION["userCF"], $_GET["dataIns"], $_GET["dataCons"]);
             $dbh->addArticleOrder($_GET["article"], $_GET["quantity"], $_GET["size"]);
+            $dbh->sendNotification("0000000000000000", "Ordine richiesto");
             $status["successful"] = true;
         } catch (Exception $e) {
             $status["error"] = $e->getMessage();

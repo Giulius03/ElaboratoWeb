@@ -286,19 +286,29 @@ class DatabaseHelper{
     }
 
     public function getRelatedArticles($group, $category, $currentArticle) {
-        $query = "SELECT nomeita, nomeeng, nomeimmagine, prezzo FROM articoli WHERE ";
-        $types = "";
-        $optParam = "";
-        if ($group != "Divise") {
-            $query .= "gruppo <> ? AND ";
-            $optParam = $group;
+        $query = "SELECT nomeita, nomeeng, nomeimmagine, prezzo FROM articoli WHERE categoria = ?";
+        $types = "s";
+        $params = [$category];
+
+        if ($category != "Souvenir") {
+            if ($group != "Divise") {
+                $query .= " AND gruppo <> ?";
+                $types .= "s";
+                $params[] = $group;
+            } else {
+                $query .= " AND nomeita <> ?";
+                $types .= "s";
+                $params[] = $currentArticle;
+            }
         } else {
-            $query .= "nomeita <> ? AND ";
-            $optParam = $currentArticle;
+            $query .= " AND nomeita <> ?";
+            $types .= "s";
+            $params[] = $currentArticle;
         }
-        $query .= "categoria = ? ORDER BY RAND() LIMIT 5";
+
+        $query .= " ORDER BY RAND() LIMIT 5";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ss', $optParam, $category);
+        $stmt->bind_param($types, ...$params);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
@@ -443,7 +453,7 @@ class DatabaseHelper{
             $stmt->execute();
         }
     }
-    public function getArticles(){
+    public function getAllArticles(){
         $stmt = $this->db->prepare("SELECT a.nomeita, a.nomeeng
         FROM articoli a");
         $stmt->execute();
@@ -451,9 +461,11 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function deleteArticles($articolo){
-        $stmt = $this->db->prepare("UPDATE articoli SET quantità = 0 WHERE nomeita = ?");
-        $stmt->bind_param('s', $articolo);
+    public function removeFromMarket($articolo){
+        $stmt = $this->db->prepare("UPDATE articoli SET quantità = 0, descrizioneita = ?, descrizioneeng = ? WHERE nomeita = ?");
+        $itamessage = "Prodotto non più in vendita.";
+        $engmessage = "Product no longer on sale.";
+        $stmt->bind_param('sss', $itamessage, $engmessage, $articolo);
         $stmt->execute();
         $stmt = $this->db->prepare("UPDATE disponibilita SET quantità = 0 WHERE articolo = ?");
         $stmt->bind_param('s', $articolo);

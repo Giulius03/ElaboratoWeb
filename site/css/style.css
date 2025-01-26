@@ -837,6 +837,14 @@ main > form > fieldset:nth-of-type(3) > input:hover {
 /* #endregion */
 
 /* #region Products Management */
+main > div > div > div > div > h1 {
+    text-shadow: none;
+    color: black;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+}
+
 main > form > ul {
     padding: 0 10%;
     list-style: none;
@@ -1088,55 +1096,6 @@ main > section > section > ol.ordered > li > form > input {
     font-weight: 500;
 }
 
-/* #endregion */
-
-/* #region Common things for Admin Home*/
-main > section > section > form.formMan {
-    display: block;
-}
-
-main > section > section > form.formMan > button {
-    border: none;
-    background-color: #800020;
-    color: white;
-    margin-top: 15px;
-    width: 100%;
-    height: 35px;
-    border-radius: 10px;
-    font-weight: 500;
-}
-
-main > section > section > section > form > button {
-    border: none;
-    background-color: #800020;
-    color: white;
-    margin-top: 15px;
-    width: 100%;
-    height: 35px;
-    border-radius: 10px;
-    font-weight: 500;
-}
-
-main > section > section > section > select {
-    font-size: 16px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 50%;
-    margin-bottom: 10px;
-    margin-left: 25%;
-}
-
-main > section > section > section > label {
-    font-weight: bold;
-    text-align: center;
-    font-size: 16px;
-    padding: 5px;
-    width: 50%;
-    margin-top: 50px;
-    margin-bottom: 10px;
-    margin-left: 25%;
-}
 /* #endregion */
 
 /* #region Common things for Management*/

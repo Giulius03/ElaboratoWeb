@@ -1,25 +1,16 @@
 <section>
-    <h1 id="title">ADMIN HOME</h1>
-    <section id="articles">
-        <h2 style="display: none;">tit</h2>
-        <form class="formMan" action="management.php" method="POST">
-            <button id="btnMan" class="btnMan" type="submit" style="display: block;">
-                Management
-            </button>
-        </form>
-        <form class="formMan" action="productsManagement.php" method="POST">
-            <button id="btnProd" class="btnMan" type="submit">
-                <?php echo $currentLanguage == "en" ? "Products Management" : "Gestione dei Prodotti" ?>
-            </button>
-        </form>
-        <form class="formMan" action="ticketsManagement.php" method="POST">
-            <button id="btnTick" class="btnMan" type="submit">
-                <?php echo $currentLanguage == "en" ? "Tickets Management" : "Gestione dei Biglietti" ?>
-            </button>
-        </form>
-        <section id="modAndDel">
-            <h2 style="display: none;">tit</h2>
-            <!--Modifica o Eliminazione Prodotto-->
-        </section>
-    </section>
+    <h1><?php echo $currentLanguage == "en" ? "Control Panel" : "Pannello di Controllo" ?></h1>
+    <button onclick="window.location.href='management.php'">Management</button><br>
+    <button onclick="window.location.href='productsManagement.php?action=1'"><?php echo $currentLanguage == "en" ? "Add a Product" : "Aggiungi un Prodotto" ?></button>
+    <form action="#" onsubmit="return setAction(event)">
+        <select name="article" id="articleSelect" class="form-select" required>
+            <!-- articles -->
+        </select>
+        <label id="lblarticle" for="articleSelect" class="visually-hidden">Select a product</label>
+        <div class="d-flex w-100 p-0">
+            <input type="submit" value="<?php echo $currentLanguage == "en" ? "Edit" : "Modifica" ?>" />
+            <input type="submit" value="<?php echo $currentLanguage == "en" ? "Remove" : "Rimuovi" ?>" />
+        </div>
+    </form>
+    <button onclick="window.location.href='ticketsManagement.php'"><?php echo $currentLanguage == "en" ? "Add Tickets" : "Aggiungi Biglietti" ?></button>
 </section>

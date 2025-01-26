@@ -52,9 +52,11 @@ async function setLang(lang) {
         currentUserLabel = document.getElementById('userText').textContent;
         document.getElementById('userText').textContent = (currentUserLabel !== "User" && currentUserLabel !== "Utente") ? currentUserLabel : (lang === "en" ? "User" : "Utente");
         if (currentUserLabel !== "User" && currentUserLabel !== "Utente") {
-            document.getElementById('cartText').textContent = lang === "en" ? "Cart" : "Carrello";
-            document.getElementById('ordersText').textContent = lang === "en" ? "Orders" : "Ordini";
-            document.getElementById('favText').textContent = lang === "en" ? "Favourites" : "Preferiti";
+            if (currentUserLabel !== "admin") {
+                document.getElementById('cartText').textContent = lang === "en" ? "Cart" : "Carrello";
+                document.getElementById('ordersText').textContent = lang === "en" ? "Orders" : "Ordini";
+                document.getElementById('favText').textContent = lang === "en" ? "Favourites" : "Preferiti";    
+            }
             document.getElementById('logOutText').textContent = lang === "en" ? "Log Out" : "Esci";
         } else {
             document.getElementById('logText').textContent = lang === "en" ? "Log In" : "Accedi";

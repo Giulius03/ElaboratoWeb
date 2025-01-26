@@ -1,7 +1,7 @@
 <?php
 require_once '../bootstrap.php';
 
-$articles = $dbh->getArticles();
+$articles = $dbh->getAllArticles();
 $chart = [];
 
 foreach ($articles as $article){
